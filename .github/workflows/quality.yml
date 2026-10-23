@@ -8,6 +8,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   quality:
     name: Quality (${{ matrix.os }})
@@ -15,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-26.04, windows-latest]
 
     steps:
       - name: Check out source
@@ -41,3 +45,7 @@ jobs:
           call "%VCVARS%"
           if errorlevel 1 exit /b 1
           python tools\quality_check.py --build-timeout 900 --test-timeout 300
+
+      - name: Stress Vulkan frame-generation scheduling
+        if: runner.os == 'Windows'
+        run: ctest --test-dir build_quality --repeat until-fail:8 --output-on-failure -R "^apusr_framegen_vulkan_backend_contract$"

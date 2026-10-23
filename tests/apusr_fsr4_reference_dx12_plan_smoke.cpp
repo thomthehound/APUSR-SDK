@@ -585,9 +585,20 @@ int main()
     Dx12Fsr4ReferenceBackendPlan dynamicRuntime{};
     assert(makeDx12Fsr4ReferenceBackendPlan(create, dynamicFrame, dynamicExpected).succeeded());
     assert(runtime->planFrame(dynamicFrame, dynamicRuntime).succeeded());
-    assert(std::memcmp(&dynamicRuntime.framePlan.constants, &dynamicExpected.framePlan.constants, sizeof(OptimizedConstants)) == 0);
-    assert(std::memcmp(&dynamicRuntime.framePlan.spdConstants, &dynamicExpected.framePlan.spdConstants, sizeof(AutoExposureSpdConstants)) == 0);
-    assert(std::memcmp(&dynamicRuntime.framePlan.rcasConstants, &dynamicExpected.framePlan.rcasConstants, sizeof(RcasConstants)) == 0);
+    // The 256-byte constant-buffer alignment includes unused tail padding.
+    // Compare the shader-visible payload, not the padding object representation.
+    constexpr std::size_t optimizedPayloadBytes =
+        offsetof(OptimizedConstants, useDefaultExposure) + sizeof(std::uint32_t);
+    constexpr std::size_t spdPayloadBytes =
+        offsetof(AutoExposureSpdConstants, padding) + sizeof(float);
+    constexpr std::size_t rcasPayloadBytes =
+        offsetof(RcasConstants, outputHeight) + sizeof(std::uint32_t);
+    static_assert(optimizedPayloadBytes == 104);
+    static_assert(spdPayloadBytes == 32);
+    static_assert(rcasPayloadBytes == 32);
+    assert(std::memcmp(&dynamicRuntime.framePlan.constants, &dynamicExpected.framePlan.constants, optimizedPayloadBytes) == 0);
+    assert(std::memcmp(&dynamicRuntime.framePlan.spdConstants, &dynamicExpected.framePlan.spdConstants, spdPayloadBytes) == 0);
+    assert(std::memcmp(&dynamicRuntime.framePlan.rcasConstants, &dynamicExpected.framePlan.rcasConstants, rcasPayloadBytes) == 0);
     assert(dynamicRuntime.framePlan.dispatches.size() == dynamicExpected.framePlan.dispatches.size());
     assert(dynamicRuntime.descriptorPatchPlan.size() == dynamicExpected.descriptorPatchPlan.size());
     for (std::size_t i = 0; i < dynamicRuntime.descriptorPatchPlan.size(); ++i) {

@@ -75,7 +75,7 @@ def read(rel: str) -> str:
 
 def is_generated_build_path(rel: str) -> bool:
     first = rel.split("/", 1)[0]
-    return first.startswith("build") or first in {"out", ".cache"}
+    return first.startswith("build") or first in {".git", "out", ".cache"}
 
 
 def main() -> int:

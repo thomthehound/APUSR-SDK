@@ -1530,7 +1530,15 @@ if(APUSR_BUILD_FRONTENDS)
             "${CMAKE_CURRENT_SOURCE_DIR}/src/frontends/streamline_bootstrap_proxy/apusr_streamline_bootstrap_exports.def.inc")
         set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
             "${_apusr_streamline_bootstrap_exports}")
-        file(STRINGS "${_apusr_streamline_bootstrap_exports}" _apusr_streamline_bootstrap_export_lines)
+        # DEF comments use semicolons, which are list separators in CMake.
+        # Select export records before converting the file into a CMake list.
+        file(STRINGS "${_apusr_streamline_bootstrap_exports}" _apusr_streamline_bootstrap_export_lines
+            REGEX "^[ \\t]*[A-Za-z_]")
+        list(LENGTH _apusr_streamline_bootstrap_export_lines _apusr_streamline_bootstrap_export_count)
+        if(NOT _apusr_streamline_bootstrap_export_count EQUAL 262)
+            message(FATAL_ERROR
+                "Expected 262 Streamline bootstrap exports, found ${_apusr_streamline_bootstrap_export_count}")
+        endif()
         set(_apusr_streamline_bootstrap_generated_dir
             "${CMAKE_CURRENT_BINARY_DIR}/generated/streamline_bootstrap_proxy")
         file(MAKE_DIRECTORY "${_apusr_streamline_bootstrap_generated_dir}")
@@ -1849,6 +1857,13 @@ if(APUSR_BUILD_TESTS)
         LABELS "product;quality;shader"
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
+    add_test(NAME apusr_dx12_shader_fingerprint_contract
+        COMMAND "${Python3_EXECUTABLE}"
+            "${CMAKE_CURRENT_SOURCE_DIR}/tests/apusr_dx12_shader_fingerprint_contract.py")
+    set_tests_properties(apusr_dx12_shader_fingerprint_contract PROPERTIES
+        LABELS "product;quality;shader"
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+
     if(WIN32 OR (UNIX AND NOT APPLE))
         add_test(NAME apusr_dx12_shader_compile_check
             COMMAND "${Python3_EXECUTABLE}"
@@ -2107,6 +2122,7 @@ if(APUSR_BUILD_TESTS)
         target_link_libraries(apusr_fsr4_reference_dx12_record_smoke PRIVATE d3d12 dxgi)
     endif()
     apusr_register_product_test(apusr_fsr4_reference_dx12_record_smoke)
+    set_tests_properties(apusr_fsr4_reference_dx12_record_smoke PROPERTIES SKIP_RETURN_CODE 77)
 
     if(APUSR_ENABLE_VULKAN_BACKEND AND UNIX)
         add_library(apusr_fake_vulkan SHARED tests/apusr_fake_vulkan.cpp)
@@ -2136,6 +2152,7 @@ if(APUSR_BUILD_TESTS)
         target_link_libraries(apusr_fsr4_reference_dx12_output_smoke PRIVATE d3d12 dxgi)
     endif()
     apusr_register_product_test(apusr_fsr4_reference_dx12_output_smoke)
+    set_tests_properties(apusr_fsr4_reference_dx12_output_smoke PROPERTIES SKIP_RETURN_CODE 77)
 
     add_custom_target(apusr_fsr4_reference_planning_smokes
         DEPENDS

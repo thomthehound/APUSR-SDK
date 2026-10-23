@@ -282,7 +282,8 @@ def shader_source_fingerprint(repo_root: Path, job: ShaderJob) -> str:
         relative = path.relative_to(repo_root).as_posix().encode("utf-8")
         digest.update(relative)
         digest.update(b"\0")
-        digest.update(path.read_bytes())
+        # Git may checkout LF source as CRLF on Windows; that is not shader drift.
+        digest.update(path.read_bytes().replace(b"\r\n", b"\n"))
         digest.update(b"\0")
     return digest.hexdigest()
 
