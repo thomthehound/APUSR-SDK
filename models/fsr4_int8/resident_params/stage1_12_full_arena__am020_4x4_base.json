@@ -1,0 +1,153 @@
+{
+  "arena_count": 18,
+  "arenas": [
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "balanced__1080",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "542d8b4c51cb4a1c6190052bc8768afe942f72c2b70b3ffa60d9cf44c6b5e09f",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/balanced__1080/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "balanced__2160",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "542d8b4c51cb4a1c6190052bc8768afe942f72c2b70b3ffa60d9cf44c6b5e09f",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/balanced__2160/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "balanced__4320",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "542d8b4c51cb4a1c6190052bc8768afe942f72c2b70b3ffa60d9cf44c6b5e09f",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/balanced__4320/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "drs__1080",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "640dd5c7f8ba88de307a050a54cf0bc584fb560818dc153552b0bf555ff66ef7",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/drs__1080/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "drs__2160",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "640dd5c7f8ba88de307a050a54cf0bc584fb560818dc153552b0bf555ff66ef7",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/drs__2160/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "drs__4320",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "640dd5c7f8ba88de307a050a54cf0bc584fb560818dc153552b0bf555ff66ef7",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/drs__4320/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "native__1080",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "89fd827f96059b945845e8b091957ae2b826afc50791d09f826e4ddbf6e74092",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/native__1080/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "native__2160",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "89fd827f96059b945845e8b091957ae2b826afc50791d09f826e4ddbf6e74092",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/native__2160/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "native__4320",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "89fd827f96059b945845e8b091957ae2b826afc50791d09f826e4ddbf6e74092",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/native__4320/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "performance__1080",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "91e6c396fe73614a47b096fe4a7cc769da8b1c68bd21da5e49e0e818c3683933",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/performance__1080/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "performance__2160",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "91e6c396fe73614a47b096fe4a7cc769da8b1c68bd21da5e49e0e818c3683933",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/performance__2160/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "performance__4320",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "91e6c396fe73614a47b096fe4a7cc769da8b1c68bd21da5e49e0e818c3683933",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/performance__4320/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "quality__1080",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "99bb37f4faa75191164355e4215de4a4cdb0058a622ac9ee7c81cd31a5a51025",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/quality__1080/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "quality__2160",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "99bb37f4faa75191164355e4215de4a4cdb0058a622ac9ee7c81cd31a5a51025",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/quality__2160/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "quality__4320",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "99bb37f4faa75191164355e4215de4a4cdb0058a622ac9ee7c81cd31a5a51025",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/quality__4320/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "ultraperf__1080",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "1dd748e0f19d5668d3028fc7dab4c99eb34a4d9ffdf76da3fb81af3fa1e7e4ea",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/ultraperf__1080/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "ultraperf__2160",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "1dd748e0f19d5668d3028fc7dab4c99eb34a4d9ffdf76da3fb81af3fa1e7e4ea",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/ultraperf__2160/am020_4x4_base.json"
+    },
+    {
+      "arena_bytes": 122880,
+      "model_permutation": "ultraperf__4320",
+      "parameter_profile": "am020_4x4_base",
+      "payload_bytes": 122160,
+      "sha256": "1dd748e0f19d5668d3028fc7dab4c99eb34a4d9ffdf76da3fb81af3fa1e7e4ea",
+      "source_package": "models/fsr4_int8/planning/npu_parameter_packages/ultraperf__4320/am020_4x4_base.json"
+    }
+  ],
+  "output_root": "models/fsr4_int8/resident_params",
+  "package_root": "models/fsr4_int8/planning/npu_parameter_packages",
+  "parameter_profile": "am020_4x4_base",
+  "schema": "com.apusr.middle_core_resident_parameter_arena_set.v1"
+}

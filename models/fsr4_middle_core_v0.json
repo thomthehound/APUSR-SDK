@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "source_note": "Hand-reduced APUSR planning model derived from the balanced__1080 graph plan. This file is planning input for the middle-core shape; generated boundary manifests come from external FSR4 logical metadata and only product-facing outputs are committed here.",
+  "token_contract_candidate": {
+    "token_bytes": 256,
+    "layout": "NHWC",
+    "dtype": "int8 for middle-core tensors",
+    "status": "default FSR4-compatible C16 seam; still subject to measurement, not exposed as a user knob",
+    "row_padding": "C16 boundary rows pad logical_width to a whole 256-byte stream token: padded_width=alignUp(logical_width,16), row_pitch_bytes=padded_width*16"
+  },
+  "stages": [
+    {
+      "pass": 1,
+      "kind": "same_scale",
+      "op_fn": "ConvNextBlock",
+      "width": 960,
+      "height": 540,
+      "channels": 16,
+      "element_bytes": 1,
+      "spatial_kernel": 3
+    },
+    {
+      "pass": 2,
+      "kind": "same_scale",
+      "op_fn": "ConvNextBlock",
+      "width": 960,
+      "height": 540,
+      "channels": 16,
+      "element_bytes": 1,
+      "spatial_kernel": 3
+    },
+    {
+      "pass": 4,
+      "kind": "same_scale",
+      "op_fn": "FasterNetBlock",
+      "width": 480,
+      "height": 270,
+      "channels": 32,
+      "element_bytes": 1,
+      "spatial_kernel": 3,
+      "partial_spatial_channels": 16
+    },
+    {
+      "pass": 5,
+      "kind": "same_scale",
+      "op_fn": "FasterNetBlock",
+      "width": 480,
+      "height": 270,
+      "channels": 32,
+      "element_bytes": 1,
+      "spatial_kernel": 3,
+      "partial_spatial_channels": 16
+    },
+    {
+      "pass": 7,
+      "kind": "same_scale",
+      "op_fn": "FasterNetBlock",
+      "width": 240,
+      "height": 135,
+      "channels": 64,
+      "element_bytes": 1,
+      "spatial_kernel": 3,
+      "partial_spatial_channels": 16
+    },
+    {
+      "pass": 8,
+      "kind": "same_scale",
+      "op_fn": "FasterNetBlock",
+      "width": 240,
+      "height": 135,
+      "channels": 64,
+      "element_bytes": 1,
+      "spatial_kernel": 3,
+      "partial_spatial_channels": 16
+    },
+    {
+      "pass": 10,
+      "kind": "same_scale",
+      "op_fn": "FasterNetBlock",
+      "width": 480,
+      "height": 270,
+      "channels": 32,
+      "element_bytes": 1,
+      "spatial_kernel": 3,
+      "partial_spatial_channels": 16
+    },
+    {
+      "pass": 12,
+      "kind": "same_scale",
+      "op_fn": "ConvNextBlock",
+      "width": 960,
+      "height": 540,
+      "channels": 16,
+      "element_bytes": 1,
+      "spatial_kernel": 3
+    }
+  ],
+  "skip_fifos": [
+    {
+      "name": "skipA",
+      "source_pass": 2,
+      "destination_pass": 11,
+      "channels": 16,
+      "width": 960,
+      "height": 540,
+      "token_bytes": 256,
+      "token_width_px": 16,
+      "tokens_per_row": 60,
+      "recommended_tokens": 300
+    },
+    {
+      "name": "skipB",
+      "source_pass": 5,
+      "destination_pass": 9,
+      "channels": 32,
+      "width": 480,
+      "height": 270,
+      "token_bytes": 256,
+      "token_width_px": 8,
+      "tokens_per_row": 60,
+      "recommended_tokens": 180
+    }
+  ],
+  "canonical_stage_ledger": "models/fsr4_middle_core_stage_ledger_v0.json",
+  "stage_list_scope": "same_scale_blocks_only_legacy_planning_summary",
+  "omitted_transition_stages_note": "Logical stages 3, 6, 9, and 11 are first-class NPU work and are recorded in the canonical stage ledger; they are not parameter-packing details."
+}

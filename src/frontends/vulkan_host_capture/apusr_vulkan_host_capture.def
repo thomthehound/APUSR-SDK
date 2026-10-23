@@ -1,0 +1,50 @@
+; SPDX-License-Identifier: Apache-2.0
+; Copyright (c) 2026 thomthehound.
+
+LIBRARY "apusr_vulkan_host_capture"
+EXPORTS
+    vkCreateInstance
+    vkCreateDevice
+    vkDestroyInstance
+    vkDestroyDevice
+    vkEnumeratePhysicalDevices
+    vkEnumeratePhysicalDeviceGroups
+    vkGetInstanceProcAddr
+    vkGetDeviceProcAddr
+    vkQueuePresentKHR
+    vkCreateSwapchainKHR
+    vkDestroySwapchainKHR
+    vkGetSwapchainImagesKHR
+    vkAcquireNextImageKHR
+    vkAcquireNextImage2KHR
+    apusrInstallVulkanHostCapture
+    apusrVulkanHostDeviceNegotiationFlags
+    apusrVulkanHostGetDeviceInfo
+    apusrVulkanHostGetQueueInfo
+    apusrVulkanHostResolveQueue
+    apusrVulkanHostAssociateInstance
+    apusrVulkanHostRequestAntiLag
+    apusrVulkanHostRequestFrameGeneration
+    apusrVulkanHostSetFrameGenerationActive
+    apusrVulkanHostRequestLegacyOpticalFlowQueueRole
+    apusrVulkanHostAntiLagSupported
+    apusrVulkanHostAntiLagAvailable
+    apusrVulkanHostAntiLagInput
+    apusrVulkanHostAntiLagArmPairedDisable
+    apusrVulkanHostAntiLagSetPresentFrame
+    apusrVulkanHostGetSwapchainInfo
+    apusrVulkanHostGetSwapchainImage
+    apusrVulkanHostGetRealSwapchainImage
+    apusrVulkanHostReleaseVirtualSwapchainImage
+    apusrVulkanHostWaitVirtualSwapchainReleaseDependencies
+    apusrVulkanHostAcquireNextImageForFrameGeneration
+    apusrVulkanHostReleaseRealSwapchainImage
+    apusrVulkanHostQueuePresentDirect
+    apusrVulkanHostQueuePresentSource
+    apusrVulkanHostQueuePresentSourceRelative
+    apusrVulkanHostQueuePresentGeneratedRelative
+    apusrVulkanHostQueuePresentFrameGeneration
+    apusrVulkanHostQueuePresentSourceRelativeFrameGeneration
+    apusrVulkanHostQueuePresentGeneratedRelativeFrameGeneration
+    apusrVulkanHostSetQueuePresentInterceptor
+    apusrVulkanHostSetSwapchainDestroyInterceptor

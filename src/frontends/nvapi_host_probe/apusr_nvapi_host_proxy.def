@@ -1,0 +1,8 @@
+; SPDX-License-Identifier: Apache-2.0
+; Copyright (c) 2026 thomthehound.
+
+LIBRARY "nvapi64"
+EXPORTS
+    nvapi_QueryInterface
+    nvapi_Direct_GetMethod
+    NvAPI_QueryInterface=nvapi_QueryInterface

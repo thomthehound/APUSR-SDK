@@ -1,0 +1,41 @@
+SPDX-License-Identifier: Apache-2.0
+Copyright (c) 2026 thomthehound.
+
+APUSR vendored Windows DXC build provenance
+===========================================
+Source: microsoft/DirectXShaderCompiler (built from thomthehound/DirectXShaderCompiler mirror/fork)
+Source commit: 672266879a72077c975dd1a86819ebf34606e229
+Source description: [SM6.10] LinAlg Validation: MatrixStoreToDescriptor (#8771)
+
+Pinned submodules:
+  external/DirectX-Headers 980971e835876dc0cde415e8f9bc646e64667bf7
+  external/SPIRV-Headers   29981f65241605e08b0ede4cfeb999fe3b723c6a
+  external/SPIRV-Tools     1c336172641682bab6e066767d09fdff1d826467
+
+Build:
+  GitHub Actions run: 31801706217
+  Job: build-windows-dxc / 94770966063
+  Runner: Windows Server 2025 (windows-latest at build time)
+  Toolchain: Visual Studio 2026 x64 MSVC, Ninja, CMake
+  Configuration: Release
+  SPIR-V codegen: enabled
+  Test trees: disabled
+  Targets: dxc dxcompiler dxildll
+
+Version:
+  dxcompiler.dll: 1.10(1-67226687)(1.9.0.1) - 1.9.0.1 (67226687)
+
+Validation:
+  CI DXIL smoke compile: PASS (cs_6_6)
+  CI SPIR-V smoke compile: PASS (cs_6_6, Vulkan 1.2 target environment)
+  CI staging/upload: PASS
+
+SHA-256:
+  dxc.exe        c54165eaf8e368aa7ef9f8e8f7781a6a83b552dadf38f014c70c079ecb2ce81b
+  dxcompiler.dll 364b16ced820c65ad53d63b44f4f2e62256d3b32601b518ca17ab0f44e63c236
+  dxil.dll       3ada618a7124f128138da01fdcf9d7973b643e4251c3bc088fb50b670e7c5185
+
+The three Windows files are one matched compiler payload and must be replaced together.
+
+Post-build APUSR tooling note:
+APUSR uses this matched DXC trio directly. FidelityFX_SC/glslang/Agility compatibility payloads are not part of the active shader toolchain. Shared DXC license/notice material lives at tools/shader_compiler/licenses/dxc/.

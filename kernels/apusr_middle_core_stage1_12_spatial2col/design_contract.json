@@ -1,0 +1,734 @@
+{
+  "schema_version": 8,
+  "name": "apusr_middle_core_stage1_12_spatial2col",
+  "purpose": "replacement middle-core design contract for the active spatial-core spine",
+  "public_abi": "frame_conveyor",
+  "resource_budget": {
+    "schema_version": 6,
+    "macro_lane_columns": 2,
+    "compute_tiles_per_macro_lane": 8,
+    "memory_tiles_per_macro_lane": 2,
+    "limits": {
+      "compute_tile_data_memory_bytes": 65536,
+      "compute_tile_program_memory_bytes": 16384,
+      "memory_tile_data_memory_bytes": 524288,
+      "max_hot_fifo_element_bytes": 16384,
+      "preferred_hot_fifo_element_bytes": 4096,
+      "large_fifo_element_bytes": 8192,
+      "max_large_fifo_depth": 1,
+      "max_compute_tile_reserved_bytes": 49152,
+      "max_linked_kernel_count_per_compute_tile": 2
+    },
+    "hardware_features": {
+      "tile_dma_4d_tensor_address_generation": true,
+      "memory_tile_dma_5d_tensor_address_generation": true,
+      "memory_tile_mm2s_zero_padding": true,
+      "memory_tile_neighbor_east_west_dma_channels_0_3": true,
+      "neighbor_compute_tile_shared_memory": true,
+      "semaphore_locks_for_dma_and_neighbor_exchange": true,
+      "notes": [
+        "Use shim/memory-tile tensor address generation to gather C16 halo patches directly from the row-major frame.",
+        "Use the GPU-written one-pixel zero guard border for front frame-edge halo values.",
+        "Use tensor address generation to gather compact halo patches from the zero-guarded row-major C16 ingress frame."
+      ]
+    },
+    "public_frame_slot": {
+      "transport_layout": "row_major_c16_frame",
+      "cell_width": 16,
+      "cell_rows": 8,
+      "cell_bytes": 2048,
+      "lane_order": "placement_only_vertical_stripes",
+      "cell_order_within_lane": "row_major_tensor_taps",
+      "pixel_order": "row_major_c16_channel_inner",
+      "front_ingress_guard_pixels": 1,
+      "legacy_package_width": 64,
+      "legacy_package_rows": 32
+    },
+    "capacity_classes": [
+      {
+        "name": "1080",
+        "model_output_width": 1920,
+        "model_output_rows": 1088,
+        "seam_width": 960,
+        "seam_rows": 544,
+        "cell_columns": 60,
+        "cell_rows": 68,
+        "frame_slot_bytes": 8355840,
+        "front_ingress_slot_bytes": 8404032
+      },
+      {
+        "name": "2160",
+        "model_output_width": 3840,
+        "model_output_rows": 2160,
+        "seam_width": 1920,
+        "seam_rows": 1080,
+        "cell_columns": 120,
+        "cell_rows": 135,
+        "frame_slot_bytes": 33177600,
+        "front_ingress_slot_bytes": 33273664
+      },
+      {
+        "name": "4320",
+        "model_output_width": 7680,
+        "model_output_rows": 4320,
+        "seam_width": 3840,
+        "seam_rows": 2160,
+        "cell_columns": 240,
+        "cell_rows": 270,
+        "frame_slot_bytes": 132710400,
+        "front_ingress_slot_bytes": 132902464
+      }
+    ],
+    "cell_shapes": [
+      {
+        "name": "c16_cell",
+        "width": 16,
+        "rows": 8,
+        "channels": 16,
+        "bytes_per_sample": 1,
+        "description": "Owned C16 activation cell; normal ingress, egress, and SkipA unit.",
+        "element_bytes": 2048
+      },
+      {
+        "name": "c16_halo_cell",
+        "width": 18,
+        "rows": 10,
+        "channels": 16,
+        "bytes_per_sample": 1,
+        "description": "C16 3x3 consumer view: one-pixel spatial border around a 16x8 owned cell.",
+        "element_bytes": 2880
+      },
+      {
+        "name": "c16_row_seam",
+        "width": 1,
+        "rows": 8,
+        "channels": 16,
+        "bytes_per_sample": 1,
+        "description": "One vertical C16 edge column from a 16x8 owned cell for left/right neighbor seam exchange.",
+        "element_bytes": 128
+      },
+      {
+        "name": "c32_cell",
+        "width": 16,
+        "rows": 8,
+        "channels": 32,
+        "bytes_per_sample": 1,
+        "description": "Owned C32 activation cell after the first downsample/encoder transition.",
+        "element_bytes": 4096
+      },
+      {
+        "name": "c32_halo_cell",
+        "width": 18,
+        "rows": 10,
+        "channels": 32,
+        "bytes_per_sample": 1,
+        "description": "C32 3x3 consumer view for spatial mixing without package-sized halos.",
+        "element_bytes": 5760
+      },
+      {
+        "name": "c64_cell",
+        "width": 16,
+        "rows": 8,
+        "channels": 64,
+        "bytes_per_sample": 1,
+        "description": "Owned C64 bottleneck cell.",
+        "element_bytes": 8192
+      },
+      {
+        "name": "c64_halo_cell",
+        "width": 18,
+        "rows": 10,
+        "channels": 64,
+        "bytes_per_sample": 1,
+        "description": "C64 3x3 consumer view; large enough that FIFO depth must stay one.",
+        "element_bytes": 11520
+      },
+      {
+        "name": "c8_quadrant_cell",
+        "width": 16,
+        "rows": 8,
+        "channels": 8,
+        "bytes_per_sample": 1,
+        "description": "One grouped C8 decoder quadrant emitted by the CT2D/up path.",
+        "element_bytes": 1024
+      },
+      {
+        "name": "c8_halo_chunk",
+        "width": 18,
+        "rows": 10,
+        "channels": 8,
+        "bytes_per_sample": 1,
+        "description": "One C8 halo chunk consumed by the decoder without NHWC package repack.",
+        "element_bytes": 1440
+      }
+    ],
+    "halo_policies": [
+      {
+        "name": "dma_tensor_halo_patch",
+        "materialization": "shim_or_memory_tile_tensor_access_view",
+        "uses": [
+          "tile_dma_4d_tensor_address_generation",
+          "memory_tile_dma_5d_tensor_address_generation"
+        ],
+        "description": "The front stage consumes dense 18x10xC16 patches gathered by tensor-addressed DMA from the C16 frame. Interior halo pixels come from the frame itself; true frame edges are supplied by the zero-guarded C16 ingress frame path."
+      },
+      {
+        "name": "interior_neighbor_or_true_frame_edge",
+        "materialization": "consumer_side_view",
+        "uses": [
+          "neighbor_compute_tile_shared_memory",
+          "semaphore_locks_for_dma_and_neighbor_exchange"
+        ],
+        "description": "Later C32/C64 spatial windows use local/neighbor consumer views; true frame-edge zeros are a boundary condition only."
+      },
+      {
+        "name": "ct2d_direct_quadrant_halo",
+        "materialization": "producer_emits_micro_halo_chunk",
+        "uses": [
+          "tile_dma_4d_tensor_address_generation"
+        ],
+        "description": "CT2D emits C8 quadrant halo chunks directly to the decoder path, avoiding a full NHWC package repack."
+      }
+    ],
+    "line_ring_policies": [
+      {
+        "name": "c16_front_halo_patch_tap",
+        "cell_shape": "c16_halo_cell",
+        "ring_rows": 1,
+        "owner": "shim_or_memtile_tensor_gather",
+        "purpose": "C16 front spatial windows use tensor-addressed halo patch gathers, not row rings or seam exchange."
+      },
+      {
+        "name": "c32_three_line_ring",
+        "cell_shape": "c32_cell",
+        "ring_rows": 3,
+        "owner": "mem_skipb",
+        "purpose": "C32 spatial mix and SkipB delay use row rings."
+      },
+      {
+        "name": "c64_depth_one_ring",
+        "cell_shape": "c64_cell",
+        "ring_rows": 1,
+        "owner": "compute_or_transition_memtile",
+        "purpose": "C64 bottleneck cells stay depth-one unless compile evidence justifies deeper buffering."
+      }
+    ],
+    "row_ring_budgets": {
+      "schema_version": 2,
+      "owner": "front_c16_halo_patch_engine",
+      "storage": "dma_tensor_halo_patch_stream",
+      "cell_shape": "c16_halo_cell",
+      "ring_rows": 0,
+      "capacity_policy": "The front worker sees one compact 18x10xC16 patch per output cell. Full shard rows and seam objects are not materialized.",
+      "budgets": [
+        {
+          "device": "npu1",
+          "capacity": "1080",
+          "lane_groups": 2,
+          "worker_groups": 2,
+          "macro_lane_columns": 2,
+          "worker_columns": 2,
+          "physical_columns": 4,
+          "physical_columns_used": 4,
+          "cell_rows": 68,
+          "max_physical_column_cell_columns": 15,
+          "c16_halo_patch_bytes": 2880,
+          "front_c16_active_fifo_bytes": 2880,
+          "front_c16_patch_read_overhead_ratio": 1.40625,
+          "fits_one_compute_tile_fifo": true
+        },
+        {
+          "device": "npu1",
+          "capacity": "2160",
+          "lane_groups": 2,
+          "worker_groups": 2,
+          "macro_lane_columns": 2,
+          "worker_columns": 2,
+          "physical_columns": 4,
+          "physical_columns_used": 4,
+          "cell_rows": 135,
+          "max_physical_column_cell_columns": 30,
+          "c16_halo_patch_bytes": 2880,
+          "front_c16_active_fifo_bytes": 2880,
+          "front_c16_patch_read_overhead_ratio": 1.40625,
+          "fits_one_compute_tile_fifo": true
+        },
+        {
+          "device": "npu1",
+          "capacity": "4320",
+          "lane_groups": 2,
+          "worker_groups": 2,
+          "macro_lane_columns": 2,
+          "worker_columns": 2,
+          "physical_columns": 4,
+          "physical_columns_used": 4,
+          "cell_rows": 270,
+          "max_physical_column_cell_columns": 60,
+          "c16_halo_patch_bytes": 2880,
+          "front_c16_active_fifo_bytes": 2880,
+          "front_c16_patch_read_overhead_ratio": 1.40625,
+          "fits_one_compute_tile_fifo": true
+        },
+        {
+          "device": "npu2",
+          "capacity": "1080",
+          "lane_groups": 4,
+          "worker_groups": 4,
+          "macro_lane_columns": 2,
+          "worker_columns": 2,
+          "physical_columns": 8,
+          "physical_columns_used": 8,
+          "cell_rows": 68,
+          "max_physical_column_cell_columns": 8,
+          "c16_halo_patch_bytes": 2880,
+          "front_c16_active_fifo_bytes": 2880,
+          "front_c16_patch_read_overhead_ratio": 1.40625,
+          "fits_one_compute_tile_fifo": true
+        },
+        {
+          "device": "npu2",
+          "capacity": "2160",
+          "lane_groups": 4,
+          "worker_groups": 4,
+          "macro_lane_columns": 2,
+          "worker_columns": 2,
+          "physical_columns": 8,
+          "physical_columns_used": 8,
+          "cell_rows": 135,
+          "max_physical_column_cell_columns": 15,
+          "c16_halo_patch_bytes": 2880,
+          "front_c16_active_fifo_bytes": 2880,
+          "front_c16_patch_read_overhead_ratio": 1.40625,
+          "fits_one_compute_tile_fifo": true
+        },
+        {
+          "device": "npu2",
+          "capacity": "4320",
+          "lane_groups": 4,
+          "worker_groups": 4,
+          "macro_lane_columns": 2,
+          "worker_columns": 2,
+          "physical_columns": 8,
+          "physical_columns_used": 8,
+          "cell_rows": 270,
+          "max_physical_column_cell_columns": 30,
+          "c16_halo_patch_bytes": 2880,
+          "front_c16_active_fifo_bytes": 2880,
+          "front_c16_patch_read_overhead_ratio": 1.40625,
+          "fits_one_compute_tile_fifo": true
+        }
+      ]
+    },
+    "front_c16_row_engine": {
+      "schema_version": 2,
+      "name": "front_c16_halo_patch_engine",
+      "status": "active_spatial_core_contract",
+      "cell_shape": "c16_halo_cell",
+      "compile_carrier": "dma_tensor_halo_patch",
+      "owned_cell_bytes": 2048,
+      "halo_patch_bytes": 2880,
+      "front_patch_source": "zero_guarded_row_major_c16_frame_tensor_tap",
+      "front_patch_fifo_objects": 1,
+      "front_parameter_slice_bytes": 4048,
+      "front_parameter_source": "tile_local_resident_buffer_loaded_at_model_epoch",
+      "encoder_parameter_slice_bytes": 2576,
+      "encoder_parameter_source": "tile_local_resident_buffer_loaded_at_model_epoch",
+      "hot_path_parameter_streams": 0,
+      "parameterized_math_status": "fused_vector_srs_c16_spatial3x3_expand_primitive_active",
+      "owned_cell_policy": "the compute unit remains one 16x8 C16 cell, but the input object is the exact 18x10 C16 consumer view",
+      "frame_edge_policy": "true frame edges are supplied by the zero-guarded C16 ingress frame path",
+      "interior_edge_policy": "interior halos come from the row-major frame tensor tap; no interior zero-padding and no explicit seam exchange",
+      "host_tap_policy": "bounded row-block tensor DMA tasks stream patch-major front inputs from a zero-guarded row-major C16 frame",
+      "required_neighbor_paths": [],
+      "seam_exchange": {
+        "schema_version": 2,
+        "status": "removed_from_active_spatial_core",
+        "shape": "none",
+        "seam_bytes": 0,
+        "ring_rows": 0,
+        "staging": "none",
+        "consumer_input_dma_channels": 1,
+        "order": "not_applicable",
+        "shim_streams_added": 0,
+        "full_row_fifos": 0,
+        "per_cell_dma_tasks": 0
+      },
+      "macro_lane_columns": 2,
+      "front_to_encoder_path": "spatial_core_tile_local_front_params_feed_vector_srs_c16_halo_patch_to_c32_cells_then_cell_granular_c32_to_c64_encoder_row"
+    },
+    "front_c16_seam_exchange": {
+      "schema_version": 2,
+      "status": "removed_from_active_spatial_core",
+      "shape": "none",
+      "seam_bytes": 0,
+      "ring_rows": 0,
+      "staging": "none",
+      "consumer_input_dma_channels": 1,
+      "source": "zero-guarded row-major C16 frame tensor tap",
+      "destination": "dense 18x10xC16 halo patch consumed by the front worker",
+      "interior_edge_policy": "interior halo pixels are gathered from the source frame; never zero-pad interior edges",
+      "frame_edge_policy": "zero-guarded C16 ingress frame handles true frame edges",
+      "shim_streams_added": 0,
+      "full_row_fifos": 0,
+      "per_cell_dma_tasks": 0
+    },
+    "stream_constraints": {
+      "normal_shim_ingress_streams_per_physical_column": 1,
+      "normal_shim_egress_streams_per_physical_column": 1,
+      "compute_stage_activation_streams_per_consumer": 2,
+      "forbid_shifted_host_frame_taps_for_line_rings": true,
+      "memory_tile_owns_row_halo_and_joined_pair_seam_staging": false,
+      "tensor_dma_owns_front_halo_patch_gather": true
+    },
+    "resource_sharing": {
+      "schema_version": 1,
+      "memory_tile_capacity_model": "per_physical_tile_with_neighbor_access",
+      "compute_tile_capacity_model": "per_physical_tile_with_neighbor_memory_access",
+      "neighbor_access_does_not_increase_physical_tile_capacity": true,
+      "memory_tile_arena_groups_are_not_per_column_capacity_multipliers": true,
+      "compute_tile_neighbor_memory_is_a_data_movement_path": true,
+      "memory_tile_arena_groups": [
+        {
+          "name": "macro_lane_memory_tiles",
+          "tiles": [
+            "mem0",
+            "mem1"
+          ],
+          "max_aggregate_bytes": 1048576,
+          "capacity_policy": "Aggregate planning may span adjacent memory tiles, but each physical memory tile keeps its own hard 512 KiB budget."
+        }
+      ],
+      "memory_tile_neighbor_links": [
+        {
+          "name": "mem0",
+          "column": 0,
+          "neighbors": [
+            "mem1"
+          ],
+          "path": "east_west_memory_tile_dma_channels_0_3"
+        },
+        {
+          "name": "mem1",
+          "column": 1,
+          "neighbors": [
+            "mem0"
+          ],
+          "path": "east_west_memory_tile_dma_channels_0_3"
+        }
+      ],
+      "compute_tile_neighbor_groups": [
+        {
+          "name": "macro_lane_compute_tiles",
+          "tiles": [
+            "front_c16_0",
+            "down_c32_1",
+            "mid_c32_2",
+            "down_c64_3",
+            "bottleneck_c64_4",
+            "up_c32_5",
+            "decoder_c16_6",
+            "egress_pack_7"
+          ],
+          "capacity_policy": "Neighbor memory visibility reduces copies and halo traffic; local data and program memory budgets remain per physical compute tile."
+        }
+      ]
+    },
+    "data_movement_budget": {
+      "memory_tiles": [
+        {
+          "name": "mem0",
+          "active_s2mm_channels": 1,
+          "active_mm2s_channels": 2,
+          "active_neighbor_dma_channels": 1,
+          "locks_reserved": 4,
+          "purpose": "Ingress C16 cells and delayed SkipA cells share the column-0 memory tile."
+        },
+        {
+          "name": "mem1",
+          "active_s2mm_channels": 2,
+          "active_mm2s_channels": 2,
+          "active_neighbor_dma_channels": 1,
+          "locks_reserved": 4,
+          "purpose": "SkipB staging and C16 egress share the column-1 memory tile."
+        }
+      ],
+      "limits": {
+        "tile_dma_s2mm_channels": 2,
+        "tile_dma_mm2s_channels": 2,
+        "memory_tile_dma_channels": 12,
+        "memory_tile_neighbor_dma_channels": 8,
+        "semaphore_locks_per_memory_module": 16
+      }
+    },
+    "implementation_phases": [
+      {
+        "name": "spatial_core_stage1_12_spine",
+        "status": "current_stage1_2_to_stage3_paired_macroblock_with_skipa",
+        "purpose": "Primary spatial-core topology for the Stage1-4 milestone: Stage1 and Stage2 are fused as a paired 36x20 C16 macroblock producer. One shared 34x18 Stage1 patch is reused to produce the four Stage2 C16 cells needed by one Stage3 k2/s2 output cell. Those cells are teed to the long-lived SkipA slice in the combined SkipA/SkipB arena and passed as a compact 2x2 C16 group to split Stage3. Stage4 is split off for the next C32 halo-ring boundary.",
+        "product_complete": false,
+        "emit_flag": "--emit-graph-phase=spatial-core"
+      },
+      {
+        "name": "front_c16_row_engine",
+        "status": "diagnostic",
+        "purpose": "Diagnostic row-window front C16 isolation path retained for comparison only. The primary spatial-core now exercises the Stage1-4 carrier; this diagnostic still uses tensor-DMA halo patches instead of row rings or seam exchange.",
+        "product_complete": false,
+        "emit_flag": "--emit-graph-phase=front-c16-row",
+        "parameterized_math_status": "fused_vector_srs_c16_spatial3x3_expand_primitive_active"
+      },
+      {
+        "name": "cell_conveyor_envelope",
+        "status": "diagnostic",
+        "purpose": "Legacy lane-major C16 cell transport diagnostic retained for build isolation only; not the active spatial-core ABI.",
+        "product_complete": false,
+        "emit_flag": "--emit-graph-phase=cell-conveyor"
+      },
+      {
+        "name": "c16_halo_envelope",
+        "status": "diagnostic",
+        "purpose": "Minimal owned-cell to C16-halo object diagnostic retained for build isolation only.",
+        "product_complete": false,
+        "emit_flag": "--emit-graph-phase=c16-halo"
+      }
+    ],
+    "pipeline_stages": [
+      {
+        "name": "front_c16",
+        "model_role": "front C16 halo-patch tensor engine and SkipA producer",
+        "channels": 16,
+        "row_role": "C16 front encoder and SkipA producer",
+        "state_policy": "one dense 18x10xC16 halo patch feeds each front cell; no row ring and no seam ObjectFifos"
+      },
+      {
+        "name": "encoder_c32",
+        "model_role": "C32 encoder and SkipB producer",
+        "channels": 32,
+        "row_role": "C32 encoder, FasterNet32, and SkipB producer",
+        "state_policy": "C32 paired macroblock and local spatial-mix window"
+      },
+      {
+        "name": "bottleneck_c64",
+        "model_role": "C64 bottleneck and CT2D C8 fanout",
+        "channels": 64,
+        "row_role": "C64 bottleneck and CT2D C8 fanout",
+        "state_policy": "C64 cells stay depth-one; CT2D emits grouped C8 chunks"
+      },
+      {
+        "name": "decoder_c16",
+        "model_role": "C16 decoder, SkipA join, and output pack",
+        "channels": 16,
+        "row_role": "decoder, SkipA join, and output pack",
+        "state_policy": "C8 quadrant groups join locally with delayed C16 SkipA cells"
+      }
+    ],
+    "object_fifos": [
+      {
+        "name": "front_c16_halo_patch",
+        "producer": "shim_or_memtile_tensor_gather",
+        "consumer": "front_c16",
+        "owner": "mem0",
+        "owner_type": "memory_tile",
+        "cell_shape": "c16_halo_cell",
+        "depth": 1,
+        "hot": true,
+        "purpose": "DMA-gathered 18x10xC16 front patch; left/right/top/bottom halo is part of the tensor access view, not neighbor seam traffic.",
+        "halo_policy": "dma_tensor_halo_patch",
+        "element_bytes": 2880
+      },
+      {
+        "name": "skipa_c16_delay_cell",
+        "producer": "front_c16",
+        "consumer": "decoder_c16",
+        "owner": "mem0",
+        "owner_type": "memory_tile",
+        "cell_shape": "c16_cell",
+        "depth": 2,
+        "hot": true,
+        "purpose": "SkipA delay ring; kept in memory-tile arena instead of re-streaming full packages.",
+        "halo_policy": null,
+        "element_bytes": 2048
+      },
+      {
+        "name": "c32_cell",
+        "producer": "down_c32",
+        "consumer": "mid_c32",
+        "owner": "mid_c32_2",
+        "owner_type": "compute_tile",
+        "cell_shape": "c32_cell",
+        "depth": 2,
+        "hot": true,
+        "purpose": "C32 encoder cell handoff.",
+        "halo_policy": null,
+        "element_bytes": 4096
+      },
+      {
+        "name": "c32_consumer_halo_view",
+        "producer": "mid_c32",
+        "consumer": "mid_c32",
+        "owner": "mid_c32_2",
+        "owner_type": "compute_tile",
+        "cell_shape": "c32_halo_cell",
+        "depth": 1,
+        "hot": true,
+        "purpose": "C32 spatial-mix window formed at the consumer.",
+        "halo_policy": "interior_neighbor_or_true_frame_edge",
+        "element_bytes": 5760
+      },
+      {
+        "name": "skipb_c32_delay_cell",
+        "producer": "mid_c32",
+        "consumer": "bottleneck_c64",
+        "owner": "mem1",
+        "owner_type": "memory_tile",
+        "cell_shape": "c32_cell",
+        "depth": 2,
+        "hot": true,
+        "purpose": "SkipB delay ring in memory-tile arena.",
+        "halo_policy": null,
+        "element_bytes": 4096
+      },
+      {
+        "name": "c64_cell",
+        "producer": "down_c64",
+        "consumer": "bottleneck_c64",
+        "owner": "bottleneck_c64_4",
+        "owner_type": "compute_tile",
+        "cell_shape": "c64_cell",
+        "depth": 1,
+        "hot": true,
+        "purpose": "C64 bottleneck cell. Depth stays one to protect local memory.",
+        "halo_policy": null,
+        "element_bytes": 8192
+      },
+      {
+        "name": "c64_consumer_halo_view",
+        "producer": "bottleneck_c64",
+        "consumer": "up_c32",
+        "owner": "bottleneck_c64_4",
+        "owner_type": "compute_tile",
+        "cell_shape": "c64_halo_cell",
+        "depth": 1,
+        "hot": true,
+        "purpose": "C64 window consumed by the up path without package materialization.",
+        "halo_policy": "interior_neighbor_or_true_frame_edge",
+        "element_bytes": 11520
+      },
+      {
+        "name": "ct2d_c8_halo_chunk",
+        "producer": "up_c32",
+        "consumer": "decoder_c16",
+        "owner": "decoder_c16_6",
+        "owner_type": "compute_tile",
+        "cell_shape": "c8_halo_chunk",
+        "depth": 2,
+        "hot": true,
+        "purpose": "C8 decoder quadrant halo handoff; no full NHWC package repack.",
+        "halo_policy": "ct2d_direct_quadrant_halo",
+        "element_bytes": 1440
+      },
+      {
+        "name": "egress_c16_cell",
+        "producer": "decoder_c16",
+        "consumer": "shim_egress",
+        "owner": "mem1",
+        "owner_type": "memory_tile",
+        "cell_shape": "c16_cell",
+        "depth": 2,
+        "hot": true,
+        "purpose": "Output cells leave the spatial lane through the frame-slot egress ring.",
+        "halo_policy": null,
+        "element_bytes": 2048
+      }
+    ],
+    "compute_tiles": [
+      {
+        "name": "front_c16_0",
+        "role": "front_c16",
+        "row": 0,
+        "column": 0,
+        "static_reserved_bytes": 40960,
+        "linked_kernel_count": 2,
+        "stage_group": "front_c16"
+      },
+      {
+        "name": "down_c32_1",
+        "role": "down_c32",
+        "row": 0,
+        "column": 1,
+        "static_reserved_bytes": 36864,
+        "linked_kernel_count": 1,
+        "stage_group": "encoder_c32"
+      },
+      {
+        "name": "mid_c32_2",
+        "role": "mid_c32",
+        "row": 1,
+        "column": 0,
+        "static_reserved_bytes": 36864,
+        "linked_kernel_count": 1,
+        "stage_group": "encoder_c32"
+      },
+      {
+        "name": "down_c64_3",
+        "role": "down_c64",
+        "row": 1,
+        "column": 1,
+        "static_reserved_bytes": 36864,
+        "linked_kernel_count": 1,
+        "stage_group": "bottleneck_c64"
+      },
+      {
+        "name": "bottleneck_c64_4",
+        "role": "bottleneck_c64",
+        "row": 2,
+        "column": 0,
+        "static_reserved_bytes": 36864,
+        "linked_kernel_count": 1,
+        "stage_group": "bottleneck_c64"
+      },
+      {
+        "name": "up_c32_5",
+        "role": "up_c32",
+        "row": 2,
+        "column": 1,
+        "static_reserved_bytes": 36864,
+        "linked_kernel_count": 1,
+        "stage_group": "decoder_c16"
+      },
+      {
+        "name": "decoder_c16_6",
+        "role": "decoder_c16",
+        "row": 3,
+        "column": 0,
+        "static_reserved_bytes": 40960,
+        "linked_kernel_count": 2,
+        "stage_group": "decoder_c16"
+      },
+      {
+        "name": "egress_pack_7",
+        "role": "egress_pack",
+        "row": 3,
+        "column": 1,
+        "static_reserved_bytes": 36864,
+        "linked_kernel_count": 1,
+        "stage_group": "decoder_c16"
+      }
+    ],
+    "memory_tiles": [
+      {
+        "name": "mem0",
+        "role": "ingress_skipa",
+        "column": 0,
+        "static_reserved_bytes": 65536,
+        "arena_policy": "Ingress cells and SkipA delay ring share one memory tile in the discipline profile."
+      },
+      {
+        "name": "mem1",
+        "role": "skipb_egress",
+        "column": 1,
+        "static_reserved_bytes": 65536,
+        "arena_policy": "SkipB delay and egress staging share one memory tile in the discipline profile."
+      }
+    ]
+  }
+}

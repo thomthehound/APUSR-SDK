@@ -1,0 +1,95 @@
+{
+  "schema_version": 5,
+  "name": "apusr-fsr4-i8-pass1-tiled-exact",
+  "entry_point": "apusr_fsr4_i8_pass1_tiled_exact",
+  "target_profile": "cs_6_6",
+  "hlsl_version": "2021",
+  "enable_16bit_types": true,
+  "pipeline_variant": "dp4a-optimized",
+  "presets": [
+    "native",
+    "quality",
+    "balanced",
+    "performance",
+    "drs",
+    "ultraperf"
+  ],
+  "frame_capacities": [
+    "1080",
+    "2160",
+    "4320"
+  ],
+  "logical_stage_range": [
+    1,
+    1
+  ],
+  "kind": "stage1-single-stage-exact-tile-reference-dispatch",
+  "execution_model": "dot4-dp4a",
+  "implemented_runtime_replacement": true,
+  "shader_artifact_available": true,
+  "strict_reference_graph_unchanged": true,
+  "requires_stage0_semantic_change": true,
+  "dispatch_contract": {
+    "numthreads": [
+      64,
+      2,
+      1
+    ],
+    "preserves_generated_pass1_dispatch_grid": false,
+    "requires_optimized_two_row_dispatch_grid": true
+  },
+  "tile_contract": {
+    "output_tile": [
+      64,
+      2,
+      16
+    ],
+    "input_halo_tile": [
+      66,
+      4,
+      16
+    ],
+    "groupshared_input_bytes": 4224,
+    "one_thread_per_output_pixel": true,
+    "input_halo_pixels": 264,
+    "input_halo_dwords": 1056,
+    "preload_global_load_shape": "Load4 per C16 pixel",
+    "preload_scalar_loop_replaced": true,
+    "interior_tile_fast_path": false,
+    "all_active_tiles_use_branchless_padded_preload": true,
+    "active_display_edge_handling": "pass0 materializes padded Stage0 halo/dispatch-tail cells; pass1 preloads the 66x4 C16 strip without per-texel bounds checks",
+    "supports_partial_final_strip": true,
+    "does_not_assume_even_group_count": true,
+    "capacity_strided_scratch": true,
+    "two_output_rows_per_group": true
+  },
+  "correctness_gate": "DP4A-optimized Stage1 output must match strict generated pass1 output before Stage2 consumes it",
+  "optimization_revision": "pass1-mlp-hidden4-stream-v3-tileh2",
+  "stage0_contract": {
+    "semantic_change_required": true,
+    "input_layout": "padded NHWC C16 int8 at scratch byte offset 0 with active Stage0 origin at (1,1)",
+    "padded_c16_carrier": {
+      "status": "enabled_for_dp4a_optimized_front_c16",
+      "dense_stage0_offset_bytes": 0,
+      "stage1_output_offset": "paddedStage0Bytes",
+      "requires_pass0_zero_halo": true,
+      "requires_pass0_zero_dispatch_tail": true,
+      "requires_pass1_padded_input_offset": true,
+      "requires_pass2_shifted_input_offset": true,
+      "scratch_budget_source": "include/apusr/models/apusr_fsr4_int8_scratch_layout.h"
+    }
+  },
+  "pass2_handoff_contract": {
+    "output_layout": "dense NHWC C16 int8 at the normal Stage1 scratch offset",
+    "barrier_elimination_now": false,
+    "future_barrier_elimination": "only after a stage-boundary comparator proves exact Stage2 output for any fused replacement"
+  },
+  "mlp_contract": {
+    "pointwise_expand_contract_streamed": true,
+    "hidden_block_channels": 4,
+    "materializes_all_c32_hidden": false,
+    "materializes_all_relu_packed_blocks": false,
+    "exact_hidden_quantized_relu_boundary_preserved": true,
+    "contract_accumulators": "C16 final accumulators remain live; C32 hidden activations are consumed immediately per four-channel block"
+  }
+}

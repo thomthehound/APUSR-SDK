@@ -1,0 +1,10 @@
+; SPDX-License-Identifier: Apache-2.0
+; Copyright (c) 2026 thomthehound.
+
+LIBRARY "dxgi"
+EXPORTS
+    CreateDXGIFactory=apusr_CreateDXGIFactory
+    CreateDXGIFactory1=apusr_CreateDXGIFactory1
+    CreateDXGIFactory2=apusr_CreateDXGIFactory2
+    DXGIDeclareAdapterRemovalSupport=apusr_DXGIDeclareAdapterRemovalSupport
+    DXGIGetDebugInterface1=apusr_DXGIGetDebugInterface1

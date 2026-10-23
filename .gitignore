@@ -1,0 +1,28 @@
+# Local build products.
+/build*/
+/out/
+
+# CMake / IDE local state.
+CMakeUserPresets.json
+.vs/
+.vscode/
+
+# Python caches.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local profiling / capture artifacts.
+*.aprof
+*.rgp
+*.rra
+apusr_host_discovery*.jsonl
+apusr_*_trace.log
+profile-*/
+profile_*/
+profiler-*-output/
+profiler-*-report/
+
+# Local temporary shader/model generation workspaces.
+.shader_cache/
+.tmp/

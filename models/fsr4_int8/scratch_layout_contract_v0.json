@@ -1,0 +1,7305 @@
+{
+  "capacity_reports": [
+    {
+      "c16_frame_bytes": 8294400,
+      "c16_size": [
+        960,
+        540
+      ],
+      "capacity": "1080",
+      "capacity_display": [
+        1920,
+        1080
+      ],
+      "declared_reserve_bytes": 144256,
+      "declared_scratch_bytes": 20880256,
+      "generated_max_scratch_end": 20736000,
+      "padded_max_scratch_end_if_stage1_shifted": 20784064,
+      "padded_pass1_output_offset": 8342464,
+      "padded_reserve_bytes_if_stage1_shifted": 96192,
+      "padded_stage0_bytes": 8342464,
+      "padded_stage0_extra_bytes": 48064,
+      "padded_stage0_size": [
+        962,
+        542
+      ],
+      "pass1_capacity_groups_x": 15,
+      "pass1_capacity_groups_x_is_even": false,
+      "pass1_capacity_groups_y": 270,
+      "pass1_capacity_width_is_integral": true,
+      "pass1_dp4a_per_group_estimate": 106496,
+      "pass1_dp4a_per_output_estimate": 832,
+      "pass1_lds_bytes": 4224,
+      "pass1_load4_per_group": 264
+    },
+    {
+      "c16_frame_bytes": 33177600,
+      "c16_size": [
+        1920,
+        1080
+      ],
+      "capacity": "2160",
+      "capacity_display": [
+        3840,
+        2160
+      ],
+      "declared_reserve_bytes": 288256,
+      "declared_scratch_bytes": 83232256,
+      "generated_max_scratch_end": 82944000,
+      "padded_max_scratch_end_if_stage1_shifted": 83040064,
+      "padded_pass1_output_offset": 33273664,
+      "padded_reserve_bytes_if_stage1_shifted": 192192,
+      "padded_stage0_bytes": 33273664,
+      "padded_stage0_extra_bytes": 96064,
+      "padded_stage0_size": [
+        1922,
+        1082
+      ],
+      "pass1_capacity_groups_x": 30,
+      "pass1_capacity_groups_x_is_even": true,
+      "pass1_capacity_groups_y": 540,
+      "pass1_capacity_width_is_integral": true,
+      "pass1_dp4a_per_group_estimate": 106496,
+      "pass1_dp4a_per_output_estimate": 832,
+      "pass1_lds_bytes": 4224,
+      "pass1_load4_per_group": 264
+    },
+    {
+      "c16_frame_bytes": 132710400,
+      "c16_size": [
+        3840,
+        2160
+      ],
+      "capacity": "4320",
+      "capacity_display": [
+        7680,
+        4320
+      ],
+      "declared_reserve_bytes": 576256,
+      "declared_scratch_bytes": 332352256,
+      "generated_max_scratch_end": 331776000,
+      "padded_max_scratch_end_if_stage1_shifted": 331968064,
+      "padded_pass1_output_offset": 132902464,
+      "padded_reserve_bytes_if_stage1_shifted": 384192,
+      "padded_stage0_bytes": 132902464,
+      "padded_stage0_extra_bytes": 192064,
+      "padded_stage0_size": [
+        3842,
+        2162
+      ],
+      "pass1_capacity_groups_x": 60,
+      "pass1_capacity_groups_x_is_even": true,
+      "pass1_capacity_groups_y": 1080,
+      "pass1_capacity_width_is_integral": true,
+      "pass1_dp4a_per_group_estimate": 106496,
+      "pass1_dp4a_per_output_estimate": 832,
+      "pass1_lds_bytes": 4224,
+      "pass1_load4_per_group": 264
+    }
+  ],
+  "display_reports": [
+    {
+      "aligned_display": [
+        1280,
+        1024
+      ],
+      "c16_size": [
+        640,
+        512
+      ],
+      "capacity": "1080",
+      "display": [
+        1280,
+        1024
+      ],
+      "groups_x": 10,
+      "groups_x_is_even": true,
+      "groups_y": 256,
+      "last_group_padding_pixels": 0,
+      "last_group_valid_pixels": 64,
+      "width_is_integral_64_tile": true
+    },
+    {
+      "aligned_display": [
+        1600,
+        1200
+      ],
+      "c16_size": [
+        800,
+        600
+      ],
+      "capacity": "2160",
+      "display": [
+        1600,
+        1200
+      ],
+      "groups_x": 13,
+      "groups_x_is_even": false,
+      "groups_y": 300,
+      "last_group_padding_pixels": 32,
+      "last_group_valid_pixels": 32,
+      "width_is_integral_64_tile": false
+    },
+    {
+      "aligned_display": [
+        1920,
+        1200
+      ],
+      "c16_size": [
+        960,
+        600
+      ],
+      "capacity": "2160",
+      "display": [
+        1920,
+        1200
+      ],
+      "groups_x": 15,
+      "groups_x_is_even": false,
+      "groups_y": 300,
+      "last_group_padding_pixels": 0,
+      "last_group_valid_pixels": 64,
+      "width_is_integral_64_tile": true
+    },
+    {
+      "aligned_display": [
+        2560,
+        1080
+      ],
+      "c16_size": [
+        1280,
+        540
+      ],
+      "capacity": "2160",
+      "display": [
+        2560,
+        1080
+      ],
+      "groups_x": 20,
+      "groups_x_is_even": true,
+      "groups_y": 270,
+      "last_group_padding_pixels": 0,
+      "last_group_valid_pixels": 64,
+      "width_is_integral_64_tile": true
+    },
+    {
+      "aligned_display": [
+        3440,
+        1440
+      ],
+      "c16_size": [
+        1720,
+        720
+      ],
+      "capacity": "2160",
+      "display": [
+        3440,
+        1440
+      ],
+      "groups_x": 27,
+      "groups_x_is_even": false,
+      "groups_y": 360,
+      "last_group_padding_pixels": 8,
+      "last_group_valid_pixels": 56,
+      "width_is_integral_64_tile": false
+    },
+    {
+      "aligned_display": [
+        3840,
+        1600
+      ],
+      "c16_size": [
+        1920,
+        800
+      ],
+      "capacity": "2160",
+      "display": [
+        3840,
+        1600
+      ],
+      "groups_x": 30,
+      "groups_x_is_even": true,
+      "groups_y": 400,
+      "last_group_padding_pixels": 0,
+      "last_group_valid_pixels": 64,
+      "width_is_integral_64_tile": true
+    },
+    {
+      "aligned_display": [
+        5120,
+        1440
+      ],
+      "c16_size": [
+        2560,
+        720
+      ],
+      "capacity": "4320",
+      "display": [
+        5120,
+        1440
+      ],
+      "groups_x": 40,
+      "groups_x_is_even": true,
+      "groups_y": 360,
+      "last_group_padding_pixels": 0,
+      "last_group_valid_pixels": 64,
+      "width_is_integral_64_tile": true
+    },
+    {
+      "aligned_display": [
+        5760,
+        1080
+      ],
+      "c16_size": [
+        2880,
+        540
+      ],
+      "capacity": "4320",
+      "display": [
+        5760,
+        1080
+      ],
+      "groups_x": 45,
+      "groups_x_is_even": false,
+      "groups_y": 270,
+      "last_group_padding_pixels": 0,
+      "last_group_valid_pixels": 64,
+      "width_is_integral_64_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        1440
+      ],
+      "c16_size": [
+        3840,
+        720
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        1440
+      ],
+      "groups_x": 60,
+      "groups_x_is_even": true,
+      "groups_y": 360,
+      "last_group_padding_pixels": 0,
+      "last_group_valid_pixels": 64,
+      "width_is_integral_64_tile": true
+    },
+    {
+      "aligned_display": [
+        1080,
+        1920
+      ],
+      "c16_size": [
+        540,
+        960
+      ],
+      "capacity": "2160",
+      "display": [
+        1080,
+        1920
+      ],
+      "groups_x": 9,
+      "groups_x_is_even": false,
+      "groups_y": 480,
+      "last_group_padding_pixels": 36,
+      "last_group_valid_pixels": 28,
+      "width_is_integral_64_tile": false
+    },
+    {
+      "aligned_display": [
+        1440,
+        2560
+      ],
+      "c16_size": [
+        720,
+        1280
+      ],
+      "capacity": "4320",
+      "display": [
+        1440,
+        2560
+      ],
+      "groups_x": 12,
+      "groups_x_is_even": true,
+      "groups_y": 640,
+      "last_group_padding_pixels": 48,
+      "last_group_valid_pixels": 16,
+      "width_is_integral_64_tile": false
+    },
+    {
+      "aligned_display": [
+        2160,
+        3840
+      ],
+      "c16_size": [
+        1080,
+        1920
+      ],
+      "capacity": "4320",
+      "display": [
+        2160,
+        3840
+      ],
+      "groups_x": 17,
+      "groups_x_is_even": false,
+      "groups_y": 960,
+      "last_group_padding_pixels": 8,
+      "last_group_valid_pixels": 56,
+      "width_is_integral_64_tile": false
+    },
+    {
+      "aligned_display": [
+        1928,
+        1080
+      ],
+      "c16_size": [
+        964,
+        540
+      ],
+      "capacity": "2160",
+      "display": [
+        1921,
+        1079
+      ],
+      "groups_x": 16,
+      "groups_x_is_even": true,
+      "groups_y": 270,
+      "last_group_padding_pixels": 60,
+      "last_group_valid_pixels": 4,
+      "width_is_integral_64_tile": false
+    },
+    {
+      "aligned_display": [
+        3840,
+        2160
+      ],
+      "c16_size": [
+        1920,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        3839,
+        2159
+      ],
+      "groups_x": 30,
+      "groups_x_is_even": true,
+      "groups_y": 540,
+      "last_group_padding_pixels": 0,
+      "last_group_valid_pixels": 64,
+      "width_is_integral_64_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        4320
+      ],
+      "c16_size": [
+        3840,
+        2160
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        4320
+      ],
+      "groups_x": 60,
+      "groups_x_is_even": true,
+      "groups_y": 1080,
+      "last_group_padding_pixels": 0,
+      "last_group_valid_pixels": 64,
+      "width_is_integral_64_tile": true
+    }
+  ],
+  "middle_stage_reports": [
+    {
+      "aligned_display": [
+        1280,
+        1024
+      ],
+      "capacity": "1080",
+      "display": [
+        1280,
+        1024
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        10,
+        256
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 1,
+      "tensor_size": [
+        640,
+        512
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        1280,
+        1024
+      ],
+      "capacity": "1080",
+      "display": [
+        1280,
+        1024
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        10,
+        256
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 2,
+      "tensor_size": [
+        640,
+        512
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        1280,
+        1024
+      ],
+      "capacity": "1080",
+      "display": [
+        1280,
+        1024
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        5,
+        256
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 3,
+      "tensor_size": [
+        320,
+        256
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        1280,
+        1024
+      ],
+      "capacity": "1080",
+      "display": [
+        1280,
+        1024
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        5,
+        256
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 4,
+      "tensor_size": [
+        320,
+        256
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        1280,
+        1024
+      ],
+      "capacity": "1080",
+      "display": [
+        1280,
+        1024
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        5,
+        256
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 5,
+      "tensor_size": [
+        320,
+        256
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        1280,
+        1024
+      ],
+      "capacity": "1080",
+      "display": [
+        1280,
+        1024
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        3,
+        128
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 6,
+      "tensor_size": [
+        160,
+        128
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1280,
+        1024
+      ],
+      "capacity": "1080",
+      "display": [
+        1280,
+        1024
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        3,
+        128
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 7,
+      "tensor_size": [
+        160,
+        128
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1280,
+        1024
+      ],
+      "capacity": "1080",
+      "display": [
+        1280,
+        1024
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        3,
+        128
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 8,
+      "tensor_size": [
+        160,
+        128
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1280,
+        1024
+      ],
+      "capacity": "1080",
+      "display": [
+        1280,
+        1024
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        20,
+        16
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        8,
+        8
+      ],
+      "logical_stage": 9,
+      "tensor_size": [
+        160,
+        128
+      ],
+      "tile_size": [
+        8,
+        8
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        1280,
+        1024
+      ],
+      "capacity": "1080",
+      "display": [
+        1280,
+        1024
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        5,
+        256
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 10,
+      "tensor_size": [
+        320,
+        256
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        1280,
+        1024
+      ],
+      "capacity": "1080",
+      "display": [
+        1280,
+        1024
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        5,
+        256
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 11,
+      "tensor_size": [
+        320,
+        256
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        1280,
+        1024
+      ],
+      "capacity": "1080",
+      "display": [
+        1280,
+        1024
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        10,
+        512
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 12,
+      "tensor_size": [
+        640,
+        512
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        1600,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1600,
+        1200
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        13,
+        300
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        2
+      ],
+      "logical_stage": 1,
+      "tensor_size": [
+        800,
+        600
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1600,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1600,
+        1200
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        13,
+        300
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        2
+      ],
+      "logical_stage": 2,
+      "tensor_size": [
+        800,
+        600
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1600,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1600,
+        1200
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        7,
+        300
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        48,
+        0
+      ],
+      "last_group_valid": [
+        16,
+        1
+      ],
+      "logical_stage": 3,
+      "tensor_size": [
+        400,
+        300
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1600,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1600,
+        1200
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        7,
+        300
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        48,
+        0
+      ],
+      "last_group_valid": [
+        16,
+        1
+      ],
+      "logical_stage": 4,
+      "tensor_size": [
+        400,
+        300
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1600,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1600,
+        1200
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        7,
+        300
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        48,
+        0
+      ],
+      "last_group_valid": [
+        16,
+        1
+      ],
+      "logical_stage": 5,
+      "tensor_size": [
+        400,
+        300
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1600,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1600,
+        1200
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        4,
+        150
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        56,
+        0
+      ],
+      "last_group_valid": [
+        8,
+        1
+      ],
+      "logical_stage": 6,
+      "tensor_size": [
+        200,
+        150
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1600,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1600,
+        1200
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        4,
+        150
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        56,
+        0
+      ],
+      "last_group_valid": [
+        8,
+        1
+      ],
+      "logical_stage": 7,
+      "tensor_size": [
+        200,
+        150
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1600,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1600,
+        1200
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        4,
+        150
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        56,
+        0
+      ],
+      "last_group_valid": [
+        8,
+        1
+      ],
+      "logical_stage": 8,
+      "tensor_size": [
+        200,
+        150
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1600,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1600,
+        1200
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        25,
+        19
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": false,
+      "last_group_padding": [
+        0,
+        2
+      ],
+      "last_group_valid": [
+        8,
+        6
+      ],
+      "logical_stage": 9,
+      "tensor_size": [
+        200,
+        150
+      ],
+      "tile_size": [
+        8,
+        8
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        1600,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1600,
+        1200
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        7,
+        300
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        48,
+        0
+      ],
+      "last_group_valid": [
+        16,
+        1
+      ],
+      "logical_stage": 10,
+      "tensor_size": [
+        400,
+        300
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1600,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1600,
+        1200
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        7,
+        300
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        48,
+        0
+      ],
+      "last_group_valid": [
+        16,
+        1
+      ],
+      "logical_stage": 11,
+      "tensor_size": [
+        400,
+        300
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1600,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1600,
+        1200
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        13,
+        600
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 12,
+      "tensor_size": [
+        800,
+        600
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1920,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1920,
+        1200
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        15,
+        300
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 1,
+      "tensor_size": [
+        960,
+        600
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        1920,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1920,
+        1200
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        15,
+        300
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 2,
+      "tensor_size": [
+        960,
+        600
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        1920,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1920,
+        1200
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        8,
+        300
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 3,
+      "tensor_size": [
+        480,
+        300
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1920,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1920,
+        1200
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        8,
+        300
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 4,
+      "tensor_size": [
+        480,
+        300
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1920,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1920,
+        1200
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        8,
+        300
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 5,
+      "tensor_size": [
+        480,
+        300
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1920,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1920,
+        1200
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        4,
+        150
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        16,
+        0
+      ],
+      "last_group_valid": [
+        48,
+        1
+      ],
+      "logical_stage": 6,
+      "tensor_size": [
+        240,
+        150
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1920,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1920,
+        1200
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        4,
+        150
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        16,
+        0
+      ],
+      "last_group_valid": [
+        48,
+        1
+      ],
+      "logical_stage": 7,
+      "tensor_size": [
+        240,
+        150
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1920,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1920,
+        1200
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        4,
+        150
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        16,
+        0
+      ],
+      "last_group_valid": [
+        48,
+        1
+      ],
+      "logical_stage": 8,
+      "tensor_size": [
+        240,
+        150
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1920,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1920,
+        1200
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        30,
+        19
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": false,
+      "last_group_padding": [
+        0,
+        2
+      ],
+      "last_group_valid": [
+        8,
+        6
+      ],
+      "logical_stage": 9,
+      "tensor_size": [
+        240,
+        150
+      ],
+      "tile_size": [
+        8,
+        8
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        1920,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1920,
+        1200
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        8,
+        300
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 10,
+      "tensor_size": [
+        480,
+        300
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1920,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1920,
+        1200
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        8,
+        300
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 11,
+      "tensor_size": [
+        480,
+        300
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1920,
+        1200
+      ],
+      "capacity": "2160",
+      "display": [
+        1920,
+        1200
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        15,
+        600
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 12,
+      "tensor_size": [
+        960,
+        600
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        2560,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        2560,
+        1080
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        20,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 1,
+      "tensor_size": [
+        1280,
+        540
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        2560,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        2560,
+        1080
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        20,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 2,
+      "tensor_size": [
+        1280,
+        540
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        2560,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        2560,
+        1080
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        10,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 3,
+      "tensor_size": [
+        640,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        2560,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        2560,
+        1080
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        10,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 4,
+      "tensor_size": [
+        640,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        2560,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        2560,
+        1080
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        10,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 5,
+      "tensor_size": [
+        640,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        2560,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        2560,
+        1080
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        5,
+        135
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 6,
+      "tensor_size": [
+        320,
+        135
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        2560,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        2560,
+        1080
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        5,
+        135
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 7,
+      "tensor_size": [
+        320,
+        135
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        2560,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        2560,
+        1080
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        5,
+        135
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 8,
+      "tensor_size": [
+        320,
+        135
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        2560,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        2560,
+        1080
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        40,
+        17
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": false,
+      "last_group_padding": [
+        0,
+        1
+      ],
+      "last_group_valid": [
+        8,
+        7
+      ],
+      "logical_stage": 9,
+      "tensor_size": [
+        320,
+        135
+      ],
+      "tile_size": [
+        8,
+        8
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        2560,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        2560,
+        1080
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        10,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 10,
+      "tensor_size": [
+        640,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        2560,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        2560,
+        1080
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        10,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 11,
+      "tensor_size": [
+        640,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        2560,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        2560,
+        1080
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        20,
+        540
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 12,
+      "tensor_size": [
+        1280,
+        540
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3440,
+        1440
+      ],
+      "capacity": "2160",
+      "display": [
+        3440,
+        1440
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        27,
+        360
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        8,
+        0
+      ],
+      "last_group_valid": [
+        56,
+        2
+      ],
+      "logical_stage": 1,
+      "tensor_size": [
+        1720,
+        720
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3440,
+        1440
+      ],
+      "capacity": "2160",
+      "display": [
+        3440,
+        1440
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        27,
+        360
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        8,
+        0
+      ],
+      "last_group_valid": [
+        56,
+        2
+      ],
+      "logical_stage": 2,
+      "tensor_size": [
+        1720,
+        720
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3440,
+        1440
+      ],
+      "capacity": "2160",
+      "display": [
+        3440,
+        1440
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        14,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        36,
+        0
+      ],
+      "last_group_valid": [
+        28,
+        1
+      ],
+      "logical_stage": 3,
+      "tensor_size": [
+        860,
+        360
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3440,
+        1440
+      ],
+      "capacity": "2160",
+      "display": [
+        3440,
+        1440
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        14,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        36,
+        0
+      ],
+      "last_group_valid": [
+        28,
+        1
+      ],
+      "logical_stage": 4,
+      "tensor_size": [
+        860,
+        360
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3440,
+        1440
+      ],
+      "capacity": "2160",
+      "display": [
+        3440,
+        1440
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        14,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        36,
+        0
+      ],
+      "last_group_valid": [
+        28,
+        1
+      ],
+      "logical_stage": 5,
+      "tensor_size": [
+        860,
+        360
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3440,
+        1440
+      ],
+      "capacity": "2160",
+      "display": [
+        3440,
+        1440
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        7,
+        180
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        18,
+        0
+      ],
+      "last_group_valid": [
+        46,
+        1
+      ],
+      "logical_stage": 6,
+      "tensor_size": [
+        430,
+        180
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3440,
+        1440
+      ],
+      "capacity": "2160",
+      "display": [
+        3440,
+        1440
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        7,
+        180
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        18,
+        0
+      ],
+      "last_group_valid": [
+        46,
+        1
+      ],
+      "logical_stage": 7,
+      "tensor_size": [
+        430,
+        180
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3440,
+        1440
+      ],
+      "capacity": "2160",
+      "display": [
+        3440,
+        1440
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        7,
+        180
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        18,
+        0
+      ],
+      "last_group_valid": [
+        46,
+        1
+      ],
+      "logical_stage": 8,
+      "tensor_size": [
+        430,
+        180
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3440,
+        1440
+      ],
+      "capacity": "2160",
+      "display": [
+        3440,
+        1440
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        54,
+        23
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": false,
+      "last_group_padding": [
+        2,
+        4
+      ],
+      "last_group_valid": [
+        6,
+        4
+      ],
+      "logical_stage": 9,
+      "tensor_size": [
+        430,
+        180
+      ],
+      "tile_size": [
+        8,
+        8
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3440,
+        1440
+      ],
+      "capacity": "2160",
+      "display": [
+        3440,
+        1440
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        14,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        36,
+        0
+      ],
+      "last_group_valid": [
+        28,
+        1
+      ],
+      "logical_stage": 10,
+      "tensor_size": [
+        860,
+        360
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3440,
+        1440
+      ],
+      "capacity": "2160",
+      "display": [
+        3440,
+        1440
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        14,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        36,
+        0
+      ],
+      "last_group_valid": [
+        28,
+        1
+      ],
+      "logical_stage": 11,
+      "tensor_size": [
+        860,
+        360
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3440,
+        1440
+      ],
+      "capacity": "2160",
+      "display": [
+        3440,
+        1440
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        27,
+        720
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        8,
+        0
+      ],
+      "last_group_valid": [
+        56,
+        1
+      ],
+      "logical_stage": 12,
+      "tensor_size": [
+        1720,
+        720
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3840,
+        1600
+      ],
+      "capacity": "2160",
+      "display": [
+        3840,
+        1600
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        30,
+        400
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 1,
+      "tensor_size": [
+        1920,
+        800
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3840,
+        1600
+      ],
+      "capacity": "2160",
+      "display": [
+        3840,
+        1600
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        30,
+        400
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 2,
+      "tensor_size": [
+        1920,
+        800
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3840,
+        1600
+      ],
+      "capacity": "2160",
+      "display": [
+        3840,
+        1600
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        15,
+        400
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 3,
+      "tensor_size": [
+        960,
+        400
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3840,
+        1600
+      ],
+      "capacity": "2160",
+      "display": [
+        3840,
+        1600
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        15,
+        400
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 4,
+      "tensor_size": [
+        960,
+        400
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3840,
+        1600
+      ],
+      "capacity": "2160",
+      "display": [
+        3840,
+        1600
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        15,
+        400
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 5,
+      "tensor_size": [
+        960,
+        400
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3840,
+        1600
+      ],
+      "capacity": "2160",
+      "display": [
+        3840,
+        1600
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        8,
+        200
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 6,
+      "tensor_size": [
+        480,
+        200
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3840,
+        1600
+      ],
+      "capacity": "2160",
+      "display": [
+        3840,
+        1600
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        8,
+        200
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 7,
+      "tensor_size": [
+        480,
+        200
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3840,
+        1600
+      ],
+      "capacity": "2160",
+      "display": [
+        3840,
+        1600
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        8,
+        200
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 8,
+      "tensor_size": [
+        480,
+        200
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3840,
+        1600
+      ],
+      "capacity": "2160",
+      "display": [
+        3840,
+        1600
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        60,
+        25
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        8,
+        8
+      ],
+      "logical_stage": 9,
+      "tensor_size": [
+        480,
+        200
+      ],
+      "tile_size": [
+        8,
+        8
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3840,
+        1600
+      ],
+      "capacity": "2160",
+      "display": [
+        3840,
+        1600
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        15,
+        400
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 10,
+      "tensor_size": [
+        960,
+        400
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3840,
+        1600
+      ],
+      "capacity": "2160",
+      "display": [
+        3840,
+        1600
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        15,
+        400
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 11,
+      "tensor_size": [
+        960,
+        400
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3840,
+        1600
+      ],
+      "capacity": "2160",
+      "display": [
+        3840,
+        1600
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        30,
+        800
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 12,
+      "tensor_size": [
+        1920,
+        800
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        5120,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        5120,
+        1440
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        40,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 1,
+      "tensor_size": [
+        2560,
+        720
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        5120,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        5120,
+        1440
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        40,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 2,
+      "tensor_size": [
+        2560,
+        720
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        5120,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        5120,
+        1440
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        20,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 3,
+      "tensor_size": [
+        1280,
+        360
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        5120,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        5120,
+        1440
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        20,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 4,
+      "tensor_size": [
+        1280,
+        360
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        5120,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        5120,
+        1440
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        20,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 5,
+      "tensor_size": [
+        1280,
+        360
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        5120,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        5120,
+        1440
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        10,
+        180
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 6,
+      "tensor_size": [
+        640,
+        180
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        5120,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        5120,
+        1440
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        10,
+        180
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 7,
+      "tensor_size": [
+        640,
+        180
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        5120,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        5120,
+        1440
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        10,
+        180
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 8,
+      "tensor_size": [
+        640,
+        180
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        5120,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        5120,
+        1440
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        80,
+        23
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": false,
+      "last_group_padding": [
+        0,
+        4
+      ],
+      "last_group_valid": [
+        8,
+        4
+      ],
+      "logical_stage": 9,
+      "tensor_size": [
+        640,
+        180
+      ],
+      "tile_size": [
+        8,
+        8
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        5120,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        5120,
+        1440
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        20,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 10,
+      "tensor_size": [
+        1280,
+        360
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        5120,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        5120,
+        1440
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        20,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 11,
+      "tensor_size": [
+        1280,
+        360
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        5120,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        5120,
+        1440
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        40,
+        720
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 12,
+      "tensor_size": [
+        2560,
+        720
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        5760,
+        1080
+      ],
+      "capacity": "4320",
+      "display": [
+        5760,
+        1080
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        45,
+        270
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 1,
+      "tensor_size": [
+        2880,
+        540
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        5760,
+        1080
+      ],
+      "capacity": "4320",
+      "display": [
+        5760,
+        1080
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        45,
+        270
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 2,
+      "tensor_size": [
+        2880,
+        540
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        5760,
+        1080
+      ],
+      "capacity": "4320",
+      "display": [
+        5760,
+        1080
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        23,
+        270
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 3,
+      "tensor_size": [
+        1440,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        5760,
+        1080
+      ],
+      "capacity": "4320",
+      "display": [
+        5760,
+        1080
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        23,
+        270
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 4,
+      "tensor_size": [
+        1440,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        5760,
+        1080
+      ],
+      "capacity": "4320",
+      "display": [
+        5760,
+        1080
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        23,
+        270
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 5,
+      "tensor_size": [
+        1440,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        5760,
+        1080
+      ],
+      "capacity": "4320",
+      "display": [
+        5760,
+        1080
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        12,
+        135
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        48,
+        0
+      ],
+      "last_group_valid": [
+        16,
+        1
+      ],
+      "logical_stage": 6,
+      "tensor_size": [
+        720,
+        135
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        5760,
+        1080
+      ],
+      "capacity": "4320",
+      "display": [
+        5760,
+        1080
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        12,
+        135
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        48,
+        0
+      ],
+      "last_group_valid": [
+        16,
+        1
+      ],
+      "logical_stage": 7,
+      "tensor_size": [
+        720,
+        135
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        5760,
+        1080
+      ],
+      "capacity": "4320",
+      "display": [
+        5760,
+        1080
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        12,
+        135
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        48,
+        0
+      ],
+      "last_group_valid": [
+        16,
+        1
+      ],
+      "logical_stage": 8,
+      "tensor_size": [
+        720,
+        135
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        5760,
+        1080
+      ],
+      "capacity": "4320",
+      "display": [
+        5760,
+        1080
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        90,
+        17
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": false,
+      "last_group_padding": [
+        0,
+        1
+      ],
+      "last_group_valid": [
+        8,
+        7
+      ],
+      "logical_stage": 9,
+      "tensor_size": [
+        720,
+        135
+      ],
+      "tile_size": [
+        8,
+        8
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        5760,
+        1080
+      ],
+      "capacity": "4320",
+      "display": [
+        5760,
+        1080
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        23,
+        270
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 10,
+      "tensor_size": [
+        1440,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        5760,
+        1080
+      ],
+      "capacity": "4320",
+      "display": [
+        5760,
+        1080
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        23,
+        270
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 11,
+      "tensor_size": [
+        1440,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        5760,
+        1080
+      ],
+      "capacity": "4320",
+      "display": [
+        5760,
+        1080
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        45,
+        540
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 12,
+      "tensor_size": [
+        2880,
+        540
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        1440
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        60,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 1,
+      "tensor_size": [
+        3840,
+        720
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        1440
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        60,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 2,
+      "tensor_size": [
+        3840,
+        720
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        1440
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        30,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 3,
+      "tensor_size": [
+        1920,
+        360
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        1440
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        30,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 4,
+      "tensor_size": [
+        1920,
+        360
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        1440
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        30,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 5,
+      "tensor_size": [
+        1920,
+        360
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        1440
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        15,
+        180
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 6,
+      "tensor_size": [
+        960,
+        180
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        1440
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        15,
+        180
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 7,
+      "tensor_size": [
+        960,
+        180
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        1440
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        15,
+        180
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 8,
+      "tensor_size": [
+        960,
+        180
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        1440
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        120,
+        23
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": false,
+      "last_group_padding": [
+        0,
+        4
+      ],
+      "last_group_valid": [
+        8,
+        4
+      ],
+      "logical_stage": 9,
+      "tensor_size": [
+        960,
+        180
+      ],
+      "tile_size": [
+        8,
+        8
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        1440
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        30,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 10,
+      "tensor_size": [
+        1920,
+        360
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        1440
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        30,
+        360
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 11,
+      "tensor_size": [
+        1920,
+        360
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        1440
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        1440
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        60,
+        720
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 12,
+      "tensor_size": [
+        3840,
+        720
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        1080,
+        1920
+      ],
+      "capacity": "2160",
+      "display": [
+        1080,
+        1920
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        9,
+        480
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        36,
+        0
+      ],
+      "last_group_valid": [
+        28,
+        2
+      ],
+      "logical_stage": 1,
+      "tensor_size": [
+        540,
+        960
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1080,
+        1920
+      ],
+      "capacity": "2160",
+      "display": [
+        1080,
+        1920
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        9,
+        480
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        36,
+        0
+      ],
+      "last_group_valid": [
+        28,
+        2
+      ],
+      "logical_stage": 2,
+      "tensor_size": [
+        540,
+        960
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1080,
+        1920
+      ],
+      "capacity": "2160",
+      "display": [
+        1080,
+        1920
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        5,
+        480
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        50,
+        0
+      ],
+      "last_group_valid": [
+        14,
+        1
+      ],
+      "logical_stage": 3,
+      "tensor_size": [
+        270,
+        480
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1080,
+        1920
+      ],
+      "capacity": "2160",
+      "display": [
+        1080,
+        1920
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        5,
+        480
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        50,
+        0
+      ],
+      "last_group_valid": [
+        14,
+        1
+      ],
+      "logical_stage": 4,
+      "tensor_size": [
+        270,
+        480
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1080,
+        1920
+      ],
+      "capacity": "2160",
+      "display": [
+        1080,
+        1920
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        5,
+        480
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        50,
+        0
+      ],
+      "last_group_valid": [
+        14,
+        1
+      ],
+      "logical_stage": 5,
+      "tensor_size": [
+        270,
+        480
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1080,
+        1920
+      ],
+      "capacity": "2160",
+      "display": [
+        1080,
+        1920
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        3,
+        240
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        57,
+        0
+      ],
+      "last_group_valid": [
+        7,
+        1
+      ],
+      "logical_stage": 6,
+      "tensor_size": [
+        135,
+        240
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1080,
+        1920
+      ],
+      "capacity": "2160",
+      "display": [
+        1080,
+        1920
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        3,
+        240
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        57,
+        0
+      ],
+      "last_group_valid": [
+        7,
+        1
+      ],
+      "logical_stage": 7,
+      "tensor_size": [
+        135,
+        240
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1080,
+        1920
+      ],
+      "capacity": "2160",
+      "display": [
+        1080,
+        1920
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        3,
+        240
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        57,
+        0
+      ],
+      "last_group_valid": [
+        7,
+        1
+      ],
+      "logical_stage": 8,
+      "tensor_size": [
+        135,
+        240
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1080,
+        1920
+      ],
+      "capacity": "2160",
+      "display": [
+        1080,
+        1920
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        17,
+        30
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        1,
+        0
+      ],
+      "last_group_valid": [
+        7,
+        8
+      ],
+      "logical_stage": 9,
+      "tensor_size": [
+        135,
+        240
+      ],
+      "tile_size": [
+        8,
+        8
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1080,
+        1920
+      ],
+      "capacity": "2160",
+      "display": [
+        1080,
+        1920
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        5,
+        480
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        50,
+        0
+      ],
+      "last_group_valid": [
+        14,
+        1
+      ],
+      "logical_stage": 10,
+      "tensor_size": [
+        270,
+        480
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1080,
+        1920
+      ],
+      "capacity": "2160",
+      "display": [
+        1080,
+        1920
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        5,
+        480
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        50,
+        0
+      ],
+      "last_group_valid": [
+        14,
+        1
+      ],
+      "logical_stage": 11,
+      "tensor_size": [
+        270,
+        480
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1080,
+        1920
+      ],
+      "capacity": "2160",
+      "display": [
+        1080,
+        1920
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        9,
+        960
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        36,
+        0
+      ],
+      "last_group_valid": [
+        28,
+        1
+      ],
+      "logical_stage": 12,
+      "tensor_size": [
+        540,
+        960
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1440,
+        2560
+      ],
+      "capacity": "4320",
+      "display": [
+        1440,
+        2560
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        12,
+        640
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        48,
+        0
+      ],
+      "last_group_valid": [
+        16,
+        2
+      ],
+      "logical_stage": 1,
+      "tensor_size": [
+        720,
+        1280
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1440,
+        2560
+      ],
+      "capacity": "4320",
+      "display": [
+        1440,
+        2560
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        12,
+        640
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        48,
+        0
+      ],
+      "last_group_valid": [
+        16,
+        2
+      ],
+      "logical_stage": 2,
+      "tensor_size": [
+        720,
+        1280
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1440,
+        2560
+      ],
+      "capacity": "4320",
+      "display": [
+        1440,
+        2560
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        6,
+        640
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        24,
+        0
+      ],
+      "last_group_valid": [
+        40,
+        1
+      ],
+      "logical_stage": 3,
+      "tensor_size": [
+        360,
+        640
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1440,
+        2560
+      ],
+      "capacity": "4320",
+      "display": [
+        1440,
+        2560
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        6,
+        640
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        24,
+        0
+      ],
+      "last_group_valid": [
+        40,
+        1
+      ],
+      "logical_stage": 4,
+      "tensor_size": [
+        360,
+        640
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1440,
+        2560
+      ],
+      "capacity": "4320",
+      "display": [
+        1440,
+        2560
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        6,
+        640
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        24,
+        0
+      ],
+      "last_group_valid": [
+        40,
+        1
+      ],
+      "logical_stage": 5,
+      "tensor_size": [
+        360,
+        640
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1440,
+        2560
+      ],
+      "capacity": "4320",
+      "display": [
+        1440,
+        2560
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        3,
+        320
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        12,
+        0
+      ],
+      "last_group_valid": [
+        52,
+        1
+      ],
+      "logical_stage": 6,
+      "tensor_size": [
+        180,
+        320
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1440,
+        2560
+      ],
+      "capacity": "4320",
+      "display": [
+        1440,
+        2560
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        3,
+        320
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        12,
+        0
+      ],
+      "last_group_valid": [
+        52,
+        1
+      ],
+      "logical_stage": 7,
+      "tensor_size": [
+        180,
+        320
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1440,
+        2560
+      ],
+      "capacity": "4320",
+      "display": [
+        1440,
+        2560
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        3,
+        320
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        12,
+        0
+      ],
+      "last_group_valid": [
+        52,
+        1
+      ],
+      "logical_stage": 8,
+      "tensor_size": [
+        180,
+        320
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1440,
+        2560
+      ],
+      "capacity": "4320",
+      "display": [
+        1440,
+        2560
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        23,
+        40
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        4,
+        0
+      ],
+      "last_group_valid": [
+        4,
+        8
+      ],
+      "logical_stage": 9,
+      "tensor_size": [
+        180,
+        320
+      ],
+      "tile_size": [
+        8,
+        8
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1440,
+        2560
+      ],
+      "capacity": "4320",
+      "display": [
+        1440,
+        2560
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        6,
+        640
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        24,
+        0
+      ],
+      "last_group_valid": [
+        40,
+        1
+      ],
+      "logical_stage": 10,
+      "tensor_size": [
+        360,
+        640
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1440,
+        2560
+      ],
+      "capacity": "4320",
+      "display": [
+        1440,
+        2560
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        6,
+        640
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        24,
+        0
+      ],
+      "last_group_valid": [
+        40,
+        1
+      ],
+      "logical_stage": 11,
+      "tensor_size": [
+        360,
+        640
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1440,
+        2560
+      ],
+      "capacity": "4320",
+      "display": [
+        1440,
+        2560
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        12,
+        1280
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        48,
+        0
+      ],
+      "last_group_valid": [
+        16,
+        1
+      ],
+      "logical_stage": 12,
+      "tensor_size": [
+        720,
+        1280
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        2160,
+        3840
+      ],
+      "capacity": "4320",
+      "display": [
+        2160,
+        3840
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        17,
+        960
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        8,
+        0
+      ],
+      "last_group_valid": [
+        56,
+        2
+      ],
+      "logical_stage": 1,
+      "tensor_size": [
+        1080,
+        1920
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        2160,
+        3840
+      ],
+      "capacity": "4320",
+      "display": [
+        2160,
+        3840
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        17,
+        960
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        8,
+        0
+      ],
+      "last_group_valid": [
+        56,
+        2
+      ],
+      "logical_stage": 2,
+      "tensor_size": [
+        1080,
+        1920
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        2160,
+        3840
+      ],
+      "capacity": "4320",
+      "display": [
+        2160,
+        3840
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        9,
+        960
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        36,
+        0
+      ],
+      "last_group_valid": [
+        28,
+        1
+      ],
+      "logical_stage": 3,
+      "tensor_size": [
+        540,
+        960
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        2160,
+        3840
+      ],
+      "capacity": "4320",
+      "display": [
+        2160,
+        3840
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        9,
+        960
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        36,
+        0
+      ],
+      "last_group_valid": [
+        28,
+        1
+      ],
+      "logical_stage": 4,
+      "tensor_size": [
+        540,
+        960
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        2160,
+        3840
+      ],
+      "capacity": "4320",
+      "display": [
+        2160,
+        3840
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        9,
+        960
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        36,
+        0
+      ],
+      "last_group_valid": [
+        28,
+        1
+      ],
+      "logical_stage": 5,
+      "tensor_size": [
+        540,
+        960
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        2160,
+        3840
+      ],
+      "capacity": "4320",
+      "display": [
+        2160,
+        3840
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        5,
+        480
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        50,
+        0
+      ],
+      "last_group_valid": [
+        14,
+        1
+      ],
+      "logical_stage": 6,
+      "tensor_size": [
+        270,
+        480
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        2160,
+        3840
+      ],
+      "capacity": "4320",
+      "display": [
+        2160,
+        3840
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        5,
+        480
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        50,
+        0
+      ],
+      "last_group_valid": [
+        14,
+        1
+      ],
+      "logical_stage": 7,
+      "tensor_size": [
+        270,
+        480
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        2160,
+        3840
+      ],
+      "capacity": "4320",
+      "display": [
+        2160,
+        3840
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        5,
+        480
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        50,
+        0
+      ],
+      "last_group_valid": [
+        14,
+        1
+      ],
+      "logical_stage": 8,
+      "tensor_size": [
+        270,
+        480
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        2160,
+        3840
+      ],
+      "capacity": "4320",
+      "display": [
+        2160,
+        3840
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        34,
+        60
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        2,
+        0
+      ],
+      "last_group_valid": [
+        6,
+        8
+      ],
+      "logical_stage": 9,
+      "tensor_size": [
+        270,
+        480
+      ],
+      "tile_size": [
+        8,
+        8
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        2160,
+        3840
+      ],
+      "capacity": "4320",
+      "display": [
+        2160,
+        3840
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        9,
+        960
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        36,
+        0
+      ],
+      "last_group_valid": [
+        28,
+        1
+      ],
+      "logical_stage": 10,
+      "tensor_size": [
+        540,
+        960
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        2160,
+        3840
+      ],
+      "capacity": "4320",
+      "display": [
+        2160,
+        3840
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        9,
+        960
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        36,
+        0
+      ],
+      "last_group_valid": [
+        28,
+        1
+      ],
+      "logical_stage": 11,
+      "tensor_size": [
+        540,
+        960
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        2160,
+        3840
+      ],
+      "capacity": "4320",
+      "display": [
+        2160,
+        3840
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        17,
+        1920
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        8,
+        0
+      ],
+      "last_group_valid": [
+        56,
+        1
+      ],
+      "logical_stage": 12,
+      "tensor_size": [
+        1080,
+        1920
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1928,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        1921,
+        1079
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        16,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        60,
+        0
+      ],
+      "last_group_valid": [
+        4,
+        2
+      ],
+      "logical_stage": 1,
+      "tensor_size": [
+        964,
+        540
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1928,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        1921,
+        1079
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        16,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        60,
+        0
+      ],
+      "last_group_valid": [
+        4,
+        2
+      ],
+      "logical_stage": 2,
+      "tensor_size": [
+        964,
+        540
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1928,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        1921,
+        1079
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        8,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        30,
+        0
+      ],
+      "last_group_valid": [
+        34,
+        1
+      ],
+      "logical_stage": 3,
+      "tensor_size": [
+        482,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1928,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        1921,
+        1079
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        8,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        30,
+        0
+      ],
+      "last_group_valid": [
+        34,
+        1
+      ],
+      "logical_stage": 4,
+      "tensor_size": [
+        482,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1928,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        1921,
+        1079
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        8,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        30,
+        0
+      ],
+      "last_group_valid": [
+        34,
+        1
+      ],
+      "logical_stage": 5,
+      "tensor_size": [
+        482,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1928,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        1921,
+        1079
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        4,
+        135
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        15,
+        0
+      ],
+      "last_group_valid": [
+        49,
+        1
+      ],
+      "logical_stage": 6,
+      "tensor_size": [
+        241,
+        135
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1928,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        1921,
+        1079
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        4,
+        135
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        15,
+        0
+      ],
+      "last_group_valid": [
+        49,
+        1
+      ],
+      "logical_stage": 7,
+      "tensor_size": [
+        241,
+        135
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1928,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        1921,
+        1079
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        4,
+        135
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        15,
+        0
+      ],
+      "last_group_valid": [
+        49,
+        1
+      ],
+      "logical_stage": 8,
+      "tensor_size": [
+        241,
+        135
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1928,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        1921,
+        1079
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        31,
+        17
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": false,
+      "last_group_padding": [
+        7,
+        1
+      ],
+      "last_group_valid": [
+        1,
+        7
+      ],
+      "logical_stage": 9,
+      "tensor_size": [
+        241,
+        135
+      ],
+      "tile_size": [
+        8,
+        8
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1928,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        1921,
+        1079
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        8,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        30,
+        0
+      ],
+      "last_group_valid": [
+        34,
+        1
+      ],
+      "logical_stage": 10,
+      "tensor_size": [
+        482,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1928,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        1921,
+        1079
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        8,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        30,
+        0
+      ],
+      "last_group_valid": [
+        34,
+        1
+      ],
+      "logical_stage": 11,
+      "tensor_size": [
+        482,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        1928,
+        1080
+      ],
+      "capacity": "2160",
+      "display": [
+        1921,
+        1079
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        16,
+        540
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        60,
+        0
+      ],
+      "last_group_valid": [
+        4,
+        1
+      ],
+      "logical_stage": 12,
+      "tensor_size": [
+        964,
+        540
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3840,
+        2160
+      ],
+      "capacity": "2160",
+      "display": [
+        3839,
+        2159
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        30,
+        540
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 1,
+      "tensor_size": [
+        1920,
+        1080
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3840,
+        2160
+      ],
+      "capacity": "2160",
+      "display": [
+        3839,
+        2159
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        30,
+        540
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 2,
+      "tensor_size": [
+        1920,
+        1080
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3840,
+        2160
+      ],
+      "capacity": "2160",
+      "display": [
+        3839,
+        2159
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        15,
+        540
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 3,
+      "tensor_size": [
+        960,
+        540
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3840,
+        2160
+      ],
+      "capacity": "2160",
+      "display": [
+        3839,
+        2159
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        15,
+        540
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 4,
+      "tensor_size": [
+        960,
+        540
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3840,
+        2160
+      ],
+      "capacity": "2160",
+      "display": [
+        3839,
+        2159
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        15,
+        540
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 5,
+      "tensor_size": [
+        960,
+        540
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3840,
+        2160
+      ],
+      "capacity": "2160",
+      "display": [
+        3839,
+        2159
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        8,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 6,
+      "tensor_size": [
+        480,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3840,
+        2160
+      ],
+      "capacity": "2160",
+      "display": [
+        3839,
+        2159
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        8,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 7,
+      "tensor_size": [
+        480,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3840,
+        2160
+      ],
+      "capacity": "2160",
+      "display": [
+        3839,
+        2159
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        8,
+        270
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        32,
+        0
+      ],
+      "last_group_valid": [
+        32,
+        1
+      ],
+      "logical_stage": 8,
+      "tensor_size": [
+        480,
+        270
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": false
+    },
+    {
+      "aligned_display": [
+        3840,
+        2160
+      ],
+      "capacity": "2160",
+      "display": [
+        3839,
+        2159
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        60,
+        34
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": false,
+      "last_group_padding": [
+        0,
+        2
+      ],
+      "last_group_valid": [
+        8,
+        6
+      ],
+      "logical_stage": 9,
+      "tensor_size": [
+        480,
+        270
+      ],
+      "tile_size": [
+        8,
+        8
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3840,
+        2160
+      ],
+      "capacity": "2160",
+      "display": [
+        3839,
+        2159
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        15,
+        540
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 10,
+      "tensor_size": [
+        960,
+        540
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3840,
+        2160
+      ],
+      "capacity": "2160",
+      "display": [
+        3839,
+        2159
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        15,
+        540
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 11,
+      "tensor_size": [
+        960,
+        540
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        3840,
+        2160
+      ],
+      "capacity": "2160",
+      "display": [
+        3839,
+        2159
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        30,
+        1080
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 12,
+      "tensor_size": [
+        1920,
+        1080
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        4320
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        4320
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        60,
+        1080
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 1,
+      "tensor_size": [
+        3840,
+        2160
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        4320
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        4320
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        60,
+        1080
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        2
+      ],
+      "logical_stage": 2,
+      "tensor_size": [
+        3840,
+        2160
+      ],
+      "tile_size": [
+        64,
+        2
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        4320
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        4320
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        30,
+        1080
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 3,
+      "tensor_size": [
+        1920,
+        1080
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        4320
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        4320
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        30,
+        1080
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 4,
+      "tensor_size": [
+        1920,
+        1080
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        4320
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        4320
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        30,
+        1080
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 5,
+      "tensor_size": [
+        1920,
+        1080
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        4320
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        4320
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        15,
+        540
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 6,
+      "tensor_size": [
+        960,
+        540
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        4320
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        4320
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        15,
+        540
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 7,
+      "tensor_size": [
+        960,
+        540
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        4320
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        4320
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        15,
+        540
+      ],
+      "groups_x_is_even": false,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 8,
+      "tensor_size": [
+        960,
+        540
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        4320
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        4320
+      ],
+      "downscale_shift": 3,
+      "groups": [
+        120,
+        68
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": false,
+      "last_group_padding": [
+        0,
+        4
+      ],
+      "last_group_valid": [
+        8,
+        4
+      ],
+      "logical_stage": 9,
+      "tensor_size": [
+        960,
+        540
+      ],
+      "tile_size": [
+        8,
+        8
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        4320
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        4320
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        30,
+        1080
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 10,
+      "tensor_size": [
+        1920,
+        1080
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        4320
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        4320
+      ],
+      "downscale_shift": 2,
+      "groups": [
+        30,
+        1080
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 11,
+      "tensor_size": [
+        1920,
+        1080
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    },
+    {
+      "aligned_display": [
+        7680,
+        4320
+      ],
+      "capacity": "4320",
+      "display": [
+        7680,
+        4320
+      ],
+      "downscale_shift": 1,
+      "groups": [
+        60,
+        2160
+      ],
+      "groups_x_is_even": true,
+      "height_is_integral_tile": true,
+      "last_group_padding": [
+        0,
+        0
+      ],
+      "last_group_valid": [
+        64,
+        1
+      ],
+      "logical_stage": 12,
+      "tensor_size": [
+        3840,
+        2160
+      ],
+      "tile_size": [
+        64,
+        1
+      ],
+      "width_is_integral_tile": true
+    }
+  ],
+  "notes": [
+    "Generated middle-pass scratch layout is preset-invariant for a given capacity; the preset only supplies the parsed source file.",
+    "A padded Stage0 C16 carrier can fit inside the existing declared scratch sizes if Stage1 output is shifted by the padded Stage0 overhead.",
+    "Capacity-sized tensors are cleanly tiled for the front C16 64x2 passes, but arbitrary display widths can still produce a partial final strip.",
+    "Odd, portrait, super-ultrawide, and surround displays are handled by explicit aligned-display dispatch and per-stage final-tile padding; do not assume group counts are even.",
+    "Scratch layout variants are ABI proposals: every producer, consumer, descriptor, and future NPU island must agree on the same region offsets and ownership rules before enabling a variant."
+  ],
+  "preset_used_for_generated_parse": "balanced",
+  "scratch_layout_contracts": [
+    {
+      "capacity": "1080",
+      "capacity_display": [
+        1920,
+        1080
+      ],
+      "declared_scratch_bytes": 20880256,
+      "extra_bytes_vs_dense_current": 0,
+      "fits_declared_scratch": true,
+      "generated_max_scratch_end_bytes": 20736000,
+      "max_used_scratch_bytes": 20736000,
+      "regions": [
+        {
+          "alignment_bytes": 16,
+          "byte_size": 8294400,
+          "consumer_reads": true,
+          "end_bytes": 8294400,
+          "may_alias_after_barrier": false,
+          "name": "stage0_c16_dense_current",
+          "offset_bytes": 0,
+          "owner": "gpu-only",
+          "producer_writes": true,
+          "role": "stage0-c16-carrier"
+        },
+        {
+          "alignment_bytes": 16,
+          "byte_size": 12441600,
+          "consumer_reads": true,
+          "end_bytes": 20736000,
+          "may_alias_after_barrier": true,
+          "name": "generated_stage1_to_post_current",
+          "offset_bytes": 8294400,
+          "owner": "gpu-only",
+          "producer_writes": true,
+          "role": "generated-stage1-and-tail"
+        },
+        {
+          "alignment_bytes": 16,
+          "byte_size": 144256,
+          "consumer_reads": false,
+          "end_bytes": 20880256,
+          "may_alias_after_barrier": false,
+          "name": "declared_reserve_current",
+          "offset_bytes": 20736000,
+          "owner": "gpu-only",
+          "producer_writes": false,
+          "role": "declared-reserve"
+        }
+      ],
+      "regions_are_contiguous": true,
+      "regions_are_non_overlapping": true,
+      "reserve_bytes": 144256,
+      "stage0_channels": 16,
+      "stage0_logical_origin": [
+        0,
+        0
+      ],
+      "stage0_origin_has_one_pixel_halo": false,
+      "stage0_row_stride_bytes": 15360,
+      "stage0_storage_size": [
+        960,
+        540
+      ],
+      "stage1_output_offset_bytes": 8294400,
+      "variant": "dense-current"
+    },
+    {
+      "capacity": "1080",
+      "capacity_display": [
+        1920,
+        1080
+      ],
+      "declared_scratch_bytes": 20880256,
+      "extra_bytes_vs_dense_current": 48064,
+      "fits_declared_scratch": true,
+      "generated_max_scratch_end_bytes": 20736000,
+      "max_used_scratch_bytes": 20784064,
+      "regions": [
+        {
+          "alignment_bytes": 16,
+          "byte_size": 8342464,
+          "consumer_reads": true,
+          "end_bytes": 8342464,
+          "may_alias_after_barrier": false,
+          "name": "stage0_c16_padded_carrier",
+          "offset_bytes": 0,
+          "owner": "shared-uma-candidate",
+          "producer_writes": true,
+          "role": "stage0-c16-carrier"
+        },
+        {
+          "alignment_bytes": 16,
+          "byte_size": 12441600,
+          "consumer_reads": true,
+          "end_bytes": 20784064,
+          "may_alias_after_barrier": true,
+          "name": "generated_stage1_to_post_shifted",
+          "offset_bytes": 8342464,
+          "owner": "gpu-only",
+          "producer_writes": true,
+          "role": "generated-stage1-and-tail"
+        },
+        {
+          "alignment_bytes": 16,
+          "byte_size": 96192,
+          "consumer_reads": false,
+          "end_bytes": 20880256,
+          "may_alias_after_barrier": false,
+          "name": "declared_reserve_after_padded_shift",
+          "offset_bytes": 20784064,
+          "owner": "shared-uma-candidate",
+          "producer_writes": false,
+          "role": "declared-reserve"
+        }
+      ],
+      "regions_are_contiguous": true,
+      "regions_are_non_overlapping": true,
+      "reserve_bytes": 96192,
+      "stage0_channels": 16,
+      "stage0_logical_origin": [
+        1,
+        1
+      ],
+      "stage0_origin_has_one_pixel_halo": true,
+      "stage0_row_stride_bytes": 15392,
+      "stage0_storage_size": [
+        962,
+        542
+      ],
+      "stage1_output_offset_bytes": 8342464,
+      "variant": "padded-stage0"
+    },
+    {
+      "capacity": "2160",
+      "capacity_display": [
+        3840,
+        2160
+      ],
+      "declared_scratch_bytes": 83232256,
+      "extra_bytes_vs_dense_current": 0,
+      "fits_declared_scratch": true,
+      "generated_max_scratch_end_bytes": 82944000,
+      "max_used_scratch_bytes": 82944000,
+      "regions": [
+        {
+          "alignment_bytes": 16,
+          "byte_size": 33177600,
+          "consumer_reads": true,
+          "end_bytes": 33177600,
+          "may_alias_after_barrier": false,
+          "name": "stage0_c16_dense_current",
+          "offset_bytes": 0,
+          "owner": "gpu-only",
+          "producer_writes": true,
+          "role": "stage0-c16-carrier"
+        },
+        {
+          "alignment_bytes": 16,
+          "byte_size": 49766400,
+          "consumer_reads": true,
+          "end_bytes": 82944000,
+          "may_alias_after_barrier": true,
+          "name": "generated_stage1_to_post_current",
+          "offset_bytes": 33177600,
+          "owner": "gpu-only",
+          "producer_writes": true,
+          "role": "generated-stage1-and-tail"
+        },
+        {
+          "alignment_bytes": 16,
+          "byte_size": 288256,
+          "consumer_reads": false,
+          "end_bytes": 83232256,
+          "may_alias_after_barrier": false,
+          "name": "declared_reserve_current",
+          "offset_bytes": 82944000,
+          "owner": "gpu-only",
+          "producer_writes": false,
+          "role": "declared-reserve"
+        }
+      ],
+      "regions_are_contiguous": true,
+      "regions_are_non_overlapping": true,
+      "reserve_bytes": 288256,
+      "stage0_channels": 16,
+      "stage0_logical_origin": [
+        0,
+        0
+      ],
+      "stage0_origin_has_one_pixel_halo": false,
+      "stage0_row_stride_bytes": 30720,
+      "stage0_storage_size": [
+        1920,
+        1080
+      ],
+      "stage1_output_offset_bytes": 33177600,
+      "variant": "dense-current"
+    },
+    {
+      "capacity": "2160",
+      "capacity_display": [
+        3840,
+        2160
+      ],
+      "declared_scratch_bytes": 83232256,
+      "extra_bytes_vs_dense_current": 96064,
+      "fits_declared_scratch": true,
+      "generated_max_scratch_end_bytes": 82944000,
+      "max_used_scratch_bytes": 83040064,
+      "regions": [
+        {
+          "alignment_bytes": 16,
+          "byte_size": 33273664,
+          "consumer_reads": true,
+          "end_bytes": 33273664,
+          "may_alias_after_barrier": false,
+          "name": "stage0_c16_padded_carrier",
+          "offset_bytes": 0,
+          "owner": "shared-uma-candidate",
+          "producer_writes": true,
+          "role": "stage0-c16-carrier"
+        },
+        {
+          "alignment_bytes": 16,
+          "byte_size": 49766400,
+          "consumer_reads": true,
+          "end_bytes": 83040064,
+          "may_alias_after_barrier": true,
+          "name": "generated_stage1_to_post_shifted",
+          "offset_bytes": 33273664,
+          "owner": "gpu-only",
+          "producer_writes": true,
+          "role": "generated-stage1-and-tail"
+        },
+        {
+          "alignment_bytes": 16,
+          "byte_size": 192192,
+          "consumer_reads": false,
+          "end_bytes": 83232256,
+          "may_alias_after_barrier": false,
+          "name": "declared_reserve_after_padded_shift",
+          "offset_bytes": 83040064,
+          "owner": "shared-uma-candidate",
+          "producer_writes": false,
+          "role": "declared-reserve"
+        }
+      ],
+      "regions_are_contiguous": true,
+      "regions_are_non_overlapping": true,
+      "reserve_bytes": 192192,
+      "stage0_channels": 16,
+      "stage0_logical_origin": [
+        1,
+        1
+      ],
+      "stage0_origin_has_one_pixel_halo": true,
+      "stage0_row_stride_bytes": 30752,
+      "stage0_storage_size": [
+        1922,
+        1082
+      ],
+      "stage1_output_offset_bytes": 33273664,
+      "variant": "padded-stage0"
+    },
+    {
+      "capacity": "4320",
+      "capacity_display": [
+        7680,
+        4320
+      ],
+      "declared_scratch_bytes": 332352256,
+      "extra_bytes_vs_dense_current": 0,
+      "fits_declared_scratch": true,
+      "generated_max_scratch_end_bytes": 331776000,
+      "max_used_scratch_bytes": 331776000,
+      "regions": [
+        {
+          "alignment_bytes": 16,
+          "byte_size": 132710400,
+          "consumer_reads": true,
+          "end_bytes": 132710400,
+          "may_alias_after_barrier": false,
+          "name": "stage0_c16_dense_current",
+          "offset_bytes": 0,
+          "owner": "gpu-only",
+          "producer_writes": true,
+          "role": "stage0-c16-carrier"
+        },
+        {
+          "alignment_bytes": 16,
+          "byte_size": 199065600,
+          "consumer_reads": true,
+          "end_bytes": 331776000,
+          "may_alias_after_barrier": true,
+          "name": "generated_stage1_to_post_current",
+          "offset_bytes": 132710400,
+          "owner": "gpu-only",
+          "producer_writes": true,
+          "role": "generated-stage1-and-tail"
+        },
+        {
+          "alignment_bytes": 16,
+          "byte_size": 576256,
+          "consumer_reads": false,
+          "end_bytes": 332352256,
+          "may_alias_after_barrier": false,
+          "name": "declared_reserve_current",
+          "offset_bytes": 331776000,
+          "owner": "gpu-only",
+          "producer_writes": false,
+          "role": "declared-reserve"
+        }
+      ],
+      "regions_are_contiguous": true,
+      "regions_are_non_overlapping": true,
+      "reserve_bytes": 576256,
+      "stage0_channels": 16,
+      "stage0_logical_origin": [
+        0,
+        0
+      ],
+      "stage0_origin_has_one_pixel_halo": false,
+      "stage0_row_stride_bytes": 61440,
+      "stage0_storage_size": [
+        3840,
+        2160
+      ],
+      "stage1_output_offset_bytes": 132710400,
+      "variant": "dense-current"
+    },
+    {
+      "capacity": "4320",
+      "capacity_display": [
+        7680,
+        4320
+      ],
+      "declared_scratch_bytes": 332352256,
+      "extra_bytes_vs_dense_current": 192064,
+      "fits_declared_scratch": true,
+      "generated_max_scratch_end_bytes": 331776000,
+      "max_used_scratch_bytes": 331968064,
+      "regions": [
+        {
+          "alignment_bytes": 16,
+          "byte_size": 132902464,
+          "consumer_reads": true,
+          "end_bytes": 132902464,
+          "may_alias_after_barrier": false,
+          "name": "stage0_c16_padded_carrier",
+          "offset_bytes": 0,
+          "owner": "shared-uma-candidate",
+          "producer_writes": true,
+          "role": "stage0-c16-carrier"
+        },
+        {
+          "alignment_bytes": 16,
+          "byte_size": 199065600,
+          "consumer_reads": true,
+          "end_bytes": 331968064,
+          "may_alias_after_barrier": true,
+          "name": "generated_stage1_to_post_shifted",
+          "offset_bytes": 132902464,
+          "owner": "gpu-only",
+          "producer_writes": true,
+          "role": "generated-stage1-and-tail"
+        },
+        {
+          "alignment_bytes": 16,
+          "byte_size": 384192,
+          "consumer_reads": false,
+          "end_bytes": 332352256,
+          "may_alias_after_barrier": false,
+          "name": "declared_reserve_after_padded_shift",
+          "offset_bytes": 331968064,
+          "owner": "shared-uma-candidate",
+          "producer_writes": false,
+          "role": "declared-reserve"
+        }
+      ],
+      "regions_are_contiguous": true,
+      "regions_are_non_overlapping": true,
+      "reserve_bytes": 384192,
+      "stage0_channels": 16,
+      "stage0_logical_origin": [
+        1,
+        1
+      ],
+      "stage0_origin_has_one_pixel_halo": true,
+      "stage0_row_stride_bytes": 61472,
+      "stage0_storage_size": [
+        3842,
+        2162
+      ],
+      "stage1_output_offset_bytes": 132902464,
+      "variant": "padded-stage0"
+    }
+  ]
+}

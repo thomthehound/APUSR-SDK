@@ -1,0 +1,767 @@
+{
+  "schema": "com.apusr.middle_core_stage_ledger.v0",
+  "status": "canonical_planning_contract_for_spatial_core_stage1_to_12",
+  "source_note": "This ledger bridges the logical FSR4 INT8 middle core and APUSR's physical NPU implementation. It records every NPU-owned logical stage 1..12. The older fsr4_middle_core_v0.json file only lists same-scale planning blocks and must not be used as the complete stage list.",
+  "npu_owned_logical_stage_range": [
+    1,
+    12
+  ],
+  "model_family": "fsr4_int8_shape",
+  "parameter_profile": "am020_4x4_base",
+  "public_split": {
+    "gpu_ingress_bookend": 0,
+    "npu_middle_core": [
+      1,
+      12
+    ],
+    "gpu_egress_bookend": 13,
+    "ingress_layout": "zero_guarded_row_major_c16_frame",
+    "internal_layout": "m4x8_block_major_c32_c64_after_front",
+    "egress_layout": "m4x8_cell_major_c16_frame"
+  },
+  "ledger_rules": {
+    "kernel_owns_physical_parameter_format": true,
+    "source_model_owns_tensor_meaning_only": true,
+    "resident_parameters_load_at_model_epoch": true,
+    "hot_path_parameter_streams": 0,
+    "current_resident_slices_are_seed_contracts_not_sacred_layouts": true,
+    "logical_transition_stages_are_first_class_work": true,
+    "allow_visual_discontinuity_on_epoch_switch": true,
+    "forbid_resident_mutation_while_old_work_can_read": true
+  },
+  "activation_cell_shapes": {
+    "c16_cell": {
+      "width": 16,
+      "rows": 8,
+      "channels": 16,
+      "bytes": 2048,
+      "layout": "stage_specific_c16_cell; row_major at ingress-facing front, m4x8 at public egress"
+    },
+    "c16_halo_cell": {
+      "width": 18,
+      "rows": 10,
+      "channels": 16,
+      "bytes": 2880,
+      "layout": "stage_specific_c16_halo_view; front uses row-major tensor DMA, decoder layout is owned by the stage12 primitive"
+    },
+    "c32_cell": {
+      "width": 16,
+      "rows": 8,
+      "channels": 32,
+      "bytes": 4096,
+      "layout": "m4x8_block_major_pixel4_channel8_chunks"
+    },
+    "c32_halo_cell": {
+      "width": 18,
+      "rows": 10,
+      "channels": 32,
+      "bytes": 5760,
+      "layout": "m4x8_consumer_halo_view"
+    },
+    "c64_cell": {
+      "width": 16,
+      "rows": 8,
+      "channels": 64,
+      "bytes": 8192,
+      "layout": "m4x8_block_major_pixel4_channel8_chunks"
+    },
+    "c64_halo_cell": {
+      "width": 18,
+      "rows": 10,
+      "channels": 64,
+      "bytes": 11520,
+      "layout": "m4x8_consumer_halo_view"
+    },
+    "c8_halo_chunk": {
+      "width": 18,
+      "rows": 10,
+      "channels": 8,
+      "bytes": 1440,
+      "layout": "ct2d_direct_quadrant_halo_chunk"
+    }
+  },
+  "physical_roles": [
+    {
+      "name": "front_c16",
+      "stage_group": "front_c16",
+      "primary_logical_stages": [
+        1,
+        2
+      ],
+      "placement": "front row compute tile per macro lane",
+      "resident_policy": "tile-local C16 ConvNext parameter records loaded at model epoch",
+      "live_state": [
+        "front_c16_halo_patch",
+        "skipa_c16_delay_cell"
+      ],
+      "notes": "Consumes compact tensor-DMA C16 halo patches. It must not reintroduce full-row rings or seam ObjectFIFOs."
+    },
+    {
+      "name": "down_c32",
+      "stage_group": "encoder_c32",
+      "primary_logical_stages": [
+        3
+      ],
+      "placement": "C16-to-C32 transition compute tile",
+      "resident_policy": "tile-local downsample record; current arena groups this with stage 4",
+      "live_state": [
+        "c32_cell"
+      ]
+    },
+    {
+      "name": "mid_c32",
+      "stage_group": "encoder_c32",
+      "primary_logical_stages": [
+        4,
+        5
+      ],
+      "placement": "C32 encoder compute tile",
+      "resident_policy": "tile-local FasterNet32 records",
+      "live_state": [
+        "c32_cell",
+        "c32_consumer_halo_view",
+        "skipb_c32_delay_cell"
+      ]
+    },
+    {
+      "name": "down_c64",
+      "stage_group": "bottleneck_c64",
+      "primary_logical_stages": [
+        6
+      ],
+      "placement": "C32-to-C64 transition compute tile",
+      "resident_policy": "tile-local downsample record; current arena groups this with stage 7",
+      "live_state": [
+        "c64_cell"
+      ]
+    },
+    {
+      "name": "bottleneck_c64",
+      "stage_group": "bottleneck_c64",
+      "primary_logical_stages": [
+        7,
+        8
+      ],
+      "placement": "C64 bottleneck compute tile",
+      "resident_policy": "tile-local FasterNet64 records",
+      "live_state": [
+        "c64_cell",
+        "c64_consumer_halo_view"
+      ]
+    },
+    {
+      "name": "up_c32",
+      "stage_group": "decoder_c16",
+      "primary_logical_stages": [
+        9,
+        10
+      ],
+      "placement": "C64-to-C32 decoder compute tile",
+      "resident_policy": "tile-local CT2D32 and FasterNet32 records",
+      "live_state": [
+        "skipb_c32_delay_cell",
+        "ct2d_c8_halo_chunk"
+      ]
+    },
+    {
+      "name": "decoder_c16",
+      "stage_group": "decoder_c16",
+      "primary_logical_stages": [
+        11,
+        12
+      ],
+      "placement": "C32-to-C16 decoder compute tile",
+      "resident_policy": "tile-local CT2D16 and ConvNext16 records",
+      "live_state": [
+        "skipa_c16_delay_cell",
+        "egress_c16_cell"
+      ]
+    },
+    {
+      "name": "egress_pack",
+      "stage_group": "decoder_c16",
+      "primary_logical_stages": [],
+      "placement": "egress path helper tile",
+      "resident_policy": "no model parameters expected unless final pack fusion changes",
+      "live_state": [
+        "egress_c16_cell"
+      ],
+      "notes": "Drains m4x8 C16 cells to the public egress slot. It is not a logical FSR4 stage."
+    }
+  ],
+  "logical_stages": [
+    {
+      "stage": 1,
+      "name": "stage1_convnext16",
+      "operator_family": "ConvNextBlock",
+      "spatial_effect": "same_scale",
+      "input_cell_shape": "c16_halo_cell",
+      "output_cell_shape": "c16_cell",
+      "activation_layout_in": "row_major_c16_channel_inner_tensor_dma_consumer_view",
+      "activation_layout_out": "row_major_c16_channel_inner_before_front_or_m4x8_c16_at_public_egress",
+      "physical_role": "front_c16",
+      "stage_group": "front_c16",
+      "primitive_sequence": [
+        "c16_spatial3x3",
+        "c16_pointwise_expand",
+        "c32_hidden_activation",
+        "c32_to_c16_contract",
+        "c16_residual_add"
+      ],
+      "resident_parameter_group": "stage1_convnext16",
+      "parameter_records": [
+        "spatial3x3.weights0",
+        "spatial3x3.bias0",
+        "spatial3x3.multiplier",
+        "pointwise_expand.weights1",
+        "pointwise_expand.bias1",
+        "pointwise_expand.multiplier",
+        "pointwise_contract.weights2",
+        "pointwise_contract.bias2",
+        "pointwise_contract.multiplier",
+        "residual.multiplier",
+        "residual.shift"
+      ],
+      "parameter_load_timing": "model_epoch",
+      "hot_path_parameter_streams": 0,
+      "skip_role": "none",
+      "consumer_halo_policy": "tensor_dma_front_halo_patch",
+      "implementation_status": "stage1_resident_primitive_implemented_standalone_proof",
+      "notes": [
+        "The current primitive proves the vector/SRS front shape but does not make this whole block numerically final yet.",
+        "Standalone resident Stage-1 graph consumes the packed stage1_convnext16 record loaded by the model-epoch load_params sequence and emits an m4x8 C16 cell."
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "stage2_convnext16_skipa",
+      "operator_family": "ConvNextBlock",
+      "spatial_effect": "same_scale",
+      "input_cell_shape": "c16_halo_cell",
+      "output_cell_shape": "c16_cell",
+      "activation_layout_in": "row_major_c16_channel_inner_tensor_dma_consumer_view",
+      "activation_layout_out": "row_major_c16_channel_inner_before_front_or_m4x8_c16_at_public_egress",
+      "physical_role": "front_c16",
+      "stage_group": "front_c16",
+      "primitive_sequence": [
+        "c16_spatial3x3",
+        "c16_pointwise_expand",
+        "c32_hidden_activation",
+        "c32_to_c16_contract",
+        "c16_residual_add",
+        "emit_skipa_c16_cell"
+      ],
+      "resident_parameter_group": "stage2_convnext16",
+      "parameter_records": [
+        "spatial3x3.weights0",
+        "spatial3x3.bias0",
+        "spatial3x3.multiplier",
+        "pointwise_expand.weights1",
+        "pointwise_expand.bias1",
+        "pointwise_expand.multiplier",
+        "pointwise_contract.weights2",
+        "pointwise_contract.bias2",
+        "pointwise_contract.multiplier",
+        "residual.multiplier",
+        "residual.shift"
+      ],
+      "parameter_load_timing": "model_epoch",
+      "hot_path_parameter_streams": 0,
+      "skip_role": "produces_skipA_for_stage11",
+      "consumer_halo_policy": "stage1_c16_producer_overlap_m4x8_cell_window",
+      "implementation_status": "stage2_resident_primitive_implemented_standalone_proof",
+      "notes": [
+        "SkipA is a delayed C16 cell stream, not a parameter slice and not a host-visible frame spill.",
+        "Stage2 proof consumes a 3x3 m4x8 C16 cell window from Stage1 producer context. It does not synthesize interior halos from seams."
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "stage3_downsample_to_c32",
+      "operator_family": "FusedConv2D_k2s2b_QuantizedOutput",
+      "spatial_effect": "downsample_k2s2",
+      "input_cell_shape": "c16_cell",
+      "output_cell_shape": "c32_cell",
+      "activation_layout_in": "row_major_c16_channel_inner_before_front_or_m4x8_c16_at_public_egress",
+      "activation_layout_out": "m4x8_block_major_pixel4_channel8_chunks",
+      "physical_role": "down_c32",
+      "stage_group": "encoder_c32",
+      "primitive_sequence": [
+        "k2s2_c16_to_c32_downsample",
+        "c32_epilogue_srs"
+      ],
+      "resident_parameter_group": "stage3_4_down_fnb32",
+      "parameter_records": [
+        "downsample.weights",
+        "downsample.bias",
+        "downsample.multiplier"
+      ],
+      "parameter_load_timing": "model_epoch",
+      "hot_path_parameter_streams": 0,
+      "skip_role": "none",
+      "consumer_halo_policy": "none",
+      "implementation_status": "planned_currently_grouped_with_stage4",
+      "notes": [
+        "This is first-class physical transition work. It is not just a packing detail."
+      ]
+    },
+    {
+      "stage": 4,
+      "name": "stage4_fnb32",
+      "operator_family": "FasterNetBlock",
+      "spatial_effect": "same_scale",
+      "input_cell_shape": "c32_halo_cell",
+      "output_cell_shape": "c32_cell",
+      "activation_layout_in": "m4x8_consumer_halo_view",
+      "activation_layout_out": "m4x8_block_major_pixel4_channel8_chunks",
+      "physical_role": "mid_c32",
+      "stage_group": "encoder_c32",
+      "primitive_sequence": [
+        "c32_partial_spatial3x3_c16_of_c32",
+        "c32_pointwise_expand",
+        "c64_hidden_activation",
+        "c64_to_c32_contract",
+        "c32_residual_add"
+      ],
+      "resident_parameter_group": "stage3_4_down_fnb32",
+      "parameter_records": [
+        "partial_spatial3x3.weights0",
+        "partial_spatial3x3.bias0",
+        "partial_spatial3x3.multiplier",
+        "pointwise_expand.weights1",
+        "pointwise_expand.bias1",
+        "pointwise_expand.multiplier",
+        "pointwise_contract.weights2",
+        "pointwise_contract.bias2",
+        "pointwise_contract.multiplier",
+        "residual.multiplier",
+        "residual.shift"
+      ],
+      "parameter_load_timing": "model_epoch",
+      "hot_path_parameter_streams": 0,
+      "skip_role": "none",
+      "consumer_halo_policy": "c32_consumer_halo_view",
+      "implementation_status": "planned_currently_grouped_with_stage3",
+      "notes": []
+    },
+    {
+      "stage": 5,
+      "name": "stage5_fnb32_skipb",
+      "operator_family": "FasterNetBlock",
+      "spatial_effect": "same_scale",
+      "input_cell_shape": "c32_halo_cell",
+      "output_cell_shape": "c32_cell",
+      "activation_layout_in": "m4x8_consumer_halo_view",
+      "activation_layout_out": "m4x8_block_major_pixel4_channel8_chunks",
+      "physical_role": "mid_c32",
+      "stage_group": "encoder_c32",
+      "primitive_sequence": [
+        "c32_partial_spatial3x3_c16_of_c32",
+        "c32_pointwise_expand",
+        "c64_hidden_activation",
+        "c64_to_c32_contract",
+        "c32_residual_add",
+        "emit_skipb_c32_cell"
+      ],
+      "resident_parameter_group": "stage5_fnb32_c8group",
+      "parameter_records": [
+        "partial_spatial3x3.weights0",
+        "partial_spatial3x3.bias0",
+        "partial_spatial3x3.multiplier",
+        "pointwise_expand.weights1",
+        "pointwise_expand.bias1",
+        "pointwise_expand.multiplier",
+        "pointwise_contract.weights2",
+        "pointwise_contract.bias2",
+        "pointwise_contract.multiplier",
+        "residual.multiplier",
+        "residual.shift"
+      ],
+      "parameter_load_timing": "model_epoch",
+      "hot_path_parameter_streams": 0,
+      "skip_role": "produces_skipB_for_stage9",
+      "consumer_halo_policy": "c32_consumer_halo_view",
+      "implementation_status": "planned",
+      "notes": []
+    },
+    {
+      "stage": 6,
+      "name": "stage6_downsample_to_c64",
+      "operator_family": "FusedConv2D_k2s2b_QuantizedOutput",
+      "spatial_effect": "downsample_k2s2",
+      "input_cell_shape": "c32_cell",
+      "output_cell_shape": "c64_cell",
+      "activation_layout_in": "m4x8_block_major_pixel4_channel8_chunks",
+      "activation_layout_out": "m4x8_block_major_pixel4_channel8_chunks",
+      "physical_role": "down_c64",
+      "stage_group": "bottleneck_c64",
+      "primitive_sequence": [
+        "k2s2_c32_to_c64_downsample",
+        "c64_epilogue_srs"
+      ],
+      "resident_parameter_group": "stage6_7_down_fnb64",
+      "parameter_records": [
+        "downsample.weights",
+        "downsample.bias",
+        "downsample.multiplier"
+      ],
+      "parameter_load_timing": "model_epoch",
+      "hot_path_parameter_streams": 0,
+      "skip_role": "none",
+      "consumer_halo_policy": "none",
+      "implementation_status": "planned_currently_grouped_with_stage7",
+      "notes": [
+        "This transition may need its own resident placement if the grouped slice becomes awkward for tile-local loading."
+      ]
+    },
+    {
+      "stage": 7,
+      "name": "stage7_fnb64",
+      "operator_family": "FasterNetBlock",
+      "spatial_effect": "same_scale",
+      "input_cell_shape": "c64_halo_cell",
+      "output_cell_shape": "c64_cell",
+      "activation_layout_in": "m4x8_consumer_halo_view",
+      "activation_layout_out": "m4x8_block_major_pixel4_channel8_chunks",
+      "physical_role": "bottleneck_c64",
+      "stage_group": "bottleneck_c64",
+      "primitive_sequence": [
+        "c64_partial_spatial3x3_c16_of_c64",
+        "c64_pointwise_expand",
+        "c128_hidden_activation",
+        "c128_to_c64_contract",
+        "c64_residual_add"
+      ],
+      "resident_parameter_group": "stage6_7_down_fnb64",
+      "parameter_records": [
+        "partial_spatial3x3.weights0",
+        "partial_spatial3x3.bias0",
+        "partial_spatial3x3.multiplier",
+        "pointwise_expand.weights1",
+        "pointwise_expand.bias1",
+        "pointwise_expand.multiplier",
+        "pointwise_contract.weights2",
+        "pointwise_contract.bias2",
+        "pointwise_contract.multiplier",
+        "residual.multiplier",
+        "residual.shift"
+      ],
+      "parameter_load_timing": "model_epoch",
+      "hot_path_parameter_streams": 0,
+      "skip_role": "none",
+      "consumer_halo_policy": "c64_consumer_halo_view",
+      "implementation_status": "planned_currently_grouped_with_stage6",
+      "notes": []
+    },
+    {
+      "stage": 8,
+      "name": "stage8_fnb64",
+      "operator_family": "FasterNetBlock",
+      "spatial_effect": "same_scale",
+      "input_cell_shape": "c64_halo_cell",
+      "output_cell_shape": "c64_cell",
+      "activation_layout_in": "m4x8_consumer_halo_view",
+      "activation_layout_out": "m4x8_block_major_pixel4_channel8_chunks",
+      "physical_role": "bottleneck_c64",
+      "stage_group": "bottleneck_c64",
+      "primitive_sequence": [
+        "c64_partial_spatial3x3_c16_of_c64",
+        "c64_pointwise_expand",
+        "c128_hidden_activation",
+        "c128_to_c64_contract",
+        "c64_residual_add"
+      ],
+      "resident_parameter_group": "stage8_fnb64",
+      "parameter_records": [
+        "partial_spatial3x3.weights0",
+        "partial_spatial3x3.bias0",
+        "partial_spatial3x3.multiplier",
+        "pointwise_expand.weights1",
+        "pointwise_expand.bias1",
+        "pointwise_expand.multiplier",
+        "pointwise_contract.weights2",
+        "pointwise_contract.bias2",
+        "pointwise_contract.multiplier",
+        "residual.multiplier",
+        "residual.shift"
+      ],
+      "parameter_load_timing": "model_epoch",
+      "hot_path_parameter_streams": 0,
+      "skip_role": "none",
+      "consumer_halo_policy": "c64_consumer_halo_view",
+      "implementation_status": "planned",
+      "notes": []
+    },
+    {
+      "stage": 9,
+      "name": "stage9_ct2d32_add_skipb",
+      "operator_family": "FNB_CT2D_ADD",
+      "spatial_effect": "upsample_ct2d_add",
+      "input_cell_shape": "c64_halo_cell",
+      "output_cell_shape": "c32_cell",
+      "activation_layout_in": "m4x8_consumer_halo_view",
+      "activation_layout_out": "m4x8_block_major_pixel4_channel8_chunks",
+      "physical_role": "up_c32",
+      "stage_group": "decoder_c16",
+      "primitive_sequence": [
+        "ct2d_c64_to_c32_quadrants",
+        "consume_skipB_c32_cell",
+        "c32_add_epilogue_srs"
+      ],
+      "resident_parameter_group": "stage9_ct2d32_chunks",
+      "parameter_records": [
+        "ct2d.weights",
+        "ct2d.bias",
+        "ct2d.multiplier",
+        "skip_add.multiplier"
+      ],
+      "parameter_load_timing": "model_epoch",
+      "hot_path_parameter_streams": 0,
+      "skip_role": "consumes_skipB_from_stage5",
+      "consumer_halo_policy": "ct2d_direct_quadrant_halo",
+      "implementation_status": "planned",
+      "notes": []
+    },
+    {
+      "stage": 10,
+      "name": "stage10_fnb32",
+      "operator_family": "FasterNetBlock",
+      "spatial_effect": "same_scale",
+      "input_cell_shape": "c32_halo_cell",
+      "output_cell_shape": "c32_cell",
+      "activation_layout_in": "m4x8_consumer_halo_view",
+      "activation_layout_out": "m4x8_block_major_pixel4_channel8_chunks",
+      "physical_role": "up_c32",
+      "stage_group": "decoder_c16",
+      "primitive_sequence": [
+        "c32_partial_spatial3x3_c16_of_c32",
+        "c32_pointwise_expand",
+        "c64_hidden_activation",
+        "c64_to_c32_contract",
+        "c32_residual_add"
+      ],
+      "resident_parameter_group": "stage10_fnb32_c8group",
+      "parameter_records": [
+        "partial_spatial3x3.weights0",
+        "partial_spatial3x3.bias0",
+        "partial_spatial3x3.multiplier",
+        "pointwise_expand.weights1",
+        "pointwise_expand.bias1",
+        "pointwise_expand.multiplier",
+        "pointwise_contract.weights2",
+        "pointwise_contract.bias2",
+        "pointwise_contract.multiplier",
+        "residual.multiplier",
+        "residual.shift"
+      ],
+      "parameter_load_timing": "model_epoch",
+      "hot_path_parameter_streams": 0,
+      "skip_role": "none",
+      "consumer_halo_policy": "c32_consumer_halo_view",
+      "implementation_status": "planned",
+      "notes": []
+    },
+    {
+      "stage": 11,
+      "name": "stage11_ct2d16_add_skipa",
+      "operator_family": "FNB_CT2D_ADD",
+      "spatial_effect": "upsample_ct2d_add",
+      "input_cell_shape": "c32_halo_cell",
+      "output_cell_shape": "c16_cell",
+      "activation_layout_in": "m4x8_consumer_halo_view",
+      "activation_layout_out": "row_major_c16_channel_inner_before_front_or_m4x8_c16_at_public_egress",
+      "physical_role": "decoder_c16",
+      "stage_group": "decoder_c16",
+      "primitive_sequence": [
+        "ct2d_c32_to_c16_quadrants",
+        "consume_skipA_c16_cell",
+        "c16_add_epilogue_srs"
+      ],
+      "resident_parameter_group": "stage11_fnb32_ct2d16",
+      "parameter_records": [
+        "ct2d.weights",
+        "ct2d.bias",
+        "ct2d.multiplier",
+        "skip_add.multiplier"
+      ],
+      "parameter_load_timing": "model_epoch",
+      "hot_path_parameter_streams": 0,
+      "skip_role": "consumes_skipA_from_stage2",
+      "consumer_halo_policy": "ct2d_direct_quadrant_halo",
+      "implementation_status": "planned",
+      "notes": []
+    },
+    {
+      "stage": 12,
+      "name": "stage12_convnext16_egress",
+      "operator_family": "ConvNextBlock",
+      "spatial_effect": "same_scale",
+      "input_cell_shape": "c16_halo_cell",
+      "output_cell_shape": "c16_cell",
+      "activation_layout_in": "row_major_c16_channel_inner_tensor_dma_consumer_view",
+      "activation_layout_out": "row_major_c16_channel_inner_before_front_or_m4x8_c16_at_public_egress",
+      "physical_role": "decoder_c16",
+      "stage_group": "decoder_c16",
+      "primitive_sequence": [
+        "c16_spatial3x3",
+        "c16_pointwise_expand",
+        "c32_hidden_activation",
+        "c32_to_c16_contract",
+        "c16_residual_add",
+        "store_m4x8_c16_egress_cell"
+      ],
+      "resident_parameter_group": "stage12_convnext16",
+      "parameter_records": [
+        "spatial3x3.weights0",
+        "spatial3x3.bias0",
+        "spatial3x3.multiplier",
+        "pointwise_expand.weights1",
+        "pointwise_expand.bias1",
+        "pointwise_expand.multiplier",
+        "pointwise_contract.weights2",
+        "pointwise_contract.bias2",
+        "pointwise_contract.multiplier",
+        "residual.multiplier",
+        "residual.shift"
+      ],
+      "parameter_load_timing": "model_epoch",
+      "hot_path_parameter_streams": 0,
+      "skip_role": "none",
+      "consumer_halo_policy": "decoder_c16_consumer_view",
+      "implementation_status": "planned",
+      "notes": [
+        "Final store must remain m4x8 C16 cell-major to match the GPU import shader."
+      ]
+    }
+  ],
+  "current_resident_packing_groups": [
+    {
+      "name": "stage1_convnext16",
+      "logical_stages": [
+        1
+      ],
+      "payload_bytes": 4048,
+      "offset_bytes": 0,
+      "packing_status": "seed_convnext16_record",
+      "split_allowed": false,
+      "preferred_resident_owner": "front_c16"
+    },
+    {
+      "name": "stage2_convnext16",
+      "logical_stages": [
+        2
+      ],
+      "payload_bytes": 4048,
+      "offset_bytes": 4064,
+      "packing_status": "seed_convnext16_record",
+      "split_allowed": false,
+      "preferred_resident_owner": "front_c16"
+    },
+    {
+      "name": "stage3_4_down_fnb32",
+      "logical_stages": [
+        3,
+        4
+      ],
+      "payload_bytes": 10000,
+      "offset_bytes": 8128,
+      "packing_status": "provisional_grouped_transition_plus_block_record",
+      "split_allowed": true,
+      "preferred_resident_owner": "down_c32_or_mid_c32",
+      "notes": "Grouping reflects the current arena seed, not a requirement that stages 3 and 4 share physical tile-local storage."
+    },
+    {
+      "name": "stage5_fnb32_c8group",
+      "logical_stages": [
+        5
+      ],
+      "payload_bytes": 7696,
+      "offset_bytes": 18144,
+      "slice_bytes": 8192,
+      "packing_status": "seed_fnb32_record_with_padding",
+      "split_allowed": false,
+      "preferred_resident_owner": "mid_c32"
+    },
+    {
+      "name": "stage6_7_down_fnb64",
+      "logical_stages": [
+        6,
+        7
+      ],
+      "payload_bytes": 36880,
+      "offset_bytes": 26336,
+      "packing_status": "provisional_grouped_transition_plus_block_record",
+      "split_allowed": true,
+      "preferred_resident_owner": "down_c64_or_bottleneck_c64",
+      "notes": "This is a large record. Splitting is allowed if tile-local residency or load scheduling wants separate transition and bottleneck placement."
+    },
+    {
+      "name": "stage8_fnb64",
+      "logical_stages": [
+        8
+      ],
+      "payload_bytes": 28176,
+      "offset_bytes": 63232,
+      "packing_status": "seed_fnb64_record",
+      "split_allowed": false,
+      "preferred_resident_owner": "bottleneck_c64"
+    },
+    {
+      "name": "stage9_ct2d32_chunks",
+      "logical_stages": [
+        9
+      ],
+      "payload_bytes": 8896,
+      "offset_bytes": 91424,
+      "packing_status": "seed_ct2d32_skip_join_record",
+      "split_allowed": false,
+      "preferred_resident_owner": "up_c32"
+    },
+    {
+      "name": "stage10_fnb32_c8group",
+      "logical_stages": [
+        10
+      ],
+      "payload_bytes": 7696,
+      "offset_bytes": 100320,
+      "packing_status": "seed_fnb32_record",
+      "split_allowed": false,
+      "preferred_resident_owner": "up_c32"
+    },
+    {
+      "name": "stage11_fnb32_ct2d16",
+      "logical_stages": [
+        11
+      ],
+      "payload_bytes": 10064,
+      "offset_bytes": 108032,
+      "packing_status": "seed_ct2d16_skip_join_record",
+      "split_allowed": false,
+      "preferred_resident_owner": "decoder_c16"
+    },
+    {
+      "name": "stage12_convnext16",
+      "logical_stages": [
+        12
+      ],
+      "payload_bytes": 4048,
+      "offset_bytes": 118112,
+      "packing_status": "seed_convnext16_record",
+      "split_allowed": false,
+      "preferred_resident_owner": "decoder_c16"
+    }
+  ],
+  "next_implementation_target": {
+    "logical_stage": 2,
+    "resident_parameter_group": "stage2_convnext16",
+    "goal": "compile and audit the Stage-2 resident proof, then decide whether to link Stage1->Stage2->Stage3/4 through a memory-tile row-ring or keep a split fallback"
+  },
+  "implementation_artifacts": {
+    "resident_record_catalog": "models/fsr4_middle_core_resident_records_v0.json",
+    "current_proof_graph_phases": [
+      "stage1-resident",
+      "stage2-resident",
+      "stage3_4-product-resident"
+    ]
+  }
+}

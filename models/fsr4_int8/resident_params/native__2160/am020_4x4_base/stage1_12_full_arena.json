@@ -1,0 +1,339 @@
+{
+  "alignment_bytes": 4096,
+  "arena_bytes": 122880,
+  "model_permutation": "native__2160",
+  "numeric_status": "best_guess_epilogue_records_seeded_from_npu_parameter_package",
+  "parameter_profile": "am020_4x4_base",
+  "payload_bytes": 122160,
+  "schema": "com.apusr.middle_core_resident_parameter_arena.v1",
+  "sha256": "89fd827f96059b945845e8b091957ae2b826afc50791d09f826e4ddbf6e74092",
+  "source_package": "models/fsr4_int8/planning/npu_parameter_packages/native__2160/am020_4x4_base.json",
+  "stage_slices": [
+    {
+      "name": "stage1_convnext16",
+      "offset_bytes": 0,
+      "padding_bytes": 0,
+      "payload_bytes": 4048,
+      "resident_epilogue_modes": [
+        {
+          "activation_widening": "vector_load_unpack_i8_to_i16_to_i32",
+          "channels": 16,
+          "hot_record_rule": "shift_may_be_omitted",
+          "multiplier_mode": "uniform",
+          "multiplier_value_count": 1,
+          "name": "convnext16.residual",
+          "output_shift": 31,
+          "output_shift_header_lane": 2,
+          "scale_offset_bytes": 3856,
+          "shift_mode": "same_as_output_srs",
+          "shift_offset_bytes": 3920,
+          "shift_values": [
+            31
+          ]
+        }
+      ],
+      "sha256": "07f5a0f0c9151ace808a580e8ceb18736c7ddb856ebeb9bee8aba8e5f36f0504",
+      "slice_bytes": 4048
+    },
+    {
+      "name": "stage2_convnext16",
+      "offset_bytes": 4064,
+      "padding_bytes": 0,
+      "payload_bytes": 4048,
+      "resident_epilogue_modes": [
+        {
+          "activation_widening": "vector_load_unpack_i8_to_i16_to_i32",
+          "channels": 16,
+          "hot_record_rule": "shift_may_be_omitted",
+          "multiplier_mode": "uniform",
+          "multiplier_value_count": 1,
+          "name": "convnext16.residual",
+          "output_shift": 31,
+          "output_shift_header_lane": 2,
+          "scale_offset_bytes": 3856,
+          "shift_mode": "same_as_output_srs",
+          "shift_offset_bytes": 3920,
+          "shift_values": [
+            31
+          ]
+        }
+      ],
+      "sha256": "58b81503ea7f2254eefd01d208db833a4610f4544444792213ba7c96452f529d",
+      "slice_bytes": 4048
+    },
+    {
+      "name": "stage3_4_down_fnb32",
+      "offset_bytes": 8128,
+      "padding_bytes": 0,
+      "payload_bytes": 10000,
+      "resident_epilogue_modes": [
+        {
+          "activation_widening": "vector_load_unpack_i8_to_i16_to_i32",
+          "channels": 32,
+          "hot_record_rule": "shift_must_be_kept_or_prefolded",
+          "multiplier_mode": "split_half",
+          "multiplier_value_count": 2,
+          "name": "fnb32.residual",
+          "output_shift": 31,
+          "output_shift_header_lane": 3,
+          "scale_offset_bytes": 9616,
+          "shift_mode": "requires_residual_shift_handling",
+          "shift_offset_bytes": 9744,
+          "shift_values": [
+            30
+          ]
+        }
+      ],
+      "sha256": "d1a7e204d33389bd76c21973273a978ba74be1fa99ec7fbb976fab9b8ea415ce",
+      "slice_bytes": 10000
+    },
+    {
+      "name": "stage5_fnb32_c8group",
+      "offset_bytes": 18144,
+      "padding_bytes": 496,
+      "payload_bytes": 7696,
+      "resident_epilogue_modes": [
+        {
+          "activation_widening": "vector_load_unpack_i8_to_i16_to_i32",
+          "channels": 32,
+          "hot_record_rule": "shift_must_be_kept_or_prefolded",
+          "multiplier_mode": "split_half",
+          "multiplier_value_count": 2,
+          "name": "fnb32.residual",
+          "output_shift": 31,
+          "output_shift_header_lane": 2,
+          "scale_offset_bytes": 7312,
+          "shift_mode": "requires_residual_shift_handling",
+          "shift_offset_bytes": 7440,
+          "shift_values": [
+            30,
+            31
+          ]
+        }
+      ],
+      "sha256": "abcdd4b3188674802f868ef2ca2c26f20570e2babdebca8130743485b03e8c4f",
+      "slice_bytes": 8192
+    },
+    {
+      "name": "stage6_7_down_fnb64",
+      "offset_bytes": 26336,
+      "padding_bytes": 0,
+      "payload_bytes": 36880,
+      "resident_epilogue_modes": [
+        {
+          "activation_widening": "vector_load_unpack_i8_to_i16_to_i32",
+          "channels": 64,
+          "hot_record_rule": "shift_must_be_kept_or_prefolded",
+          "multiplier_mode": "split_half",
+          "multiplier_value_count": 2,
+          "name": "fnb64.residual",
+          "output_shift": 31,
+          "output_shift_header_lane": 3,
+          "scale_offset_bytes": 31504,
+          "shift_mode": "requires_residual_shift_handling",
+          "shift_offset_bytes": 31760,
+          "shift_values": [
+            30,
+            31
+          ]
+        }
+      ],
+      "sha256": "7f77a6332c49fa01cf9b656f7f3e0248fc9d9f405bee0ab96afdd785a79e4cee",
+      "slice_bytes": 36880
+    },
+    {
+      "name": "stage8_fnb64",
+      "offset_bytes": 63232,
+      "padding_bytes": 0,
+      "payload_bytes": 28176,
+      "resident_epilogue_modes": [
+        {
+          "activation_widening": "vector_load_unpack_i8_to_i16_to_i32",
+          "channels": 64,
+          "hot_record_rule": "shift_may_be_omitted",
+          "multiplier_mode": "split_half",
+          "multiplier_value_count": 2,
+          "name": "fnb64.residual",
+          "output_shift": 31,
+          "output_shift_header_lane": 2,
+          "scale_offset_bytes": 22800,
+          "shift_mode": "same_as_output_srs",
+          "shift_offset_bytes": 23056,
+          "shift_values": [
+            31
+          ]
+        }
+      ],
+      "sha256": "0e148f3e6a9b0e123cf26a24102736cccea7fff7cad84758af68bbc6a8945919",
+      "slice_bytes": 28176
+    },
+    {
+      "name": "stage9_ct2d32_chunks",
+      "offset_bytes": 91424,
+      "padding_bytes": 0,
+      "payload_bytes": 8896,
+      "resident_epilogue_modes": [
+        {
+          "activation_widening": "vector_load_unpack_i8_to_i16_to_i32",
+          "channels": 8,
+          "hot_record_rule": "shift_must_be_kept_or_prefolded",
+          "multiplier_mode": "uniform",
+          "multiplier_value_count": 1,
+          "name": "ct2d32.chunk0.skip",
+          "output_shift": 31,
+          "output_shift_header_lane": 0,
+          "scale_offset_bytes": 2128,
+          "shift_mode": "requires_residual_shift_handling",
+          "shift_offset_bytes": 2160,
+          "shift_values": [
+            30
+          ]
+        },
+        {
+          "activation_widening": "vector_load_unpack_i8_to_i16_to_i32",
+          "channels": 8,
+          "hot_record_rule": "shift_must_be_kept_or_prefolded",
+          "multiplier_mode": "uniform",
+          "multiplier_value_count": 1,
+          "name": "ct2d32.chunk1.skip",
+          "output_shift": 31,
+          "output_shift_header_lane": 0,
+          "scale_offset_bytes": 4352,
+          "shift_mode": "requires_residual_shift_handling",
+          "shift_offset_bytes": 4384,
+          "shift_values": [
+            30
+          ]
+        },
+        {
+          "activation_widening": "vector_load_unpack_i8_to_i16_to_i32",
+          "channels": 8,
+          "hot_record_rule": "shift_may_be_omitted",
+          "multiplier_mode": "uniform",
+          "multiplier_value_count": 1,
+          "name": "ct2d32.chunk2.skip",
+          "output_shift": 31,
+          "output_shift_header_lane": 0,
+          "scale_offset_bytes": 6576,
+          "shift_mode": "same_as_output_srs",
+          "shift_offset_bytes": 6608,
+          "shift_values": [
+            31
+          ]
+        },
+        {
+          "activation_widening": "vector_load_unpack_i8_to_i16_to_i32",
+          "channels": 8,
+          "hot_record_rule": "shift_may_be_omitted",
+          "multiplier_mode": "uniform",
+          "multiplier_value_count": 1,
+          "name": "ct2d32.chunk3.skip",
+          "output_shift": 31,
+          "output_shift_header_lane": 0,
+          "scale_offset_bytes": 8800,
+          "shift_mode": "same_as_output_srs",
+          "shift_offset_bytes": 8832,
+          "shift_values": [
+            31
+          ]
+        }
+      ],
+      "sha256": "a74afcb162b87df00d8d94c5361b7b2b06b0bcdea9ce25500922edfb3ad274ff",
+      "slice_bytes": 8896
+    },
+    {
+      "name": "stage10_fnb32_c8group",
+      "offset_bytes": 100320,
+      "padding_bytes": 0,
+      "payload_bytes": 7696,
+      "resident_epilogue_modes": [
+        {
+          "activation_widening": "vector_load_unpack_i8_to_i16_to_i32",
+          "channels": 32,
+          "hot_record_rule": "shift_must_be_kept_or_prefolded",
+          "multiplier_mode": "split_half",
+          "multiplier_value_count": 2,
+          "name": "fnb32.residual",
+          "output_shift": 31,
+          "output_shift_header_lane": 2,
+          "scale_offset_bytes": 7312,
+          "shift_mode": "requires_residual_shift_handling",
+          "shift_offset_bytes": 7440,
+          "shift_values": [
+            30
+          ]
+        }
+      ],
+      "sha256": "3d67662fb6867a2b68dd770eeda419c932360b605c4c2f6e54f60bac946b89bc",
+      "slice_bytes": 7696
+    },
+    {
+      "name": "stage11_fnb32_ct2d16",
+      "offset_bytes": 108032,
+      "padding_bytes": 0,
+      "payload_bytes": 10064,
+      "resident_epilogue_modes": [
+        {
+          "activation_widening": "vector_load_unpack_i8_to_i16_to_i32",
+          "channels": 32,
+          "hot_record_rule": "shift_may_be_omitted",
+          "multiplier_mode": "split_half",
+          "multiplier_value_count": 2,
+          "name": "fnb32.residual",
+          "output_shift": 31,
+          "output_shift_header_lane": 2,
+          "scale_offset_bytes": 7312,
+          "shift_mode": "same_as_output_srs",
+          "shift_offset_bytes": 7440,
+          "shift_values": [
+            31
+          ]
+        },
+        {
+          "activation_widening": "vector_load_unpack_i8_to_i16_to_i32",
+          "channels": 16,
+          "hot_record_rule": "shift_may_be_omitted",
+          "multiplier_mode": "uniform",
+          "multiplier_value_count": 1,
+          "name": "ct2d16.skip",
+          "output_shift": 31,
+          "output_shift_header_lane": 3,
+          "scale_offset_bytes": 9872,
+          "shift_mode": "same_as_output_srs",
+          "shift_offset_bytes": 9936,
+          "shift_values": [
+            31
+          ]
+        }
+      ],
+      "sha256": "ce0203f815ec1c099f4fd9ef24d99eb38f133d8213f3f76b911734d3cbad441e",
+      "slice_bytes": 10064
+    },
+    {
+      "name": "stage12_convnext16",
+      "offset_bytes": 118112,
+      "padding_bytes": 0,
+      "payload_bytes": 4048,
+      "resident_epilogue_modes": [
+        {
+          "activation_widening": "vector_load_unpack_i8_to_i16_to_i32",
+          "channels": 16,
+          "hot_record_rule": "shift_may_be_omitted",
+          "multiplier_mode": "uniform",
+          "multiplier_value_count": 1,
+          "name": "convnext16.residual",
+          "output_shift": 31,
+          "output_shift_header_lane": 2,
+          "scale_offset_bytes": 3856,
+          "shift_mode": "same_as_output_srs",
+          "shift_offset_bytes": 3920,
+          "shift_values": [
+            31
+          ]
+        }
+      ],
+      "sha256": "b8d7a9aec5059c208a0758e378cec901f3ddb009a2de3292f334bdeb3dc6aedd",
+      "slice_bytes": 4048
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+name: Quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Quality (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Run quality suite (Linux)
+        if: runner.os == 'Linux'
+        run: python tools/quality_check.py --build-timeout 900 --test-timeout 300
+
+      - name: Run quality suite (Windows)
+        if: runner.os == 'Windows'
+        shell: cmd
+        run: |
+          "%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -find "VC\Auxiliary\Build\vcvars64.bat" > "%TEMP%\apusr-vcvars.txt"
+          if errorlevel 1 exit /b 1
+          set /p VCVARS=<"%TEMP%\apusr-vcvars.txt"
+          if not defined VCVARS exit /b 1
+          call "%VCVARS%"
+          if errorlevel 1 exit /b 1
+          python tools\quality_check.py --build-timeout 900 --test-timeout 300

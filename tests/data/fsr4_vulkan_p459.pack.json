@@ -1,0 +1,88 @@
+{
+  "format": "apusr-fsr4-vulkan-shader-pack",
+  "pipelineVariant": "dp4a-optimized",
+  "logicalSlices": 1,
+  "logicalEntries": 16,
+  "uniqueCompileJobs": 16,
+  "physicalBlobs": 16,
+  "packBytes": 1999004,
+  "packSha256": "1638a8fc5941d878ccc75764fb166fee6c4b105e1a2f22023231735668d64062",
+  "compilerProfile": {
+    "vulkanTarget": "1.2",
+    "spirvTarget": "1.5",
+    "shaderModel": "cs_6_6",
+    "hlslVersion": "2021",
+    "optimization": "O3",
+    "enable16BitTypes": true,
+    "dxLayout": true,
+    "descriptorSet": 0,
+    "srvBindingBase": 0,
+    "uavBindingBase": 32,
+    "cbvBindingBase": 64,
+    "samplerBindingBase": 80,
+    "dotAccumulateLowering": "bounded-fused",
+    "vectorLoadStages": [
+      3,
+      6,
+      7,
+      8,
+      9
+    ],
+    "vectorInitializerSrvRegister": 31,
+    "vectorScratchUavRegister": 31,
+    "preInputCache": true,
+    "preInputCacheMaxExtent": 17,
+    "postAdaptiveInputCache": true,
+    "postInputCacheMaxExtent": 18
+  },
+  "dotAccumulate": {
+    "signedDotInstructions": 4074,
+    "signedDotAccumulateInstructions": 18078,
+    "remainingSplitDotAddPairs": 2826,
+    "maxProvenChainDepth": 36,
+    "signedDot4AbsoluteBound": 65536,
+    "maximumExactChainDepth": 32767
+  },
+  "vulkanRequirements": {
+    "minimumApiVersion": "1.2",
+    "spirvCapabilities": [
+      1,
+      9,
+      22,
+      39,
+      49,
+      50,
+      56,
+      68,
+      5350,
+      6018,
+      6019
+    ],
+    "spirvExtensions": [
+      "SPV_KHR_compute_shader_derivatives",
+      "SPV_KHR_integer_dot_product"
+    ],
+    "coreFeatures": [
+      "shaderInt16",
+      "shaderStorageImageExtendedFormats",
+      "shaderStorageImageWriteWithoutFormat"
+    ],
+    "vulkan12Features": [
+      "shaderFloat16",
+      "shaderInt8"
+    ],
+    "extensionFeatures": [
+      "computeDerivativeGroupLinear",
+      "shaderIntegerDotProduct"
+    ],
+    "deviceExtensions": [
+      "VK_KHR_compute_shader_derivatives"
+    ],
+    "deviceExtensionsBelowVulkan13": [
+      "VK_KHR_shader_integer_dot_product"
+    ],
+    "subgroupOperations": [
+      "quad"
+    ]
+  }
+}

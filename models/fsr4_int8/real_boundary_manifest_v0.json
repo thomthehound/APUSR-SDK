@@ -1,0 +1,1563 @@
+{
+  "schema_version": 1,
+  "format": "apusr_fsr4_real_boundary_manifest_v0",
+  "source_note": "Generated from external FSR4 logical_model.json files. This records tensor identity and scale-domain metadata for the real C16 GPU/NPU seam; generated shader headers and resident parameter arenas are the repo-local product artifacts.",
+  "rule": "FFX defines the semantics. APUSR defines the physical contract. GPU shaders serve that contract. NPU kernels consume that contract.",
+  "boundary": {
+    "layout": "NHWC",
+    "dtype": "int8",
+    "channels": 16,
+    "token_bytes": 256,
+    "physical_row_rule": "padded_width=alignUp(logical_width,16); row_pitch_bytes=padded_width*16"
+  },
+  "contracts": [
+    {
+      "mode": "native",
+      "resolution": "1080",
+      "bundle_name": "native__1080",
+      "source_logical_model": "models/fsr4_int8/logical/native__1080/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          1920,
+          1080,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          1920,
+          1080,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.014608594588935375,
+          "scale_domain": "qscale:0.014608594588935375"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.014608594588935375,
+          "scale_domain": "qscale:0.014608594588935375"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.06308986991643906,
+          "scale_domain": "qscale:0.063089869916439056"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.06308986991643906,
+          "scale_domain": "qscale:0.063089869916439056"
+        }
+      }
+    },
+    {
+      "mode": "native",
+      "resolution": "2160",
+      "bundle_name": "native__2160",
+      "source_logical_model": "models/fsr4_int8/logical/native__2160/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          3840,
+          2160,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          3840,
+          2160,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.014608594588935375,
+          "scale_domain": "qscale:0.014608594588935375"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.014608594588935375,
+          "scale_domain": "qscale:0.014608594588935375"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.06308986991643906,
+          "scale_domain": "qscale:0.063089869916439056"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.06308986991643906,
+          "scale_domain": "qscale:0.063089869916439056"
+        }
+      }
+    },
+    {
+      "mode": "native",
+      "resolution": "4320",
+      "bundle_name": "native__4320",
+      "source_logical_model": "models/fsr4_int8/logical/native__4320/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          7680,
+          4320,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          7680,
+          4320,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.014608594588935375,
+          "scale_domain": "qscale:0.014608594588935375"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.014608594588935375,
+          "scale_domain": "qscale:0.014608594588935375"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.06308986991643906,
+          "scale_domain": "qscale:0.063089869916439056"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.06308986991643906,
+          "scale_domain": "qscale:0.063089869916439056"
+        }
+      }
+    },
+    {
+      "mode": "quality",
+      "resolution": "1080",
+      "bundle_name": "quality__1080",
+      "source_logical_model": "models/fsr4_int8/logical/quality__1080/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          1920,
+          1080,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          1920,
+          1080,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.014884727075695992,
+          "scale_domain": "qscale:0.014884727075695992"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.014884727075695992,
+          "scale_domain": "qscale:0.014884727075695992"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.035173576325178146,
+          "scale_domain": "qscale:0.035173576325178146"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.035173576325178146,
+          "scale_domain": "qscale:0.035173576325178146"
+        }
+      }
+    },
+    {
+      "mode": "quality",
+      "resolution": "2160",
+      "bundle_name": "quality__2160",
+      "source_logical_model": "models/fsr4_int8/logical/quality__2160/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          3840,
+          2160,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          3840,
+          2160,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.014884727075695992,
+          "scale_domain": "qscale:0.014884727075695992"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.014884727075695992,
+          "scale_domain": "qscale:0.014884727075695992"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.035173576325178146,
+          "scale_domain": "qscale:0.035173576325178146"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.035173576325178146,
+          "scale_domain": "qscale:0.035173576325178146"
+        }
+      }
+    },
+    {
+      "mode": "quality",
+      "resolution": "4320",
+      "bundle_name": "quality__4320",
+      "source_logical_model": "models/fsr4_int8/logical/quality__4320/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          7680,
+          4320,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          7680,
+          4320,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.014884727075695992,
+          "scale_domain": "qscale:0.014884727075695992"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.014884727075695992,
+          "scale_domain": "qscale:0.014884727075695992"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.035173576325178146,
+          "scale_domain": "qscale:0.035173576325178146"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.035173576325178146,
+          "scale_domain": "qscale:0.035173576325178146"
+        }
+      }
+    },
+    {
+      "mode": "balanced",
+      "resolution": "1080",
+      "bundle_name": "balanced__1080",
+      "source_logical_model": "models/fsr4_int8/logical/balanced__1080/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          1920,
+          1080,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          1920,
+          1080,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.012475206516683102,
+          "scale_domain": "qscale:0.012475206516683102"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.012475206516683102,
+          "scale_domain": "qscale:0.012475206516683102"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.03317117691040039,
+          "scale_domain": "qscale:0.033171176910400391"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.03317117691040039,
+          "scale_domain": "qscale:0.033171176910400391"
+        }
+      }
+    },
+    {
+      "mode": "balanced",
+      "resolution": "2160",
+      "bundle_name": "balanced__2160",
+      "source_logical_model": "models/fsr4_int8/logical/balanced__2160/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          3840,
+          2160,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          3840,
+          2160,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.012475206516683102,
+          "scale_domain": "qscale:0.012475206516683102"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.012475206516683102,
+          "scale_domain": "qscale:0.012475206516683102"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.03317117691040039,
+          "scale_domain": "qscale:0.033171176910400391"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.03317117691040039,
+          "scale_domain": "qscale:0.033171176910400391"
+        }
+      }
+    },
+    {
+      "mode": "balanced",
+      "resolution": "4320",
+      "bundle_name": "balanced__4320",
+      "source_logical_model": "models/fsr4_int8/logical/balanced__4320/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          7680,
+          4320,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          7680,
+          4320,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.012475206516683102,
+          "scale_domain": "qscale:0.012475206516683102"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.012475206516683102,
+          "scale_domain": "qscale:0.012475206516683102"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.03317117691040039,
+          "scale_domain": "qscale:0.033171176910400391"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.03317117691040039,
+          "scale_domain": "qscale:0.033171176910400391"
+        }
+      }
+    },
+    {
+      "mode": "performance",
+      "resolution": "1080",
+      "bundle_name": "performance__1080",
+      "source_logical_model": "models/fsr4_int8/logical/performance__1080/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          1920,
+          1080,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          1920,
+          1080,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.014811458997428417,
+          "scale_domain": "qscale:0.014811458997428417"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.014811458997428417,
+          "scale_domain": "qscale:0.014811458997428417"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.027212543413043022,
+          "scale_domain": "qscale:0.027212543413043022"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.027212543413043022,
+          "scale_domain": "qscale:0.027212543413043022"
+        }
+      }
+    },
+    {
+      "mode": "performance",
+      "resolution": "2160",
+      "bundle_name": "performance__2160",
+      "source_logical_model": "models/fsr4_int8/logical/performance__2160/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          3840,
+          2160,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          3840,
+          2160,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.014811458997428417,
+          "scale_domain": "qscale:0.014811458997428417"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.014811458997428417,
+          "scale_domain": "qscale:0.014811458997428417"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.027212543413043022,
+          "scale_domain": "qscale:0.027212543413043022"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.027212543413043022,
+          "scale_domain": "qscale:0.027212543413043022"
+        }
+      }
+    },
+    {
+      "mode": "performance",
+      "resolution": "4320",
+      "bundle_name": "performance__4320",
+      "source_logical_model": "models/fsr4_int8/logical/performance__4320/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          7680,
+          4320,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          7680,
+          4320,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.014811458997428417,
+          "scale_domain": "qscale:0.014811458997428417"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.014811458997428417,
+          "scale_domain": "qscale:0.014811458997428417"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.027212543413043022,
+          "scale_domain": "qscale:0.027212543413043022"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.027212543413043022,
+          "scale_domain": "qscale:0.027212543413043022"
+        }
+      }
+    },
+    {
+      "mode": "drs",
+      "resolution": "1080",
+      "bundle_name": "drs__1080",
+      "source_logical_model": "models/fsr4_int8/logical/drs__1080/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          1920,
+          1080,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          1920,
+          1080,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.013469061814248562,
+          "scale_domain": "qscale:0.013469061814248562"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.013469061814248562,
+          "scale_domain": "qscale:0.013469061814248562"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.028251888230443,
+          "scale_domain": "qscale:0.028251888230443001"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.028251888230443,
+          "scale_domain": "qscale:0.028251888230443001"
+        }
+      }
+    },
+    {
+      "mode": "drs",
+      "resolution": "2160",
+      "bundle_name": "drs__2160",
+      "source_logical_model": "models/fsr4_int8/logical/drs__2160/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          3840,
+          2160,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          3840,
+          2160,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.013469061814248562,
+          "scale_domain": "qscale:0.013469061814248562"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.013469061814248562,
+          "scale_domain": "qscale:0.013469061814248562"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.028251888230443,
+          "scale_domain": "qscale:0.028251888230443001"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.028251888230443,
+          "scale_domain": "qscale:0.028251888230443001"
+        }
+      }
+    },
+    {
+      "mode": "drs",
+      "resolution": "4320",
+      "bundle_name": "drs__4320",
+      "source_logical_model": "models/fsr4_int8/logical/drs__4320/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          7680,
+          4320,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          7680,
+          4320,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.013469061814248562,
+          "scale_domain": "qscale:0.013469061814248562"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.013469061814248562,
+          "scale_domain": "qscale:0.013469061814248562"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.028251888230443,
+          "scale_domain": "qscale:0.028251888230443001"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.028251888230443,
+          "scale_domain": "qscale:0.028251888230443001"
+        }
+      }
+    },
+    {
+      "mode": "ultraperf",
+      "resolution": "1080",
+      "bundle_name": "ultraperf__1080",
+      "source_logical_model": "models/fsr4_int8/logical/ultraperf__1080/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          1920,
+          1080,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          1920,
+          1080,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.011951033025979996,
+          "scale_domain": "qscale:0.011951033025979996"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.011951033025979996,
+          "scale_domain": "qscale:0.011951033025979996"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.02520766295492649,
+          "scale_domain": "qscale:0.025207662954926491"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            960,
+            540,
+            16
+          ],
+          "quantization_scale": 0.02520766295492649,
+          "scale_domain": "qscale:0.025207662954926491"
+        }
+      }
+    },
+    {
+      "mode": "ultraperf",
+      "resolution": "2160",
+      "bundle_name": "ultraperf__2160",
+      "source_logical_model": "models/fsr4_int8/logical/ultraperf__2160/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          3840,
+          2160,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          3840,
+          2160,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.011951033025979996,
+          "scale_domain": "qscale:0.011951033025979996"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.011951033025979996,
+          "scale_domain": "qscale:0.011951033025979996"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.02520766295492649,
+          "scale_domain": "qscale:0.025207662954926491"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            1920,
+            1080,
+            16
+          ],
+          "quantization_scale": 0.02520766295492649,
+          "scale_domain": "qscale:0.025207662954926491"
+        }
+      }
+    },
+    {
+      "mode": "ultraperf",
+      "resolution": "4320",
+      "bundle_name": "ultraperf__4320",
+      "source_logical_model": "models/fsr4_int8/logical/ultraperf__4320/logical_model.json",
+      "model_input": {
+        "tensor_id": "passes:NHWC_inputs",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          7680,
+          4320,
+          7
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "model_output": {
+        "tensor_id": "passes:fused_quantized_NHWC_output",
+        "dtype": "float16",
+        "layout": "NHWC",
+        "logical_size": [
+          7680,
+          4320,
+          8
+        ],
+        "quantization_scale": null,
+        "scale_domain": null
+      },
+      "ingress": {
+        "producer_pass": 0,
+        "producer": {
+          "tensor_id": "passes:slice_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.011951033025979996,
+          "scale_domain": "qscale:0.011951033025979996"
+        },
+        "consumer_pass": 1,
+        "consumer": {
+          "tensor_id": "passes:quantized_NHWC__encoder2_ResidualBlock_0_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.011951033025979996,
+          "scale_domain": "qscale:0.011951033025979996"
+        }
+      },
+      "egress": {
+        "producer_pass": 12,
+        "producer": {
+          "tensor_id": "passes:slice_24",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.02520766295492649,
+          "scale_domain": "qscale:0.025207662954926491"
+        },
+        "consumer_pass": 13,
+        "consumer": {
+          "tensor_id": "passes:fused_quantized_NHWC__decoder2_ResidualBlock_2_body_input_quantization_act_quant_export_handler_QuantizeLinear_output_0",
+          "dtype": "int8",
+          "layout": "NHWC",
+          "logical_size": [
+            3840,
+            2160,
+            16
+          ],
+          "quantization_scale": 0.02520766295492649,
+          "scale_domain": "qscale:0.025207662954926491"
+        }
+      }
+    }
+  ]
+}

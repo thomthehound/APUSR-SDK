@@ -1,0 +1,62 @@
+# RDF
+
+Radeon data file library. Check the [specification](docs/specification.md) for details about the file format.
+
+This repository contains the main library (`amdrdf`) as well as a few useful binaries:
+
+* `rdfm` merges two files together (assuming they contain disjoint data)
+* `rdfi` dumps information about a file (what chunks it contains, etc.)
+* `rdfg` generates a chunk file from a JSON description (useful for testing)
+
+## Overview
+
+RDF files consist of named chunks. You can think of a file as a list of chunks that you can index using a name. File formats are built on top of RDF by defining chunk names and chunk contents. If you need a new file format, all you need to agree on is a unique set of chunk names and you're good to go. Chunks can be optionally compressed and versioned, which removes the need for versioning whole files.
+
+The same chunk can appear multiple times in a file. They'll get enumerated so it's perfectly fine to have a `Mesh` chunk for each mesh and simply add as often as needed. The full chunk identifier is the chunk name and the index. Chunks are always consecutively numbered in a file.
+
+A chunk consists of a header and the data. The difference between those is that the header is always uncompressed and meant to contain only very little data (they might get all loaded in memory for instance). The data part can be optionally compressed.
+
+There is a C and a C++ API. The C API is the "low level" API that is exported from the DLL/shared object. RDF also comes with a C++ wrapper that uses the C API to simplify usage.
+
+Chunk files are assumed to be immutable, so the code is split into a `ChunkFile` class which represents the (immutable) file, and a `ChunkFileWriter` which can be used to create a new file. Additionally, RDF exposes a stream abstraction to allow reading/writing from disk, memory, or other sources.
+
+## Versioning
+
+The `amdrdf` library provides the following forwards/backwards compatibility guarantees:
+
+* For the same major version, any minor version will only *add* new entry points and enumeration values, but existing entry points will not change. Using a higher minor version is always safe. Files created by a newer library *may* not be compatible with older files if new features are used. For example, a new compression codec could be added as part of a minor API change as this is an extension only. However, as long as no new feature is used, all files produced by a newer minor version will remain compatible with older minor versions.
+* New major versions *may* add, remove or change entry points. Files created by a newer major version *may* not be compatible with older *major* versions. Files created by an older major version will be supported for *at least* the next higher major version.
+* A minor version can deprecate a function, but that function can be only removed in the next major release.
+* From version 1.2 on, the ABI is also guaranteed to remain compatible between minor versions (i.e. 1.3 is a drop-in replacement for 1.2 and requires no recompilation.)
+
+Use `RDF_INTERFACE_VERSION` and `RDF_MAKE_VERSION` to check for the library version.
+
+Patch releases (for example, `1.1.1`) will be bumped for bug fixes and other improvements.
+
+## Changelog
+
+* **1.0**: Initial release
+* **1.1**: Improve naming consistency: Add `rdfStreamFromUserStream`, mark `rdfStreamCreateFromUserStream` as deprecated
+* **1.1.1**: Fix `rdfChunkFileContainsChunk` returning `rdfResultError` when a chunk was not found instead of `rdfResultOk`  
+* **1.1.2**:
+  * Fix `rdfChunkFileWriterWriteChunk`, `rdfChunkFileWriterEndChunk` returning indices starting at 0 when in append mode instead of counting off the actual contents of the file
+  * Fix `rdfChunkFileWriterWriteChunk`, `rdfChunkFileWriterBeginChunk` returning an error when using identifiers of the maximum allowed length (i.e. without a trailing null-terminator.) and a non-zero header pointer
+  * Clients can now `#define RDF_CHECK_CALL` before including `amdrdf.h` to customize how errors are handled in the C++ bindings
+  * Move constructors in the C++ bindings have been marked as `noexcept`
+* **1.1.3**:
+  * Fix missing includes on GCC13
+  * Update `Zstd` dependency from 1.4.5 to 1.5.5
+* **1.2.0**
+  * Add support for [VCPKG](https://vcpkg.io/)
+    * The library can be now consumed via VCPKG
+    * The build can optionally use VCPKG to fetch dependencies
+  * Add a new `Close` callback function to `rdfUserStream`. This allows wrapped user streams to clean up the wrapped object, making it easier to track lifetime. ⚠️ This is an ABI breaking change.
+* **1.3.0**
+  * Internal refactoring to the internal stream abstraction. It no longer exposes `Seek()` and `Tell()`. There's no change to user streams for now; but a future release will switch to a matching API or may expose a new user stream which doesn't expose `Seek()`, `Tell()`. If you're implementing a custom stream, you'll notice that every read and write operation will be preceded by a `Seek()` now.
+  
+    This also clarifies how stream wrapping works. Previously undocumented, but assumed, was that the stream was at position 0, and not modified outside. It was already a bug before if those conditions weren't true, but now it's actually documented.
+  * Fix bug in `rdfm` which would incorrectly write the last chunk's data when merging an empty chunk.
+  * Change validation for the `rdfChunkFileReadChunk*` read functions such that a `nullptr` for the `buffer` argument is valid if the requested size is 0. Previously, this would fail with an invalid argument error.
+  * Remove support for [VCPKG](https://vcpkg.io/) again. Unfortunately, the upstream port file has never been finished, and the relatively intrusive support added in 1.2 caused more problems than it solved. If there's interest in re-adding VCPKG support, please open an issue or PR.
+* **1.4.0**
+  * Allow files to be opened in shareable mode. An 'is_shareable' flag has been added to the rdfStreamFromFileCreateInfo structure (default is false).

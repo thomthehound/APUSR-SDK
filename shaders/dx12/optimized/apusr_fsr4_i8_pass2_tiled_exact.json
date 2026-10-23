@@ -1,0 +1,65 @@
+{
+  "schema_version": 5,
+  "name": "apusr-fsr4-i8-pass2-tiled-exact",
+  "entry_point": "apusr_fsr4_i8_pass2_tiled_exact",
+  "target_profile": "cs_6_6",
+  "hlsl_version": "2021",
+  "enable_16bit_types": true,
+  "pipeline_variant": "dp4a-optimized",
+  "presets": [
+    "native",
+    "quality",
+    "balanced",
+    "performance",
+    "drs",
+    "ultraperf"
+  ],
+  "frame_capacities": [
+    "1080",
+    "2160",
+    "4320"
+  ],
+  "logical_stage_range": [
+    2,
+    2
+  ],
+  "kind": "stage2-single-stage-exact-tile-reference-dispatch-pass2-native",
+  "execution_model": "dot4-dp4a",
+  "implemented_runtime_replacement": true,
+  "shader_artifact_available": true,
+  "strict_reference_graph_unchanged": true,
+  "requires_stage0_semantic_change": true,
+  "dispatch_contract": {
+    "numthreads": [
+      64,
+      2,
+      1
+    ],
+    "preserves_generated_pass2_dispatch_grid": false,
+    "requires_optimized_two_row_dispatch_grid": true
+  },
+  "tile_contract": {
+    "output_tile": [
+      64,
+      2,
+      16
+    ],
+    "input_halo_tile": [
+      66,
+      4,
+      16
+    ],
+    "groupshared_input_bytes": 4224,
+    "one_thread_per_output_pixel": true,
+    "active_display_edge_handling": "shader derives active C16 width/height from MLSR constants width/height and zeroes active-display halo/padding outside that tensor",
+    "supports_partial_final_strip": true,
+    "does_not_assume_even_group_count": true,
+    "capacity_strided_scratch": true,
+    "input_offset_contract": "reads Stage1 from paddedStage0Bytes because optimized pass1 writes after padded Stage0 carrier",
+    "input_halo_pixels": 264,
+    "input_halo_dwords": 1056,
+    "two_output_rows_per_group": true
+  },
+  "correctness_gate": "candidate Stage2 output must match strict generated pass2 output before Stage3 consumes it",
+  "optimization_revision": "tileh2"
+}

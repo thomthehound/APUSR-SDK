@@ -1,0 +1,12 @@
+; SPDX-License-Identifier: Apache-2.0
+; Copyright (c) 2026 thomthehound.
+
+LIBRARY apusr_streamline_attach
+EXPORTS
+    apusrAttachToLoadedStreamline
+    apusrAttachToStreamlineModule
+    apusrStreamlineAttachHintRenderApi
+    apusrStreamlineAttachGetRenderApi
+    apusrStreamlineAttachBindD3D12NativeDevice
+    apusrStreamlineVulkanDlssEvaluationActive
+    apusrStreamlineAttachInstalled

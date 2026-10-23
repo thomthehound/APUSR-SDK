@@ -1,0 +1,352 @@
+{
+  "schema": "com.apusr.middle_core_stage_placement.v0",
+  "status": "connectivity_first_pass_not_final_timing_model",
+  "source_ledger": "models/fsr4_middle_core_stage_ledger_v0.json",
+  "source_note": "This placement layer classifies first-order fusion/fission boundaries from activation shapes, role ownership, AM020-class tile memory, DMA channels, and neighbor sharing. It does not claim final timing, program-memory, register-pressure, or compiler-schedule viability.",
+  "policy": {
+    "stage_ledger_is_source_of_truth": true,
+    "same_physical_role_does_not_imply_monolithic_kernel_fusion": true,
+    "consumer_halo_requires_expanded_footprint_or_internal_boundary": true,
+    "transition_stages_are_first_class_split_candidates": true,
+    "profile_status_must_not_canonicalize_4col_without_measurement": false,
+    "two_col_may_be_dropped_only_after_hard_resource_or_compile_evidence": false,
+    "hot_path_parameter_streams": 0,
+    "spatial4col_is_canonical_product_profile": true,
+    "spatial2col_is_diagnostic_only": true,
+    "producer_rings_require_physical_memory_tile_placement": true,
+    "worker_groups_are_independent_product_units": true,
+    "cross_worker_frame_hot_dependencies_forbidden": true,
+    "npu1_four_column_worker_is_product_floor": true,
+    "phoenix_npu1_is_memory_budget_floor": true,
+    "worker_rings_are_sharded_across_worker_memory_tiles": true,
+    "stage1_2_worker_ring_phase": "stage1_2-worker-ring-resident",
+    "stage1_4_worker_ring_phase": "stage1_4-worker-ring-resident",
+    "stage1_2_to_stage3_4_worker_ring_phase": "stage1_2-to-stage3_4-worker-ring-resident",
+    "stage2_to_stage3_4_c16_ring_requires_per_column_shards_on_npu1": true,
+    "stage2_to_stage3_4_memtile_ring_schedule": "middle_core_memtile_ring_schedule.py",
+    "stage2_to_stage3_4_ring_skipA_tap": "tee_on_stage2_row_production",
+    "ring_eviction_callbacks_per_cell": 0,
+    "wrapped_ring_windows_split_by_row_segment": true
+  },
+  "am020_connectivity_assumptions": {
+    "compute_tile_data_memory_bytes": 65536,
+    "compute_tile_program_memory_bytes": 16384,
+    "compute_tile_dma_s2mm_channels": 2,
+    "compute_tile_dma_mm2s_channels": 2,
+    "memory_tile_data_memory_bytes": 524288,
+    "memory_tile_dma_channels": 12,
+    "memory_tile_neighbor_dma_channels": 8,
+    "memory_tile_neighbor_access": "east_west",
+    "compute_tile_neighbor_memory_visibility": true,
+    "semaphore_locks_per_memory_module": 16,
+    "notes": [
+      "Neighbor sharing is a data-movement path; it does not increase local compute-tile or memory-tile capacity.",
+      "A same-role placement decision means the stages should be scheduled near each other. It does not mean their spatial kernels can ignore intermediate halo needs.",
+      "This model intentionally ignores final latency and instruction-memory pressure until generated MLIR/xclbin evidence is available."
+    ]
+  },
+  "profile_feasibility": {
+    "spatial2col": {
+      "verdict": "diagnostic_only_not_product_candidate",
+      "confidence": "high_after_stage1_stage2_ring_analysis",
+      "reason": "The two-column macro-lane remains useful for compile diagnostics, but it is not the product placement. Stage1->Stage2 needs a producer-owned C16 row-major activation ring; coupling ingress, SkipA, SkipB, and egress into two memory-tile roles leaves too little clean placement margin.",
+      "macro_lane_columns": 2,
+      "compute_tiles_per_macro_lane": 8,
+      "memory_tiles_per_macro_lane": 2,
+      "memory_tile_pressure": [
+        {
+          "tile": "mem0",
+          "role": "ingress_skipa",
+          "pressure": "coupled",
+          "risk": "front C16 halo ingress and long-lived SkipA delay share one physical memory tile"
+        },
+        {
+          "tile": "mem1",
+          "role": "skipb_egress",
+          "pressure": "coupled",
+          "risk": "SkipB delay and final C16 egress share one physical memory tile"
+        }
+      ],
+      "drop_condition": "keep selectable for small compile proofs and scalar/vector audits; do not use as the canonical product profile for producer-ring work."
+    },
+    "spatial4col": {
+      "verdict": "canonical_product_profile",
+      "confidence": "medium_high_compile_and_resource_evidence",
+      "reason": "The four-column macro-lane gives separate memory-tile roles for ingress/front C16 producer rings, SkipA, SkipB/transition staging, and egress. That is the physical placement needed for Stage1->Stage2 producer-owned row-major activation rings without DDR spill.",
+      "macro_lane_columns": 4,
+      "compute_tiles_per_macro_lane": 16,
+      "memory_tiles_per_macro_lane": 4,
+      "memory_tile_pressure": [
+        {
+          "tile": "mem0",
+          "role": "ingress",
+          "pressure": "isolated",
+          "risk": "normal front halo ingress pressure only"
+        },
+        {
+          "tile": "mem1",
+          "role": "skipa",
+          "pressure": "isolated",
+          "risk": "SkipA delay plus neighbor traffic toward decoder path"
+        },
+        {
+          "tile": "mem2",
+          "role": "skipb",
+          "pressure": "isolated",
+          "risk": "SkipB delay plus C32/C64 transition adjacency"
+        },
+        {
+          "tile": "mem3",
+          "role": "egress",
+          "pressure": "isolated",
+          "risk": "final C16 egress pressure only"
+        }
+      ],
+      "promote_condition": "already promoted for product work; keep measuring against 2col diagnostics when useful."
+    }
+  },
+  "role_fusion_groups": [
+    {
+      "role": "front_c16",
+      "logical_stages": [
+        1,
+        2
+      ],
+      "default_placement": "same_physical_role",
+      "fusion_status": "same_tile_candidate_with_internal_halo_boundary",
+      "reason": "Stage 2 needs a C16 halo of Stage 1 output. Monolithic fusion requires Stage 1 to compute an expanded intermediate footprint.",
+      "parameter_implication": "keep stage1_convnext16 and stage2_convnext16 as separate resident records until expanded-footprint fusion is proven"
+    },
+    {
+      "role": "down_c32",
+      "logical_stages": [
+        3
+      ],
+      "default_placement": "transition_tile",
+      "fusion_status": "standalone_first_class_transition",
+      "reason": "Stage 3 changes C16 to C32 and should not be hidden inside packing logic.",
+      "parameter_implication": "stage3 may split out of the provisional stage3_4_down_fnb32 group"
+    },
+    {
+      "role": "mid_c32",
+      "logical_stages": [
+        4,
+        5
+      ],
+      "default_placement": "same_physical_role",
+      "fusion_status": "same_tile_candidate_with_internal_halo_boundary",
+      "reason": "Stage 5 needs a C32 halo of Stage 4 output. Local scheduling is likely useful, but blind fusion would be incorrect.",
+      "parameter_implication": "keep stage4 and stage5 records independently addressable"
+    },
+    {
+      "role": "down_c64",
+      "logical_stages": [
+        6
+      ],
+      "default_placement": "transition_tile",
+      "fusion_status": "standalone_first_class_transition",
+      "reason": "Stage 6 changes C32 to C64 and feeds the highest-pressure bottleneck channel count.",
+      "parameter_implication": "stage6 may split out of the provisional stage6_7_down_fnb64 group"
+    },
+    {
+      "role": "bottleneck_c64",
+      "logical_stages": [
+        7,
+        8
+      ],
+      "default_placement": "same_physical_role",
+      "fusion_status": "same_tile_candidate_but_c64_halo_pressure_is_high",
+      "reason": "Stage 8 needs a C64 halo of Stage 7 output; C64 halo elements are large enough that depth should stay one until measured.",
+      "parameter_implication": "stage7 and stage8 records must remain independently placeable"
+    },
+    {
+      "role": "up_c32",
+      "logical_stages": [
+        9,
+        10
+      ],
+      "default_placement": "same_physical_role_candidate",
+      "fusion_status": "ct2d_then_same_scale_candidate",
+      "reason": "Stage 10 needs a C32 halo of Stage 9 output. This may be profitable if CT2D emits the needed halo chunks directly.",
+      "parameter_implication": "stage9 CT2D/SkipB records and stage10 FNB32 records must remain independently addressable"
+    },
+    {
+      "role": "decoder_c16",
+      "logical_stages": [
+        11,
+        12
+      ],
+      "default_placement": "same_physical_role_candidate",
+      "fusion_status": "ct2d_then_convnext_candidate_with_internal_halo_boundary",
+      "reason": "Stage 12 needs a C16 halo of Stage 11 output. Fusion is possible only if Stage 11 emits an expanded C16 footprint or the tile materializes an internal halo view.",
+      "parameter_implication": "stage11 and stage12 records stay separate until decoder fusion is measured"
+    },
+    {
+      "role": "egress_pack",
+      "logical_stages": [],
+      "default_placement": "helper_or_eliminated",
+      "fusion_status": "prefer_eliminate_or_fuse_into_stage12_when_dma_pressure_allows",
+      "reason": "Stage 12 should eventually write the public m4x8 C16 egress layout directly unless a helper tile improves egress DMA scheduling.",
+      "parameter_implication": "no model parameters expected for egress_pack"
+    }
+  ],
+  "boundary_decisions": [
+    {
+      "producer_stage": 1,
+      "consumer_stage": 2,
+      "default_decision": "same_physical_role_internal_halo_boundary",
+      "connection_class": "same_role_local_or_neighbor_view",
+      "hard_split": false,
+      "fusion_option": "expanded_c16_footprint_fusion",
+      "defer_reason": "Stage 2 requires a C16 halo of Stage 1 output.",
+      "parameter_implication": "separate resident records; do not merge stage1/stage2 packing yet"
+    },
+    {
+      "producer_stage": 2,
+      "consumer_stage": 3,
+      "default_decision": "physical_split",
+      "connection_class": "front_to_downsample_transition",
+      "hard_split": true,
+      "fusion_option": "none_for_first_product_path",
+      "defer_reason": "Stage 2 emits SkipA and Stage 3 changes C16 to C32.",
+      "parameter_implication": "stage3 owns a transition record independent of stage2"
+    },
+    {
+      "producer_stage": 3,
+      "consumer_stage": 4,
+      "default_decision": "physical_split_likely",
+      "connection_class": "transition_to_same_scale_halo_consumer",
+      "hard_split": false,
+      "fusion_option": "expanded_downsample_footprint",
+      "defer_reason": "Stage 4 requires a C32 halo of Stage 3 output.",
+      "parameter_implication": "provisional group stage3_4_down_fnb32 should remain splittable"
+    },
+    {
+      "producer_stage": 4,
+      "consumer_stage": 5,
+      "default_decision": "same_physical_role_internal_halo_boundary",
+      "connection_class": "same_role_local_or_neighbor_view",
+      "hard_split": false,
+      "fusion_option": "expanded_c32_footprint_fusion",
+      "defer_reason": "Stage 5 requires a C32 halo of Stage 4 output.",
+      "parameter_implication": "stage4 and stage5 records stay independent"
+    },
+    {
+      "producer_stage": 5,
+      "consumer_stage": 6,
+      "default_decision": "physical_split",
+      "connection_class": "skipb_producer_to_c64_transition",
+      "hard_split": true,
+      "fusion_option": "none_for_first_product_path",
+      "defer_reason": "Stage 5 emits SkipB and Stage 6 changes C32 to C64.",
+      "parameter_implication": "stage6 owns a transition record independent of stage5"
+    },
+    {
+      "producer_stage": 6,
+      "consumer_stage": 7,
+      "default_decision": "physical_split_likely",
+      "connection_class": "transition_to_c64_halo_consumer",
+      "hard_split": false,
+      "fusion_option": "expanded_downsample_footprint",
+      "defer_reason": "Stage 7 requires a C64 halo of Stage 6 output; C64 halo pressure is high.",
+      "parameter_implication": "provisional group stage6_7_down_fnb64 should remain splittable"
+    },
+    {
+      "producer_stage": 7,
+      "consumer_stage": 8,
+      "default_decision": "same_physical_role_internal_halo_boundary",
+      "connection_class": "same_role_c64_local_or_neighbor_view",
+      "hard_split": false,
+      "fusion_option": "expanded_c64_footprint_fusion",
+      "defer_reason": "Stage 8 requires a C64 halo of Stage 7 output; keep depth one unless measured otherwise.",
+      "parameter_implication": "stage7 and stage8 records stay independent"
+    },
+    {
+      "producer_stage": 8,
+      "consumer_stage": 9,
+      "default_decision": "physical_split_with_direct_handoff",
+      "connection_class": "bottleneck_to_ct2d_transition",
+      "hard_split": true,
+      "fusion_option": "none_for_first_product_path",
+      "defer_reason": "Stage 9 is a C64-to-C32 CT2D/SkipB join and should remain a decoder transition boundary.",
+      "parameter_implication": "stage9 owns CT2D and SkipB join records"
+    },
+    {
+      "producer_stage": 9,
+      "consumer_stage": 10,
+      "default_decision": "same_physical_role_candidate",
+      "connection_class": "ct2d_to_c32_halo_consumer",
+      "hard_split": false,
+      "fusion_option": "ct2d_emits_expanded_c32_halo_chunks",
+      "defer_reason": "Stage 10 requires a C32 halo of Stage 9 output.",
+      "parameter_implication": "stage9 and stage10 records stay independent until CT2D halo emission is proven"
+    },
+    {
+      "producer_stage": 10,
+      "consumer_stage": 11,
+      "default_decision": "physical_split",
+      "connection_class": "c32_decoder_to_skipa_join_transition",
+      "hard_split": true,
+      "fusion_option": "none_for_first_product_path",
+      "defer_reason": "Stage 11 is a C32-to-C16 CT2D/SkipA join and consumes long-lived SkipA.",
+      "parameter_implication": "stage11 owns CT2D and SkipA join records"
+    },
+    {
+      "producer_stage": 11,
+      "consumer_stage": 12,
+      "default_decision": "same_physical_role_candidate_with_internal_halo_boundary",
+      "connection_class": "ct2d_to_c16_halo_consumer",
+      "hard_split": false,
+      "fusion_option": "ct2d_emits_expanded_c16_halo_chunks",
+      "defer_reason": "Stage 12 requires a C16 halo of Stage 11 output.",
+      "parameter_implication": "stage11 and stage12 records stay independent until decoder fusion is measured"
+    },
+    {
+      "producer_stage": 12,
+      "consumer_stage": "egress_pack",
+      "default_decision": "prefer_fuse_or_eliminate_helper",
+      "connection_class": "decoder_to_public_egress",
+      "hard_split": false,
+      "fusion_option": "stage12_writes_public_m4x8_c16_directly",
+      "defer_reason": "Keep egress_pack only if it improves DMA scheduling or isolates egress pressure.",
+      "parameter_implication": "no extra resident model record for egress_pack"
+    }
+  ],
+  "next_decisions": [
+    {
+      "decision": "stage1_stage2_stage3_4_worker_ring_compile_carrier",
+      "status": "compile_carrier_proven_product_schedule_next",
+      "reason": "The Stage1+2 -> Stage3/4 carrier compiles cleanly. The product implementation now needs the same Stage2-output tensor window backed by worker-local memory-tile ring shards with a production-time SkipA tee.",
+      "graph_phases": [
+        "stage1_2-worker-ring-resident",
+        "stage1_4-worker-ring-resident",
+        "stage1_2-to-stage3_4-worker-ring-resident"
+      ],
+      "schedule_tool": "tools/analysis/middle_core_memtile_ring_schedule.py",
+      "control_policy": {
+        "skipA_spill": "tee_on_stage2_row_production",
+        "ring_eviction": "slot_reuse_not_per_cell_callback",
+        "per_cell_dma_tasks": 0,
+        "wrapped_windows": "split_into_at_most_two_row_segments"
+      }
+    },
+    "Implement the Stage1->Stage2 producer ring inside a single four-column worker first; npu1 has exactly one worker and must not require a peer worker.",
+    "Use auto worker groups only to instantiate independent copies of the same four-column worker on wider devices; split frame ownership, but do not introduce frame-hot cross-worker dependencies.",
+    "Keep spatial2col selectable for compile diagnostics only; product ring and skip planning targets spatial4col.",
+    "Implement the Stage2->Stage3/4 ring as worker-local memory-tile row shards; tee SkipA on Stage2 row production and treat eviction as slot reuse.",
+    "Measure the spatial4col on-chip ring path against DDR spill before making the DDR fallback permanent.",
+    "Keep stage3_4_down_fnb32 and stage6_7_down_fnb64 splittable until compile/timing evidence proves the fused paths are better."
+  ],
+  "worker_group_contract": {
+    "schema_version": 1,
+    "profile": "spatial4col",
+    "worker_is_atomic_product_unit": true,
+    "worker_columns": 4,
+    "npu1_auto_worker_groups": 1,
+    "npu2_auto_worker_groups": 2,
+    "auto_semantics": "instantiate as many independent four-column workers as fit and split frame stripes between them",
+    "cross_worker_frame_hot_dependencies": false,
+    "cross_worker_guard_exchange": false,
+    "guard_policy": "each worker owns or redundantly computes any horizontal guard columns it needs inside its own four-column placement; true frame edges use the explicit boundary contract"
+  }
+}
