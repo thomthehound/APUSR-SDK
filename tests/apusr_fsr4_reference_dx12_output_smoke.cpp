@@ -145,7 +145,12 @@ std::wstring adapterName(IDXGIAdapter1* adapter)
 bool isSoftwareAdapter(IDXGIAdapter1* adapter)
 {
     DXGI_ADAPTER_DESC1 desc{};
-    return adapter != nullptr && SUCCEEDED(adapter->GetDesc1(&desc)) && ((desc.Flags & DXGI_ADAPTER_FLAG_SOFTWARE) != 0);
+    if (adapter == nullptr || FAILED(adapter->GetDesc1(&desc))) {
+        return false;
+    }
+    // Some hosted Windows images enumerate Microsoft Basic Render Driver with
+    // the software flag unset. It is still a CPU adapter, not product hardware.
+    return (desc.Flags & DXGI_ADAPTER_FLAG_SOFTWARE) != 0 || desc.VendorId == 0x1414u;
 }
 
 void dumpD3D12Messages(ID3D12Device* device)
@@ -595,7 +600,7 @@ int main()
     ComPtr<ID3D12Device> device;
     if (!createDevice(device)) {
         std::cerr << "No D3D12-capable device or WARP fallback was available; skipping DX12 output smoke.\n";
-        return 0;
+        return 77;
     }
 
     D3D12_COMMAND_QUEUE_DESC queueDesc{};
@@ -792,6 +797,6 @@ int main()
 int main()
 {
     std::cout << "apusr_fsr4_reference_dx12_output_smoke skipped: native DX12 is not enabled for this platform.\n";
-    return 0;
+    return 77;
 }
 #endif

@@ -835,7 +835,7 @@ int validateShaderPack()
 
 } // namespace
 
-int main()
+int runContract()
 {
     static_assert(std::is_trivially_copyable_v<ApusrFramegenShaderBlob>);
     if (const int shaderPackResult = validateShaderPack(); shaderPackResult != 0) return 10 + shaderPackResult;
@@ -2131,33 +2131,33 @@ int main()
 
     // AMD's swapchain uses a separate interpolation/readiness thread precisely
     // so waiting for the next FI completion can overlap the current pair's
-    // G->source display interval. Regress that topology directly: a 35 ms FI
-    // readiness wait for pair N+1 must run while pair N is spending 20 ms on
-    // its source target, leaving N+1 ready in time for its 40 ms midpoint. A
-    // single monolithic presenter would begin the 35 ms wait only after pair N
-    // and would miss N+1's useful generated-frame window.
+    // G->source display interval. A 60 ms FI readiness wait for pair N+1 must
+    // overlap pair N's 45 ms source interval and complete within N+1's 90 ms
+    // generation budget. A serial presenter would start that wait after 45 ms
+    // and miss the 90 ms deadline. The 30 ms scheduling margin also prevents
+    // host timer jitter from invalidating this concurrency contract.
     g_presentEvents.clear();
     g_presentationOrder.clear();
     g_relativeTimingSupported = false;
     g_generationReady = false;
     g_timelineWaitSucceeds = true;
-    g_timelineWaitDelayMs = 35u;
+    g_timelineWaitDelayMs = 60u;
     const std::uint32_t overlapWaitCallsBefore = g_timelineWaitCalls;
     ApusrFramegenVulkanPresentation* overlapPresentation = nullptr;
     auto overlapDescription = presentationDescription;
-    overlapDescription.initialSourceFrameTimeMs = 40.0f;
+    overlapDescription.initialSourceFrameTimeMs = 90.0f;
     if (apusrFramegenCreateVulkanPresentation(
             overlapDescription, {}, &overlapPresentation) != APUSR_FRAMEGEN_OK ||
         !overlapPresentation) return 54053;
     auto overlapFirst = pacedSchedule;
     overlapFirst.frameId = 910u;
-    overlapFirst.sourceFrameTimeMs = 40.0f;
+    overlapFirst.sourceFrameTimeMs = 90.0f;
     if (apusrFramegenScheduleVulkanPresentation(
             overlapPresentation, overlapFirst) != APUSR_FRAMEGEN_OK) return 54054;
     auto overlapSecond = directWsiPresentationSchedule;
     overlapSecond.frameId = 911u;
     overlapSecond.paceGeneratedFrame = true;
-    overlapSecond.sourceFrameTimeMs = 40.0f;
+    overlapSecond.sourceFrameTimeMs = 90.0f;
     if (apusrFramegenScheduleVulkanPresentation(
             overlapPresentation, overlapSecond) != APUSR_FRAMEGEN_OK) return 54055;
     apusrFramegenDrainVulkanPresentation(overlapPresentation);
@@ -2165,7 +2165,16 @@ int main()
         g_presentEvents.size() != 4u ||
         !g_presentEvents[0].generated || g_presentEvents[1].generated ||
         !g_presentEvents[2].generated || g_presentEvents[3].generated ||
-        !g_directDecisionPresented || !g_directDecisionBridgePrepared) return 54056;
+        !g_directDecisionPresented || !g_directDecisionBridgePrepared) {
+        std::fprintf(stderr,
+            "overlap: timeline_waits=%u expected=%u events=%zu direct_present=%d bridge=%d sequence=",
+            g_timelineWaitCalls, overlapWaitCallsBefore + 1u, g_presentEvents.size(),
+            g_directDecisionPresented, g_directDecisionBridgePrepared);
+        for (const auto& event : g_presentEvents)
+            std::fprintf(stderr, "%c", event.generated ? 'G' : 'S');
+        std::fprintf(stderr, "\n");
+        return 54056;
+    }
     apusrFramegenDestroyVulkanPresentation(overlapPresentation, {});
     g_timelineWaitDelayMs = 0u;
     g_timelineWaitSucceeds = false;
@@ -2229,4 +2238,13 @@ int main()
 
     std::puts("APUSR Vulkan FrameGen contract: retained virtual source, split graphics/async-compute ownership, private-WSI replay, slot timelines, and recovery validated");
     return 0;
+}
+
+int main()
+{
+    const int result = runContract();
+    if (result != 0) {
+        std::fprintf(stderr, "APUSR Vulkan FrameGen contract failed at check %d\n", result);
+    }
+    return result;
 }

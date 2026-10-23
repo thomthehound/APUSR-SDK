@@ -61,7 +61,6 @@ def main() -> int:
             "ctest",
             "--test-dir", str(args.build_dir),
             "--output-on-failure",
-            "--stop-on-failure",
             "-L", "quality",
         ],
         timeout=args.test_timeout,
