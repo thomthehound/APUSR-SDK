@@ -1,34 +1,23 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!-- Copyright (c) 2026 thomthehound. -->
 
-# Repository hygiene policy
+# Repository hygiene
 
-The repository should describe and build the current project, not preserve a chronological transcript of how it was discovered.
+Documentation and distributable source describe the current implementation, reproducible results, and outstanding engineering work.
 
 ## Keep
 
-- active runtime/backend/frontend source;
-- tests that protect current behavior or non-obvious invariants;
-- tools required to generate, inspect, package, or profile current products;
-- durable architecture and performance documentation;
-- reproducible experiments that remain technically relevant;
-- third-party source/reference material only when its provenance and redistribution terms are clear.
+- Active runtime/backend/frontend interfaces and behavior.
+- Tests that detect current regressions and tools required to build or profile the product.
+- Measured performance findings with workload, hardware, and configuration context.
+- Reproducible experiments under `experiments/` with an explicit outcome.
+- Imported source and generated products accompanied by provenance and redistribution notices.
 
-## Remove or quarantine
+## Remove or isolate
 
-- private build/archive numbering;
-- chronological development notes after their durable lessons are documented;
-- game-specific debugging narratives after their durable lesson is extracted;
-- stale hypotheses and superseded decision logs;
-- generated profiler output and local capture artifacts;
-- retired implementation modes and their dedicated tests;
-- duplicate third-party working trees or normalization/export workspaces;
-- binary/reference documentation that does not need to be redistributed with the project.
+- Private archive/build identifiers, local captures, and generated build output.
+- Retired code paths and duplicate extraction or generator workspaces.
+- Debugging chronology that adds no durable contract or reproducible result.
+- Hypotheses presented as implemented runtime behavior.
 
-## Documentation rule
-
-When an experiment produces a durable result, update the owning architecture/performance document. Do not add a new permanent document whose only organizing principle is "what changed in this build."
-
-## Diagnostics rule
-
-A diagnostic tool should exist because it answers a current engineering question and should be named for that function. Diagnostics remain opt-in and must not become a product execution mode by accident.
+When findings affect production invariants, update the owning architecture, backend, or performance document. Diagnostics are opt-in and must not alter the disabled product path.

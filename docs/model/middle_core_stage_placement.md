@@ -1,7 +1,9 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!-- Copyright (c) 2026 thomthehound. -->
 
-# Middle-core stage placement
+# Experimental NPU middle-core stage placement
+
+The NPU placement plan is experimental and does not define current GPU inference.
 
 `models/fsr4_middle_core_stage_placement_v0.json` is the first-order placement
 and fusion/fission plan for the stage ledger. It answers a narrower question
@@ -20,7 +22,7 @@ boundary permanently.
 
 ## Current profile verdict
 
-`spatial4col` is now the canonical product profile. The Stage1→Stage2
+`spatial4col` is the selected experimental NPU spatial profile. The Stage1→Stage2
 producer-ring work changed this from a taste question into a physical placement
 question. Stage 2 needs a row-major C16 producer activation ring from Stage 1.
 That ring belongs in memory-tile storage, not compute-tile L1 and not DDR.
@@ -400,7 +402,7 @@ neighboring AIE-ML communication. APUSR now uses that shape for the Stage1+2 to
 Stage3 handoff. The next capability gap is true multi-consumer ownership of one
 shared object: Stage3 should be able to consume the Stage2 macroblock while the
 SkipA spill path drains the same produced object, without a second L1 sideband
-copy. If IRON/ObjectFifo cannot express that ownership model cleanly, we should
+copy. If IRON/ObjectFifo cannot express that ownership model cleanly, the implementation should
 upstream or add a lower-level primitive for shared-memory ObjectFifo fanout with
 explicit locks/lifetimes. Until then, the primary graph keeps a small rasterized
 SkipA sideband and documents it as a software limitation, not a hardware ideal.

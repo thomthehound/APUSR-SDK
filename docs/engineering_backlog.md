@@ -7,15 +7,15 @@ This is the project-wide index for unresolved correctness, performance, compatib
 
 The backlog is organized by durable issue and required engineering outcome.
 
-## P0 — Public-repository hardening
+## P0 — Release engineering and CI
 
 **State:** active.
 
 - Keep Apache-2.0 source headers and DCO contribution policy consistent as the tree evolves.
 - Re-audit third-party redistribution whenever a dependency, SDK snapshot, generated vendor payload, or model source changes.
-- Add continuous integration for the supported Windows build/test configurations.
-- Document reproducible toolchain requirements, package outputs, and known host limitations.
-- Remove remaining generated/debug artifacts from the source tree and enforce this through `.gitignore`/quality checks.
+- Keep Windows and Linux CI green, including compiler-specific generated shader-product validation.
+- Maintain reproducible toolchain requirements, package outputs, and known host limitations.
+- Prevent generated/debug artifacts from entering version control through `.gitignore` and quality checks.
 - Establish a stable release/versioning policy for public tags and releases.
 
 ## P0 — Host compatibility without semantic duplication
@@ -99,6 +99,12 @@ Open questions include:
 - register/LDS pressure versus DP4A kernels;
 - opportunities for fusion that remove memory traffic rather than merely dispatch count;
 - whether the current compiler stack exposes the required AMD-native operations consistently across DXIL and SPIR-V.
+
+## P2 — FSR model-version research
+
+**State:** research.
+
+Characterize FSR 4.1.x Full and Lite network topology, parameter formats, quantization, dispatch scheduling, and temporal state. Preserve version-specific contracts until independent output validation and hardware-cost measurements justify product selection.
 
 ## P2 — NPU/XRT/MLIR-AIE execution
 

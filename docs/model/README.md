@@ -1,27 +1,23 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!-- Copyright (c) 2026 thomthehound. -->
 
-# FSR4 model/parameter bridge
+# Model and parameter documentation
 
-This folder records the FSR4 INT8 model knowledge APUSR needs after the
-`ffxnpu` cleanup. It is intentionally not a copy of the raw extraction workspace.
+The product GPU path implements an FSR 4.0.2-derived INT8 model on D3D12 and Vulkan. The runtime selects the model permutation, quality preset, capacity, parameter epoch, passes, and scratch resources. AIE/NPU documents describe experiments, not production execution.
 
-Read these in order:
+## GPU model and runtime
 
-1. `fsr4_parameter_provenance.md` — where the model data comes from and which
-   artifacts APUSR keeps.
-2. `fsr4_parameter_usage_map.md` — how the extracted parameters map onto the
-   GPU bookends and the NPU middle core.
-3. `middle_core_stage_ledger.md` — the canonical logical-stage to physical-row
-   and resident-parameter planning contract.
-4. `middle_core_stage_placement.md` — the first-order fusion/fission and
-   2col/4col connectivity plan.
-5. `middle_core_resident_primitives.md` — the reusable resident-primitive record
-   workflow and current proof-instance notes.
-6. `apusr_parameter_packing_plan.md` — the current resident arena contract and
-   the rules for future APUSR-native packing.
-7. `model_epoch_runtime_contract.md` — how resident parameters are programmed
-   outside the frame-hot path.
+- [Model and comparative shader analysis](models_fsr4.md)
+- [Reference baseline](fsr4_int8_reference_baseline.md), [runner](fsr4_reference_runner.md), [import](fsr4_reference_import.md)
+- [Parameter provenance](fsr4_parameter_provenance.md), [usage](fsr4_parameter_usage_map.md), [packing](apusr_parameter_packing_plan.md)
+- [D3D12 backend](fsr4_reference_dx12_backend.md), [descriptor plan](fsr4_reference_dx12_descriptor_plan.md)
+- [DP4A/tiled fusion research](fsr4_int8_dp4a_tiled_fusion_plan.md)
 
-The shader files stay in APUSR as active reference material. The raw/logical
-extraction bundles stay out of APUSR.
+## Experimental NPU partitioning
+
+- [Middle-core stage ledger](middle_core_stage_ledger.md)
+- [Stage placement](middle_core_stage_placement.md)
+- [Resident primitives](middle_core_resident_primitives.md)
+- [Model epoch contract](model_epoch_runtime_contract.md)
+
+Raw model extraction workspaces are not distributed with APUSR. Redistributable generated model material and licenses are under `models/fsr4_int8/`.

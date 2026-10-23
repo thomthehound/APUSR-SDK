@@ -1,9 +1,9 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!-- Copyright (c) 2026 thomthehound. -->
 
-# Middle-core kernel notes
+# Experimental AIE kernel implementation notes
 
-The product ABI is a complete frame-slot run:
+The proposed NPU ABI is a complete frame-slot run:
 
 ```text
 sequence(param_arena, ingress_frame, egress_frame)
@@ -14,7 +14,7 @@ The host submits complete frame slots. Internal microtiles, cells, halos, stage
 slices, and worker groups are AIE graph details and must not become host-visible
 work again.
 
-## Current kernel status
+## Experimental kernel status
 
 The non-product `apusr_middle_core_stage1_12_full_arena_2col` graph is quarantined under
 `kernels/quarantine/apusr_middle_core_stage1_12_full_arena_2col_failed_v0`.

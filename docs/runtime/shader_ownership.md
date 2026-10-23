@@ -3,7 +3,7 @@
 
 # Shader ownership policy
 
-The product path does not carry a synthetic DOT4 shader/model scaffold. FSR4 correctness is defined by the imported reference graph and APUSR-owned equivalent optimized variants; synthetic stand-ins are not valid hot-path fallbacks.
+The FSR4 4.0.2-derived reference graph defines the model's numerical and resource contracts. The production D3D12 and Vulkan implementations may specialize shader lowering and resource layouts, but neither may silently substitute a different network or an unvalidated approximation.
 
 The current reference baseline is the imported FFX/FSR4 INT8 graph under:
 
@@ -13,7 +13,7 @@ models/fsr4_int8/reference/fsr4_4_0_2_int8/
 
 That artifact set supplies the preset-specific pre shader, generated middle passes, post shader, shared include tree, and `initializers.bin`.  DX12 shader cache entries are generated from that imported graph by the `tools/model/compile_fsr4_reference_dx12_shaders.py` flow and consumed by `Dx12Fsr4ReferenceRuntime`.
 
-Future WMMA, Vulkan, or NPU-island work must replace a named imported reference dispatch and keep a compareable reference dispatch available.  Do not add approximate bookends, fake parameter blobs, or locally invented model-middle shaders to the reference route.
+The Vulkan implementation is already a native product backend. Future WMMA and NPU variants must identify the reference dispatches they replace, keep a comparable baseline, and validate their tensor, quantization, temporal, and resource semantics. Approximate bookends or substituted model-middle computations are not part of the reference path.
 
 Allowed shader families:
 

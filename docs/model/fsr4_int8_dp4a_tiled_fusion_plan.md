@@ -114,7 +114,7 @@ The main hazards are:
 5. resize behavior: changing scratch capacity at runtime can force descriptor/resource recreation and cause game-visible stalls.
 ```
 
-So scratch layout changes are allowed, and we should make them when they buy performance or simplify the pipeline.  They should go through a named layout contract, helper/audit coverage, and shader/runtime updates together instead of being patched as isolated constants.
+Scratch-layout changes are permitted when they improve measured performance or simplify execution. They require a named layout contract, audit coverage, and coordinated shader/runtime changes.
 
 The practical workflow for scratch manipulation is:
 

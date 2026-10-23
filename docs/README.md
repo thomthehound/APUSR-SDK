@@ -22,7 +22,6 @@ APUSR documentation is organized around current architecture, supported behavior
 ## Runtime and integration
 
 - [Interface](runtime/interface.md)
-- [Transport](runtime/transport.md)
 - [Shader ownership](runtime/shader_ownership.md)
 - [Streamline feature compatibility](integration/streamline_feature_compatibility.md)
 - [NGX/DLSS frontend](integration/ngx_dlss_frontend.md)
@@ -37,7 +36,7 @@ APUSR documentation is organized around current architecture, supported behavior
 - [Reference baseline](model/fsr4_int8_reference_baseline.md)
 - [Reference import](model/fsr4_reference_import.md)
 - [Reference runner](model/fsr4_reference_runner.md)
-- [DX12 reference backend](model/fsr4_reference_dx12_backend.md)
+- [D3D12 reference recorder](model/fsr4_reference_dx12_backend.md)
 - [DX12 descriptor plan](model/fsr4_reference_dx12_descriptor_plan.md)
 - [DX12 root-signature plan](model/fsr4_reference_dx12_root_signature_plan.md)
 - [DX12 shader provider](model/fsr4_reference_dx12_shader_provider.md)
@@ -47,7 +46,10 @@ APUSR documentation is organized around current architecture, supported behavior
 
 ## NPU and future acceleration research
 
-These documents describe experimental directions and do not represent the current product path.
+These documents describe experimental directions and do not represent the current GPU execution path. Their NPU model-epoch and frame-slot contracts apply to the experimental XRT/MLIR-AIE backend, not to D3D12/Vulkan inference.
+
+- [NPU frame-slot transport](runtime/transport.md)
+- [Experimental model-epoch contract](model/model_epoch_runtime_contract.md)
 
 - [XRT notes](research/xrt_notes.md)
 - [MLIR-AIE notes](research/mlir_aie_notes.md)

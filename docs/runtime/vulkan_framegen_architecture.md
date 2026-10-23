@@ -3,13 +3,13 @@
 
 # Vulkan Frame Generation architecture
 
-This document is the authoritative architecture contract for APUSR Vulkan Frame Generation. The implementation is defined by the ownership, lifetime, synchronization, and presentation rules below.
+Vulkan frame generation uses retained source images, APUSR-private queues, explicit resource ownership, and a separate physical WSI presenter. The following sections define its scheduling and lifetime contracts.
 
 ## Design objective
 
 APUSR treats the application's source frame as mandatory and every generated frame as opportunistic. Heavy optical-flow/frame-interpolation work must never turn the game render queue, virtual acquire path, or physical WSI path into a FIFO behind obsolete generated work.
 
-The final-form hot path is built around these invariants:
+The hot path maintains these invariants:
 
 1. the application-visible virtual backbuffer is the retained source frame; there is no second full-resolution source snapshot;
 2. the application's binary render-finished signal is consumed once and fanned out to independent APUSR consumers;
@@ -300,7 +300,7 @@ image. Saturation is therefore treated as a broken lifetime/admission invariant,
 as load to be "fixed" by draining presentation work on the application's present
 thread.
 
-### FG-off recovery debt
+### Native-presentation recovery after FG disable
 
 Disabling interpolation is **not yet equivalent to restoring a native Vulkan swapchain** in hosts that keep an APUSR-virtualized swapchain alive. Their source-only path still pays the proxy replay copy and synchronization, so a general drop-in-safe lifecycle must eventually cause or coordinate native swapchain recreation before zero-overhead post-FG recovery can be claimed.
 

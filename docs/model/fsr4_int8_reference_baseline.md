@@ -46,7 +46,7 @@ amd_fidelityfx_dx12.dll
 
 The DLL must carry the reference shaders and initializers it needs for exposed FSR4 INT8 modes.  A build directory, repo checkout, external shader cache, reflection manifest, or runtime compiler may be useful for development, but none of them may be required for the release drop-in path.
 
-## No fake success
+## Acceptance criteria
 
 The reference baseline must not contain fake output routes, approximate bookends, placeholder parameters, runtime shader guessing, or validation-only frame work.  Developer diagnostics are allowed only when explicitly enabled and must not be part of release hot-path execution.
 

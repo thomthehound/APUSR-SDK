@@ -1,11 +1,11 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!-- Copyright (c) 2026 thomthehound. -->
 
-# Frame-slot transport
+# Experimental NPU frame-slot transport
 
-The transport layer moves one complete FSR4 model-seam frame through the NPU with minimal host involvement.
+This document defines the proposed XRT/MLIR-AIE frame-slot transport. Current D3D12 and Vulkan product upscalers execute inference on the GPU; this NPU transport is experimental.
 
-The product C16 transport now has two explicit physical layouts:
+The experimental C16 transport has two physical layouts:
 
 - ingress: **row-major C16/NHWC-ish frame storage**, with a one-pixel zero guard for front spatial halos;
 - egress: **cell-major `m4x8` C16 frame storage**, matching the NPU decoder's native 4-pixel × 8-channel vector stores.
@@ -29,7 +29,7 @@ halo_view_width = seam_width + 2
 halo_view_rows  = seam_rows + 2
 ```
 
-This is the canonical hardware-backed front carrier. It is not a patch-major scratch frame and it does not duplicate one patch per output cell.
+This is the selected experimental front carrier. It is not a patch-major scratch frame and it does not duplicate one patch per output cell.
 
 The egress layout is cell-major and `m4x8` inside each 16×8 C16 cell:
 

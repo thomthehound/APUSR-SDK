@@ -1,7 +1,9 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!-- Copyright (c) 2026 thomthehound. -->
 
-# FSR4 INT8 DX12 reference backend
+# FSR4 INT8 D3D12 reference recorder
+
+This reference recorder predates the optimized product pipeline and remains a correctness/descriptor baseline. Its historical integration notes are not current product status.
 
 This backend is the first implementation-side consumer of the API-neutral FSR4
 INT8 graph and resource plan.  Its current job is to turn the reference plan into
@@ -21,10 +23,7 @@ native DX12 runtime work while keeping DX12 details below the model layer:
 - keep this backend behind an APUSR-owned seam so the future Vulkan backend can
   consume the same graph instead of copying frontend logic.
 
-The backend can now record the native DX12 command sequence in a controlled path.
-It is still not wired as the default in-game replacement path; the next product
-step is a controlled frame validation harness and then frontend integration once
-resource contents and image parity are understood.
+The reference recorder can record a native D3D12 command sequence in a controlled validation path. Product D3D12 integration exists separately through the FidelityFX/NGX frontends; use [project status](../status.md) for the implemented runtime boundary.
 
 ## Shader compile contract
 

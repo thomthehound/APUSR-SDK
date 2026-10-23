@@ -198,7 +198,7 @@ For Vulkan SR optimization, keep the workload and frame contract stable, collect
 
 `APUSR_DX12_GPU_TIMESTAMPS`, `APUSR_VULKAN_GPU_TIMESTAMPS`, and `APUSR_FRAMEGEN_VULKAN_GPU_TIMESTAMPS` remain usable for existing workflows. The unified profiler reuses those timestamp-query implementations instead of creating a second parallel GPU-timing mechanism. `.aprof` is the preferred format for new tuning work.
 
-## Remaining reach goals
+## Planned instrumentation
 
 The broad GPU/CPU feature set is now close to the point where further work becomes platform-specific rather than missing core profiler architecture. The remaining measurements are ones APUSR should only add when there is a trustworthy, non-perturbative source:
 

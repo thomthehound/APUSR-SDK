@@ -1,15 +1,15 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!-- Copyright (c) 2026 thomthehound. -->
 
-# Native FSR4-style successor lessons
+# Prospective APUSR-native model-binding design
 
-These notes are for the future APUSR-native, highly portable APU upscaler that will be based on the FSR4 INT8 model contract but will not be forced to keep FFX's exact DX12 binding shape forever.
+This design note separates reference FSR4 bindings from prospective APUSR-owned model manifests and backend lowering. The reference runtime remains the correctness baseline; the proposed binding changes are not a completed alternate inference pipeline.
 
 The current reference runner has one job: behave like the imported `ffxint8` INT8 implementation.  For that path, the generated shaders define the binding contract.  If `u11` means `ScratchBuffer` in one dispatch and `rw_rcas_output` in another, the backend must bind a dispatch-local descriptor table and preserve descriptor lifetime until the GPU has consumed the command list.
 
 For a clean-sheet APUSR-native path, the model contract and the API binding contract should be separated more aggressively.
 
-## What is not optional
+## Required GPU/API invariants
 
 These rules are GPU/API reality, not FFX-specific institutional baggage:
 

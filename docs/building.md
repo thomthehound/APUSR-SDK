@@ -3,77 +3,62 @@
 
 # Building APUSR
 
-## Toolchain
+## Requirements
 
-APUSR uses CMake and C++23. The primary product build is Windows x64 with a modern MSVC toolchain and Ninja. Python is used for shader/model generation and validation.
+APUSR uses CMake, Ninja, C++23, and Python. Windows x64 with an initialized MSVC developer environment is the primary product build environment. Linux/GCC quality builds validate source and contracts, but are not a complete Linux game-integration distribution.
 
-A normal configuration does not require the experimental XRT/NPU backend.
+XRT/MLIR-AIE tooling is not required for the standard GPU runtime. DXIL and SPIR-V shader products are generated or staged at build time.
 
-```powershell
-cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release \
-  -DAPUSR_ENABLE_XRT_BACKEND=OFF
-```
+## Configure
 
-## Product targets
-
-### FidelityFX-compatible D3D12 package
+In an x64 MSVC developer PowerShell:
 
 ```powershell
-cmake --build build --target apusr_package_ffx_dx12_replacement -j
+cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DAPUSR_ENABLE_XRT_BACKEND=OFF
 ```
 
-This is the lightweight D3D12 package and does not require Vulkan shader-pack generation.
+On Linux, configure and run the quality targets separately:
 
-### NGX/DLSS-compatible D3D12 package
+```bash
+cmake -S . -B build-quality -G Ninja -DCMAKE_BUILD_TYPE=Release -DAPUSR_BUILD_TESTS=ON -DAPUSR_BUILD_FRONTENDS=ON -DAPUSR_ENABLE_XRT_BACKEND=OFF
+cmake --build build-quality --target apusr_quality_tests --parallel 4
+ctest --test-dir build-quality -L quality --output-on-failure
+```
+
+## Product packages
 
 ```powershell
-cmake --build build --target apusr_package_dlss_compatibility -j
+cmake --build build --target apusr_package_ffx_dx12_replacement --parallel 4
+cmake --build build --target apusr_package_dlss_compatibility --parallel 4
+cmake --build build --target apusr_package_streamline_vulkan_compatibility --parallel 4
+cmake --build build --target apusr_package_dlss_multibackend_compatibility --parallel 4
 ```
 
-### Streamline/DLSS-compatible Vulkan package
+| Target | Purpose |
+| --- | --- |
+| `apusr_package_ffx_dx12_replacement` | FidelityFX-compatible D3D12 super resolution and frame generation |
+| `apusr_package_dlss_compatibility` | D3D12 NGX/DLSS compatibility |
+| `apusr_package_streamline_vulkan_compatibility` | Native Vulkan, Streamline/NGX modules and indexed SPIR-V |
+| `apusr_package_dlss_multibackend_compatibility` | Combined D3D12 and Vulkan host components |
+
+The D3D12 FidelityFX-only package does not need the Vulkan shader pack. `APUSR_SHADER_COMPILE_JOBS` overrides shader compiler parallelism when needed.
+
+See [packaging](../packaging/README.md) for deployed files and installation/restore contracts.
+
+## Optional features
+
+- Profiler: runtime controls and build flags in [profiling](profiling.md).
+- GPU debug markers: optional PIX/RGP integration; see [marker tooling](development/rgp_gpu_markers.md).
+- NPU/XRT: `APUSR_ENABLE_XRT_BACKEND` and `APUSR_BUILD_AIE_KERNELS` require the experimental toolchain.
+
+## Quality gate
 
 ```powershell
-cmake --build build --target apusr_package_streamline_vulkan_compatibility -j
+python tools/quality_check.py
 ```
 
-This target builds the native Vulkan runtime and the self-indexed SPIR-V shader product required by it.
-
-### Combined D3D12 + Vulkan package
-
-```powershell
-cmake --build build --target apusr_package_dlss_multibackend_compatibility -j
+```bash
+python3 tools/quality_check.py
 ```
 
-Use this for hosts that can select either graphics API while retaining one staged compatibility installation.
-
-## Shader products
-
-D3D12 and Vulkan product shaders are compiled offline. Runtime code does not compile model shaders or use source-path names as shader identity.
-
-The Vulkan build emits one self-indexed shader pack containing the supported logical model/permutation matrix. Logical shader identity is derived from model/runtime keys; physical SPIR-V blobs are deduplicated by generated content.
-
-Shader compiler parallelism is automatic by default. `APUSR_SHADER_COMPILE_JOBS` can override the worker count when memory pressure or CI scheduling requires a fixed value.
-
-## Optional components
-
-### Profiler
-
-The structured profiler is controlled by the relevant `APUSR_ENABLE_*` build options and runtime environment variables documented in [profiling.md](profiling.md).
-
-### GPU debug markers
-
-RGP/PIX marker support is optional and must not become a dependency of ordinary distribution builds. When enabled, the Windows build may require WinPixEventRuntime and compatible DirectX 12 headers.
-
-### NPU/XRT
-
-`APUSR_ENABLE_XRT_BACKEND` and `APUSR_BUILD_AIE_KERNELS` are experimental. Keep them disabled unless actively working on the NPU lane and the required XRT/MLIR-AIE toolchain is installed.
-
-## Quality suite
-
-Run the repository regression suite with:
-
-```powershell
-python .\tools\quality_check.py
-```
-
-The script configures a clean test build by default, builds the quality targets, and runs the CTest `quality` label.
+The script performs a clean quality build by default and runs CTest with the `quality` label. Use `--reuse-build` for an existing test build. Generated shader products are tied to compiler behavior; use the documented compiler payload and regeneration process before changing checked-in products.

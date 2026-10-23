@@ -3,9 +3,9 @@
 
 # FSR4 INT8 model notes
 
-APUSR currently uses an FSR4 INT8-shaped model boundary and resident parameter
-set. The goal is to preserve the FSR4-compatible logical seam while running the
-middle-core work on the NPU.
+APUSR currently executes the FSR 4.0.2-derived INT8 graph on the GPU. The
+resident-parameter and logical boundary descriptions also support experimental
+GPU/NPU partitioning; NPU inference is not a production path.
 
 Important axes:
 
@@ -13,7 +13,7 @@ Important axes:
 model family      FSR4 INT8
 quality preset    native / quality / balanced / performance / DRS / ultraperf
 capacity class    1080 / 2160 / 4320
-NPU target        npu1 / npu2, once generated artifacts diverge
+NPU target        npu1 / npu2 (experimental artifacts only)
 ```
 
 Capacity class controls the compiled graph/frame-slot envelope. Quality preset
@@ -24,21 +24,19 @@ path may single out the local test setup as the runtime contract; Balanced at
 
 For compatibility frontends, `UpscalerFrameOptions::qualityMode` is selected from the caller-provided quality/preset mode or from the active render/display ratio when the protocol does not supply an explicit mode. Ratio inference uses the active integer extents and only a one-pixel quantization allowance; it does not reclassify an explicit caller preset from rounded or model-aligned dimensions. The selected output class comes from the active display size: up to 1080p, up to 2160p, or 4320-class. Those choices become part of the reference runtime key and select the imported reference preset/capacity/permutation.
 
-Resident parameter packaging is the product path. A normal frame run uses
-already-resident parameters. A preset or model-family change creates a model
-epoch and loads the matching resident arena before future frame runs.
+The GPU runtime prepares the selected shader/model resources outside the frame hot path; frame execution uses the active preset, capacity, and permutation. The resident NPU parameter arena and its explicit model-epoch load protocol are separate experimental work. They do not define the current GPU frame-submission ABI.
 
 The raw/logical FSR4 INT8 extraction corpus is not part of APUSR anymore. It
 belongs in the extraction/tooling workspace (`ffxnpu`, using `ffxint8` as the FSR4
-source tree). APUSR should only keep generated product artifacts that the runtime
-or build actually consumes:
+source tree). APUSR keeps generated GPU runtime artifacts and the metadata needed to validate experimental NPU seams:
 
-- boundary metadata for the C16 GPU/NPU seam;
-- generated bookend shader constants;
-- resident parameter arena manifests and arena binaries;
-- validation tools for those product artifacts.
+- model, input/output, and parameter metadata used by current GPU execution;
+- C16 GPU/NPU boundary metadata for experimental placement;
+- bookend shader constants and reference fixtures;
+- experimental resident parameter arena manifests and binaries;
+- validation tools for retained artifacts.
 
-Future parameter-pack work should produce an APUSR-native package layout rather
+Future NPU parameter-pack work should produce an APUSR-native package layout rather
 than preserve the extraction-tool workspace shape. Generated planning files are
 allowed only when they describe current product artifacts or are needed to
 regenerate them.
@@ -66,11 +64,12 @@ comparative evidence only. APUSR owns its source and should implement the
 semantics and scheduling that are best for its target hardware rather than copy
 binary-patch decisions.
 
-### 4.1.1: stronger architectural evidence
+### 4.1.1: shader and parameter-layout differences
 
-The inspected AMD-signed `4.1.1` / `FSR4-i8` upscaler
-(`SHA-256 d0dcccc74a43c44ba435b7a369b456e0970d8a4464e4bd683119b374f2c9fb46`)
-is structurally different from the verified `4.0.2c` INT8 lineage:
+The inspected AMD-signed `4.1.1` / `FSR4-i8` upscaler has different shader
+packaging and parameter access from the verified `4.0.2c` INT8 lineage.
+Aggregate binary figures do not, by themselves, establish a change in neural
+network topology:
 
 | Property | 4.0.2c | 4.1.1 INT8 |
 | --- | ---: | ---: |
@@ -106,13 +105,10 @@ chains as deep as 36. The observed maxima are:
 | 11 | 16 | 36 |
 | 12 | 8 | 4 |
 
-This preserves a useful pass-scheduling lead for future optimization work. A
-four-deep schedule is no longer only a local hypothesis derived from the
-community `4.0.2b` workaround: a newer AMD INT8 implementation independently
-converges on approximately that dependency depth across most of the model. It
-still does **not** prove that four is optimal on every APUSR target, and the
-completed APUSR compatibility experiment shows that aggressive de-chaining can
-regress current hardware. Hardware measurement remains the decision criterion.
+The 4.1.1 corpus provides independent evidence for bounded accumulator
+dependency depth. Ten passes have four-deep maximum chains; passes 9 and 11
+retain longer chains. APUSR measurements show that aggressive de-chaining can
+regress newer hardware, so scheduling changes require target-hardware evidence.
 
 The internal shader names still use the `v07_fp8_no_scale` model-family label,
 but the inspected INT8 variants execute signed packed `dot4AddPacked` DP4A.
