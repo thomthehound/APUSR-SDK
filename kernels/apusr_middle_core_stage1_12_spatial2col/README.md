@@ -1,11 +1,11 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!-- Copyright (c) 2026 thomthehound. -->
 
-# APUSR middle-core 2-column spatial diagnostic rewrite
+# AIE middle-core 2-column diagnostic profile
 
-This profile remains selectable for compile diagnostics and scalar/vector audits. It is not the canonical product placement after the Stage1→Stage2 producer-ring decision. It is intentionally not a patched copy of the quarantined graph.
+This experimental profile remains selectable for compiler diagnostics and scalar/vector audits. The four-column graph is the preferred NPU research placement; neither profile is a shipping NPU backend. It is intentionally not a patched copy of the quarantined graph.
 
-The public ABI stays frame-conveyor:
+The experimental NPU frame-slot ABI remains:
 
 ```text
 load_params(param_arena)

@@ -1,9 +1,9 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!-- Copyright (c) 2026 thomthehound. -->
 
-# FSR4 INT8 CPU/DP4A tuned candidate
+# FSR4 INT8 CPU/DP4A tuning history
 
-The CPU/DP4A tuned candidate is the first parallel experiment lane.  The name is intentionally broad: early wins may come from CPU recording/descriptor/PSO overhead as much as from shader-side DOT4/DP4A changes.  It is intentionally separate from the strict reference baseline.
+This document records a reference/tuning experiment, not an independently selectable production pipeline. The CPU/DP4A tuned candidate was an early parallel experiment lane.  The name is intentionally broad: early wins may come from CPU recording/descriptor/PSO overhead as much as from shader-side DOT4/DP4A changes.  It is intentionally separate from the strict reference baseline.
 
 Working name in code:
 

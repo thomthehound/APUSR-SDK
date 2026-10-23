@@ -1,11 +1,11 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!-- Copyright (c) 2026 thomthehound. -->
 
-# APUSR middle-core 4-column spatial product rewrite
+# AIE middle-core 4-column spatial experiment
 
-This is the canonical product placement after the Stage1→Stage2 producer-ring decision. The four-column macro-lane gives the graph separate memory-tile roles for ingress/front C16 producer rings, SkipA, SkipB/transition staging, and egress. It is intentionally not a patched copy of the quarantined graph.
+This is the selected four-column placement for the experimental AIE spatial-core graph, not a shipping GPU runtime or a hardware-qualified NPU backend. The four-column macro-lane gives the graph separate memory-tile roles for ingress/front C16 producer rings, SkipA, SkipB/transition staging, and egress. It is intentionally not a patched copy of the quarantined graph.
 
-The public ABI stays frame-conveyor:
+The experimental NPU frame-slot ABI remains:
 
 ```text
 load_params(param_arena)

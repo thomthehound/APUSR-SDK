@@ -1,9 +1,9 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!-- Copyright (c) 2026 thomthehound. -->
 
-# Middle-core resident primitive records
+# Experimental NPU resident primitive records
 
-This page describes the reusable workflow for adding NPU-resident model stages.
+This page describes the experimental workflow for adding NPU-resident model stages; the current GPU runtime does not use these primitives.
 It is not a per-stage notebook. Stage-specific facts belong in machine-readable
 records and checks, not in one new document per logical stage.
 

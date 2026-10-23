@@ -1,17 +1,17 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!-- Copyright (c) 2026 thomthehound. -->
 
-# Middle-core spatial graph plan
+# Experimental AIE middle-core spatial graph
 
-The active front-carrier design is **row-major C16 frame + tensor-DMA halo patch gather**. Row-ring/seam-exchange carriers are excluded from the product `spatial-core` path because they turn halo access into a storage-layout dependency.
+The selected experimental NPU front-carrier design is **row-major C16 frame + tensor-DMA halo patch gather**. Row-ring/seam-exchange carriers are excluded from the product `spatial-core` path because they turn halo access into a storage-layout dependency.
 
 The public ingress and egress objects remain complete model-seam frame slots, but they no longer use the same physical layout. Ingress is row-major C16 with channel-inner pixels. Egress is cell-major C16 with `m4x8` order inside each 16×8 cell. Physical-column stripes are scheduling/placement metadata, not a separate public layout.
 
 The graph still assigns contiguous vertical stripes to physical NPU columns, but that ownership is a compiler/runtime placement rule. It is no longer encoded by physically lane-major DDR ordering.
 
-## Current product graph spine
+## Experimental spatial graph spine
 
-`spatial-core` is the graph we build forward from. Its active front path is:
+`spatial-core` is the current experimental NPU graph. Its active front path is:
 
 ```text
 row-major C16 frame slot

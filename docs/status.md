@@ -3,52 +3,33 @@
 
 # Project status
 
-This document describes the current APUSR capability surface.
+The implemented super-resolution model is FSR 4.0.2-derived INT8. GPU backends and host frontends are distinct from experimental accelerator and integration work.
 
-## Super resolution
-
-### D3D12
-
-The D3D12 backend is the most mature APUSR path. It executes the optimized FSR4-derived INT8 graph using offline-generated DXIL and accelerated packed signed integer dot products. FidelityFX-compatible and NGX/DLSS-compatible frontends are available.
-
-### Vulkan
-
-The Vulkan backend executes the same API-neutral graph as native Vulkan compute using offline-generated SPIR-V. It negotiates the integer-dot, subgroup, and compute-derivative capabilities required by the shader products and uses captured host device/queue topology rather than a D3D12 translation layer.
-
-Backend-specific lowering is used when equivalent shared HLSL produces materially inferior SPIR-V. Matched APUSR workloads are near D3D12 compute parity, with some individual Vulkan passes meeting or outperforming their D3D12 counterparts.
-
-## Frame generation
-
-APUSR carries source-built frame-interpolation and optical-flow infrastructure rather than depending on a renamed binary provider.
-
-D3D12 frame generation is functional. Vulkan frame generation is also functional through the Streamline compatibility path, including virtualized presentation resources, native Vulkan FI/OF dispatch, and latency-control integration. Broad compatibility, pacing consistency, and GPU cost remain active work.
-
-## Compatibility frontends
-
-| Frontend/integration | D3D12 | Vulkan |
+| Component | Status | Scope |
 | --- | --- | --- |
-| FidelityFX-compatible FSR4 | Yes | Not currently a product frontend |
-| NGX/DLSS-compatible SR | Yes | Yes |
-| Stock Streamline cooperation | Yes | Yes |
-| Reflex-style latency translation | Yes | Yes |
-| DLSS-G-shaped frame-generation compatibility | Partial | Yes |
-| DLSS Ray Reconstruction | No | No |
-| Multi Frame Generation | No | No |
+| D3D12 super resolution | Implemented | INT8 graph with offline DXIL; FidelityFX and NGX entry points |
+| Vulkan super resolution | Implemented | Native SPIR-V compute and captured host device/queue state |
+| D3D12 frame generation | Implemented | FidelityFX-compatible FI/OF provider and D3D12 presentation |
+| Vulkan frame generation | Implemented; under refinement | Native FI/OF, virtual swapchain, WSI presentation, pacing |
+| Combined compatibility packages | Implemented | D3D12/Vulkan staged integration components |
+| Profiling and shader tools | Available | CPU/GPU events, pass timing, shader analysis |
+| D3D11On12 | Planned | Host-resource/queue bridge into the D3D12 runtime |
+| Linux distribution | Planned | Native Vulkan compute exists; Linux packaging is separate |
+| WMMA/cooperative matrices | Research | No shipping matrix-kernel path |
+| XRT/MLIR-AIE NPU | Experimental and paused | Kernel, layout and parameter research |
+| FSR 4.1.x Full/Lite | Not implemented | Requires independent model/runtime validation |
 
-Unsupported feature selections should fail cleanly rather than silently executing an unrelated fallback.
+## Compatibility scope
 
-## Platform direction
+The FidelityFX D3D12, NGX D3D12, and Streamline/NGX Vulkan paths have different loader, device, and feature requirements. Frame-generation and latency-control coverage is not identical across the entry points. DLSS Ray Reconstruction and Multi Frame Generation are not supported.
 
-Windows is the current product environment. Linux is a planned distribution target centered on the native Vulkan backend.
+CI and structural tests do not qualify every application, driver, GPU family, or present topology. See [host integration](integration/host_integration_strategy.md), [feature coverage](integration/streamline_feature_compatibility.md), and [testing](testing.md).
 
-D3D11 is not implemented as a native backend. The intended direction is a D3D11On12 bridge that establishes host resource/queue ownership and then enters the same API-neutral runtime rather than creating a separate model implementation.
+## Active work
 
-## Experimental acceleration
+- Vulkan frame-generation pacing, source admission, resource retirement, and native presentation recovery after FG disable.
+- Broader host compatibility and queue/device qualification.
+- Reproducible builds, compiler-generated shader consistency, release packaging.
+- Profiling-driven CPU and GPU optimization.
 
-### WMMA / cooperative matrices
-
-Not part of the production path. Matrix-kernel work will begin from measured pass-level bottlenecks and preserve the existing DP4A implementation as the correctness/performance reference.
-
-### NPU / XRT / MLIR-AIE
-
-Experimental and currently paused. The repository contains model decomposition, memory-layout, tile, and kernel research intended to support selective NPU offload. No public release should imply that the NPU path is production-ready.
+See [engineering backlog](engineering_backlog.md) and [roadmap](roadmap.md).

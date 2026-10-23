@@ -3,147 +3,86 @@
 
 # Architecture
 
-APUSR is structured around three independent concerns:
+APUSR separates host compatibility, model scheduling, native GPU execution, and frame generation. The interfaces let multiple frontends use one logical upscaler while each backend manages its own graphics-API state.
 
-1. **host integration** — how an application reaches APUSR and how graphics-device/queue ownership is discovered;
-2. **model/runtime** — the API-neutral frame contract and FSR4 INT8 pass graph;
-3. **backend execution** — how the graph is lowered to D3D12, Vulkan, and future accelerators.
-
-Keeping those concerns separate is the central architectural rule. A new frontend should not require a new model implementation, and a backend optimization should not leak host-specific behavior into the graph.
-
-## Layering
+## Execution flow
 
 ```text
-Application / host
-    |
-    +-- FidelityFX-compatible frontend
-    +-- NGX/DLSS-compatible frontend
-    +-- Streamline-compatible attachment
-    |
-    v
-Host resource/state translation
-    |
-    v
-FrameInputDesc + API-neutral runtime state
-    |
-    v
-FSR4 INT8 graph / execution plan
-    |
-    +-- D3D12 backend -> DXIL / D3D12 resources and barriers
-    +-- Vulkan backend -> SPIR-V / Vulkan resources and barriers
-    +-- future D3D11On12 bridge
-    +-- experimental XRT/MLIR-AIE accelerator lane
+FidelityFX / NGX / Streamline host
+               |
+     feature/resource translation
+               |
+FrameInputDesc + UpscalerFrameOptions
+               |
+      FSR4 INT8 execution plan
+        /               \
+  DX12 recorder      Vulkan recorder
+  DXIL pipelines     SPIR-V pipelines
+  D3D12 bindings     Vulkan bindings
+
+Frame generation: independent FI/OF and presentation subsystem
 ```
 
-## API-neutral model graph
+### Component ownership
 
-The graph owns the durable model contract:
+| Component | Responsibility |
+| --- | --- |
+| `src/frontends/` | Host ABI, feature discovery, tagged resource/state mapping, device and queue capture |
+| `src/core/` and `include/apusr/` | Per-frame input contracts, graph scheduling, frame options, diagnostics, execution plan |
+| `models/` and model headers | Model permutation, parameters, pass dependencies, scratch layout |
+| `src/backends/` | Native API resource allocation, descriptors, shaders, barriers, command recording and retirement |
+| `src/framegen/` | Frame interpolation, optical flow, admission control, swapchain/presentation lifecycle |
 
-- pass order;
-- logical resource roles and lifetimes;
-- presets and capacity classes;
-- dispatch geometry;
-- constants and permutation keys;
-- initializer and parameter data;
-- read/write intent.
+## Super-resolution execution
 
-It does **not** own `ID3D12Resource`, `VkImage`, descriptor heaps, descriptor sets, command lists, command buffers, or API-specific barriers.
+1. The frontend translates host resources, render/display extents, quality preset, and known queue/state provenance into an APUSR frame. Where the host does not supply a preset, selection uses the active resolution ratio.
+2. The model layer selects the FSR 4.0.2-derived INT8 graph, quality/capacity/permutation key, initializer, logical passes, and scratch allocation plan. Parameters are prepared on model-epoch changes, outside the frame hot path.
+3. The backend maps logical read/write roles to GPU resources, binds prepared shader products, and records dispatches in dependency order.
+4. GPU resources, descriptors, and borrowed host state remain valid until the last actual consumer retires. Synchronization implements the model's producer/consumer edges using native API primitives.
 
-Backend implementations map the same logical graph to their native execution model.
+The model graph specifies operations and logical resources. It does not own `ID3D12Resource`, `VkImage`, command lists/buffers, descriptor allocations, or API barriers. A backend optimization can change shader lowering or physical scratch layout only with a corresponding contract and parity validation.
 
-## Frontend ownership
+### Shader and model variants
 
-Frontends translate external ABI/state into APUSR's internal frame description. They may also provide compatibility surfaces required for feature discovery, but they should not become alternate model runtimes.
+D3D12 uses offline DXIL, Vulkan uses indexed SPIR-V shader products. Both implement the same graph with accelerated packed signed DOT4 arithmetic. Native capability negotiation must establish the required dot-product and subgroup features before pipeline creation.
 
-### FidelityFX-compatible frontend
+WMMA and cooperative-matrix kernels are research alternatives to measured GPU bottlenecks. XRT/MLIR-AIE work is an experimental accelerator lane. Neither is a production replacement for the GPU INT8 implementation. Additional FSR model versions need validated topology, tensor layouts, quantization, initializer, temporal state, and scheduling before runtime selection.
 
-The D3D12 FidelityFX route is the smallest direct integration path. It accepts the expected provider ABI, translates host resources/constants, and enters the APUSR D3D12 runtime.
+## Host integration
 
-### NGX/DLSS-compatible frontend
+- **FidelityFX D3D12:** compatible effect/provider ABI enters the D3D12 runtime.
+- **NGX/DLSS D3D12:** facade translates NGX evaluation/resource state while preserving host queue ownership.
+- **Streamline/NGX Vulkan:** stock Streamline supplies tags and options; APUSR captures Vulkan device/queue state and records native compute through its own backend.
 
-The NGX facade translates NGX parameter/resource state into the same internal frame contract. On systems using Streamline, APUSR prefers to preserve stock Streamline's tag/options/resource semantics rather than reimplementing the entire interposer.
-
-### Streamline attachment
-
-The Streamline-compatible path is deliberately narrow. It exists to:
-
-- establish APUSR below the host's stock Streamline semantic layer;
-- publish/consume real graphics-device information;
-- perform cross-vendor feature-policy translation where APUSR owns the implementation;
-- capture Vulkan device/queue topology when required by the native Vulkan backend.
-
-It is not intended to become a second independent Streamline state machine.
-
-## Graphics backend ownership
-
-Backends own:
-
-- API resources and allocation;
-- descriptors/bindings;
-- pipeline creation and shader products;
-- state/layout transitions;
-- synchronization and retirement;
-- GPU timestamp instrumentation;
-- backend capability negotiation.
-
-### D3D12
-
-D3D12 is the most mature backend and remains the reference for many correctness fixtures. Product shaders are compiled to DXIL offline.
-
-### Vulkan
-
-Vulkan is a native compute backend. It uses the same graph, offline-generated SPIR-V products, explicit descriptor/resource mappings, and captured host queue/device topology. It does not translate through D3D12.
-
-Vulkan capability negotiation is fail-closed for operations the shader pack requires, including accelerated packed integer dot products and compute-subgroup features.
+Streamline's existing semantic layer remains authoritative for the data it owns. The frontend does not duplicate the model or build a parallel Streamline runtime. See [host integration](integration/host_integration_strategy.md) and [Streamline frontend](integration/dlss_streamline_frontend.md).
 
 ## Frame generation
 
-Frame generation is a separate runtime subsystem with shared scheduling policy and backend-specific resource/presentation implementations.
+Frame generation has a separate runtime and lifetime from super resolution. D3D12 uses source-built FidelityFX-compatible FI/OF and native presentation integration. The Vulkan path can expose APUSR-owned virtual swapchain images while keeping the real WSI swapchain private:
 
-The Vulkan path can virtualize application-visible swapchain images while retaining the loader's real WSI images as presentation targets. Source replay, FI/OF computation, generated-frame presentation, and virtual-slot reuse are synchronized explicitly rather than by global queue drains.
+```text
+Game renders retained virtual source
+           |
+      producer-ready
+         /       \
+  source replay  Phase A: consume transient inputs
+         |           |
+   real WSI source  Phase B: FI/OF on private queue
+                     |
+                optional generated image
+```
 
-The D3D12 and Vulkan implementations should share frame-generation policy where practical without forcing one API's presentation model onto the other.
+Source delivery has priority. Generated frames are optional and must not queue behind obsolete work or delay a valid source. Phase A releases transient game-owned inputs at an explicit completion boundary; Phase B consumes provider-owned history. Actual GPU consumer timelines govern reuse and retirement.
 
-## Accelerator research
+A host that retains its virtual swapchain after FG disable can incur source-replay overhead. Safe native-swapchain restoration remains open work. The detailed [Vulkan FG architecture](runtime/vulkan_framegen_architecture.md) defines queue topology, producer-ready fan-out, pacing, WSI resource ownership, and recovery requirements.
 
-### WMMA/cooperative matrices
+## Resource and hot-path contracts
 
-Matrix-instruction work is a candidate backend optimization, not a replacement architecture. It should consume the same logical model/parameter contract and prove a measured advantage against the production DP4A path.
+- Borrowed game resources retain their producer/consumer and queue-family constraints.
+- Descriptor bindings and resident parameters referenced by in-flight commands cannot be overwritten.
+- Cross-queue dependencies use fences/timeline semaphores. Full queue/device waits belong to cold teardown or recovery paths.
+- API barriers follow actual resource access and state provenance, rather than a blanket pass-by-pass policy.
+- DLL discovery, backend capability probing, shader compilation, manifest parsing, and model setup belong to startup or model-epoch transitions.
+- Per-frame work uses prepared plans; diagnostics are disabled by default.
 
-### NPU/XRT/MLIR-AIE
-
-The NPU lane is an experimental second accelerator. The intended architecture offloads meaningful model regions while preserving direct host queue/device ownership and avoiding host-visible frame-delay workarounds. It must justify synchronization and data movement, not merely kernel execution time.
-
-## Lifetime and synchronization rules
-
-Resource/binding lifetime is part of correctness:
-
-- descriptors referenced by in-flight GPU work must not be overwritten;
-- borrowed command buffers/lists cannot be treated as retired until the host submission relationship is known;
-- cross-queue resources require explicit ownership/sharing semantics;
-- full-device or full-queue waits are not acceptable substitutes for a missing lifetime model in the product hot path.
-
-Backend synchronization should be as narrow as the known producer/consumer contract permits, but never guessed from insufficient state provenance.
-
-## Cold path versus hot path
-
-The frame hot path must not perform:
-
-- DLL discovery;
-- shader compilation;
-- source parsing;
-- JSON/model-manifest parsing;
-- backend probing;
-- plugin discovery;
-- unbounded diagnostic logging.
-
-Those operations belong to startup, packaging, or developer tooling.
-
-## Related documents
-
-- [Backend portability](runtime/backend_portability.md)
-- [Host integration strategy](integration/host_integration_strategy.md)
-- [Shader ownership](runtime/shader_ownership.md)
-- [Frame generation](runtime/frame_generation.md)
-- [Vulkan frame-generation architecture](runtime/vulkan_framegen_architecture.md)
-- [Performance](performance.md)
+See [backend portability](runtime/backend_portability.md), [model notes](model/models_fsr4.md), [shader ownership](runtime/shader_ownership.md), and [performance](performance.md).

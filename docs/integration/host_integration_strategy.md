@@ -7,7 +7,7 @@
 
 Do not assume every backend switch repeats `slInit`. A host may shut down one renderer attachment and rebuild stock `sl.common`/`sl.dlss` directly. When Reflex was explicitly requested, the authoritative D3D12 plugin-startup device rearms the private named-export attachment and restores the native AMD Anti-Lag 2 binding. This cold seam does not take ownership of DLSS-SR evaluation and does not weaken shutdown detachment.
 
-APUSR now has four proven/active host-integration shapes:
+APUSR implements four host-integration routes:
 
 1. Native FidelityFX/FSR4 D3D12 replacement for games that already expose the AMD FFX provider ABI.
 2. Direct NGX/DLSS D3D12 facade for games that already load `nvngx.dll` / `nvngx_dlss.dll`.
@@ -20,7 +20,7 @@ For Streamline games that can switch renderer APIs, the multi-backend package de
 
 ## Hot-path contract
 
-The direct NGX per-frame path remains boring:
+The direct NGX per-frame path performs the following work:
 
 ```text
 NVSDK_NGX_D3D12_EvaluateFeature

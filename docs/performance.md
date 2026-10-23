@@ -11,7 +11,7 @@ The current production super-resolution lane is optimized packed INT8 DOT4/DP4A.
 
 ### Require real acceleration
 
-A scalar or emulated implementation is not treated as equivalent to a native packed-dot/matrix path. Product capability checks should fail cleanly when required acceleration is absent rather than silently selecting a materially slower substitute.
+Product shader selection requires native acceleration for its packed-dot or matrix operations. Unsupported devices fail capability checks instead of silently executing scalar emulation.
 
 ### Measure the real hot path
 

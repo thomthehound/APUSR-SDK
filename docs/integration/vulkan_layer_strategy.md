@@ -3,7 +3,7 @@
 
 # Vulkan host-capture deployment strategy
 
-APUSR's Vulkan host capture has two separate problems that should not be conflated:
+Vulkan host capture has two independent requirements:
 
 1. **Capture semantics** — where instance/device creation, physical-device ownership, native feature negotiation, and queue discovery should live.
 2. **Bootstrap/discovery** — how an unmodified game causes that capture code to be present before `vkCreateInstance` / `vkCreateDevice`.
@@ -11,13 +11,13 @@ APUSR's Vulkan host capture has two separate problems that should not be conflat
 A loader-managed Vulkan layer is the preferred long-term answer to the first problem. It is **not**, by itself, a complete answer to the second problem for a drop-in game mod.
 
 
-## Implementation gate: drop-in first
+## Current implementation: Windows drop-in
 
-The gate has been satisfied: the Windows drop-in path executes the real APUSR FSR4 INT8 Vulkan backend end-to-end with native accelerated packed DOT4. That working drop-in behavior is the reference contract.
+The Windows drop-in path executes APUSR's FSR4 INT8 Vulkan backend with accelerated packed DOT4. Its device-capture and execution behavior is the compatibility baseline.
 
 The loader-layer / launcher path remains **future work rather than part of the current package implementation**. When it is taken up, the most attractive use of the layer is specifically an **APUSR launcher**: the launcher can expose/enable the APUSR layer only for the child game process, without registering an always-active system-wide layer and without requiring the game itself to request APUSR. That gives the standards-native layer path a practical per-game bootstrap while preserving the ordinary copy-in drop-in route for games where that remains preferable.
 
-This ordering is deliberate:
+The implementation sequence is:
 
 ```text
 1. prove drop-in capture + native DOT4 + real upscaler execution in-game

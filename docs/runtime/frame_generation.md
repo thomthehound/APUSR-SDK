@@ -3,7 +3,7 @@
 
 # Frame generation
 
-APUSR includes a source-built frame-generation subsystem based on frame interpolation (FI) and optical flow (OF). It is intentionally separate from the super-resolution hot path: upscaling should not pay for frame-generation scheduling, presentation virtualization, or FI/OF state when frame generation is disabled.
+APUSR implements frame interpolation (FI), optical flow (OF), and backend-specific presentation. Frame generation has a separate runtime lifecycle; disabled frame generation does not schedule FI/OF.
 
 ## Ownership model
 
@@ -34,7 +34,7 @@ The D3D12 frame-generation provider is built from source maintained in the repos
 - offline-generated FI/OF shader permutations;
 - source-built resource/state management.
 
-The normal package does not depend on a renamed original provider DLL.
+The package stages APUSR-built provider code and shader products.
 
 ## Vulkan
 
@@ -110,7 +110,7 @@ See [../performance.md](../performance.md) and [../profiling.md](../profiling.md
 
 ## Invariants
 
-- Do not implement fake frame generation.
+- Generate frames only from the implemented FI/OF pipeline.
 - Do not route super resolution through the frame-generation provider.
 - Do not add frame-generation work to the SR hot path when FG is disabled.
 - Preserve AMD/MIT provenance on FidelityFX-derived algorithm/shader source.

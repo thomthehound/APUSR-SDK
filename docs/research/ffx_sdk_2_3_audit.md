@@ -1,15 +1,15 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!-- Copyright (c) 2026 thomthehound. -->
 
-# FidelityFX SDK 2.3 audit
+# FidelityFX SDK 2.3.0 comparison (research snapshot)
 
-This audit compares APUSR's source reference with the newer FidelityFX SDK 2.3.0 tree supplied during development. The purpose is narrow: identify changes that are useful to APUSR on RDNA 3/RDNA 3.5-class hardware without replacing a working open-source FSR4 implementation with newer opaque binaries or importing unrelated SDK architecture.
+This snapshot compares APUSR's 4.0.2 source reference against FidelityFX SDK 2.3.0 and its FSR 4.1.1 binaries. It records findings from that SDK release, not the latest FSR release or a current APUSR support statement. The purpose is narrow: identify changes that are useful to APUSR on RDNA 3/RDNA 3.5-class hardware without replacing a working open-source FSR4 implementation with newer opaque binaries or importing unrelated SDK architecture.
 
 ## Bottom line
 
 There is no newer open-source FSR4 implementation to transplant. FidelityFX SDK 2.3 documents FSR Upscaling 4.1.1, but the implementation is distributed as the signed `Kits/FidelityFX/signedbin/amd_fidelityfx_upscaler_dx12.dll`. The older 4.0.2 source used by APUSR therefore remains the most useful open implementation for the model/pipeline itself.
 
-The newer SDK is still useful in four concrete areas:
+The SDK comparison identified four relevant areas:
 
 1. one FSR4 correctness fix to reproduce in APUSR;
 2. Frame Generation API/reset behavior worth accepting compatibly;
@@ -26,7 +26,7 @@ This should **not** be implemented as a blind padding change. The likely permane
 
 Good regression dimensions include `1919x1079`, `2559x1439`, and other independently odd width/height combinations. The test must validate the final image edge, not merely prove that allocation or dispatch succeeds.
 
-### 4.1.0: quality and shader-performance changes are opaque
+### 4.1.0: shader-performance and model-quality notes
 
 FidelityFX SDK 2.2.0 says 4.1.0 updated inference quality in some titles and optimized several shaders. The implementation is not included as source, so there is nothing responsible to copy into APUSR. Treat these release notes as evidence that later tuning exists, not as a specification from which to invent changes.
 

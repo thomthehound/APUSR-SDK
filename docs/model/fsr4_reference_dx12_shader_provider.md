@@ -1,9 +1,9 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!-- Copyright (c) 2026 thomthehound. -->
 
-# FSR4 reference DX12 shader provider policy
+# FSR4 D3D12 reference shader provider
 
-APUSR's FSR4 INT8 reference runner is universal in graph shape, but the runtime must stay performance-first and drop-in friendly.  The reference DLL must be distributable as the canonical FidelityFX provider file:
+The D3D12 reference runner lowers APUSR's shared FSR4 INT8 graph into native DXIL pipelines. The FidelityFX-compatible package distributes the corresponding provider under the expected filename:
 
 ```text
 amd_fidelityfx_dx12.dll
@@ -90,9 +90,9 @@ That cache is useful for validation and overrides, but it is not required by the
 
 Reflection manifests are package-validation artifacts.  They are useful for CI and cache generation, but the DX12 reference runtime defaults manifest validation off and only parses a manifest when explicitly configured.  The release frame path must resolve precompiled bytecode and cached PSOs without doing reflection work.
 
-## Future Vulkan note
+## Vulkan shader products
 
-The cache policy is backend-specific, but the concept should carry to Vulkan: ship precompiled SPIR-V/pipeline artifacts inside the distributable backend package where practical, and keep source compilation/debug reflection out of the end-user hot path.
+Vulkan already has a native implementation and an indexed, precompiled SPIR-V shader pack. It has its own module and pipeline cache lifecycle; this D3D12 provider and its DXIL cache keys are not a shared API-level shader provider. Both backends prepare shaders outside the frame hot path.
 
 
 ## Embedded blob compiler note

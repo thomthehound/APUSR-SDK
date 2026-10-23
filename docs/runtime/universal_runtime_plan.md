@@ -1,20 +1,20 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!-- Copyright (c) 2026 thomthehound. -->
 
-# Universal runtime plan
+# Reference runtime and future execution placements
 
-APUSR is now organized around a single correctness baseline: the imported FSR4 INT8 reference graph.  Frontends may differ, and future execution placements may differ, but the graph being matched is the same.
+APUSR's product upscalers share the FSR 4.0.2-derived INT8 graph. These notes distinguish the reference D3D12 runner from native product execution and prospective accelerator placements.
 
 Execution paths:
 
 ```text
-frontend         = FFX DX12 drop-in | NGX/DLSS-compatible shim | future D3D11/Vulkan
+frontend         = FFX D3D12 | NGX/DLSS D3D12 | NGX/Streamline Vulkan
 reference route  = imported FSR4 INT8 graph through Dx12Fsr4ReferenceRuntime
-future variants  = WMMA replacements | NPU islands | Vulkan/D3D11 execution replacements
-latency policy   = frame-delayed fixture | inline queue capture
+future variants  = WMMA replacements | NPU islands | D3D11On12 bridge | new model versions
+latency policy   = reference fixtures | host-captured same-frame execution
 ```
 
-The direct FFX replacement package remains a correctness fixture.  The NGX/DLSS-compatible facade plus DLSS compatibility package is the product-shaped broad compatibility route. Queue capture remains a later scheduler concern for same-frame GPU/NPU cooperation and must enter through cold-path host-capture registration, not repeated per-frame probing.
+The direct FFX and NGX/DLSS compatibility packages are existing product routes. D3D12 and native Vulkan execute the shared logical graph. Experimental GPU/NPU cooperation requires a separate queue contract. Host topology is discovered outside the frame hot path.
 
 The pass schedule is the imported reference graph: optional SPD auto exposure, pre bookend, generated middle passes, post bookend, optional RCAS, and optional debug view.  WMMA and NPU work should replace individual reference dispatches and compare against the same dispatch from the imported graph.
 

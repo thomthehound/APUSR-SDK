@@ -36,7 +36,7 @@ NVSDK_NGX_VULKAN_EvaluateFeature
     -> VulkanFsr4ReferenceRuntime::recordFrame
 ```
 
-The Vulkan recorder is now proven end-to-end in a real game through the Streamline route. It consumes the Streamline pre-NGX image-state/resource contract, backend-level host-captured device/queue state, native device features negotiated before `VkDevice` creation, and the backend-owned memory-mapped product shader pack. `slSetVulkanInfo` is supplemental preferred-queue/association metadata rather than the authoritative queue-discovery source.
+The Vulkan recorder has been validated end-to-end in a game through the Streamline route. It consumes the Streamline pre-NGX image-state/resource contract, backend-level host-captured device/queue state, native device features negotiated before `VkDevice` creation, and the backend-owned memory-mapped product shader pack. `slSetVulkanInfo` is supplemental preferred-queue/association metadata rather than the authoritative queue-discovery source.
 
 
 ## Feature surface

@@ -19,7 +19,15 @@ or:
 python3 tools/quality_check.py
 ```
 
-The script configures a clean C++23 test build, builds the `apusr_quality_tests` target, and runs tests labeled `quality`.
+The script configures a clean C++23 test build, builds the `apusr_quality_tests` target, and runs tests labeled `quality`. It reports the entire test set rather than stopping after the first failed contract.
+
+## Continuous integration
+
+GitHub Actions runs the quality suite on `windows-latest` and `ubuntu-26.04`. The Windows job initializes the x64 MSVC environment; Linux uses its native compiler. Shader-product freshness checks account for checkout line endings while still detecting source changes.
+
+Tests that require a native D3D12 GPU report **Skipped** if the runner exposes only the Microsoft software adapter or no suitable device. A skip is not evidence of GPU execution or numerical output parity. The other D3D12 compile, descriptor, runtime-plan, and shader checks remain mandatory. The Windows job also repeats the Vulkan frame-generation scheduling contract to check asynchronous timing behavior.
+
+Passing CI establishes build and contract integrity. GPU performance, fidelity, real device features, and game integration require hardware-qualified testing.
 
 ## What belongs in the suite
 
@@ -44,7 +52,7 @@ A candidate is promoted because correctness **and** measured performance justify
 
 ## Hardware testing
 
-Hardware/game runs are expensive and should answer specific questions. Reuse existing profiles as controls when the workload remains valid; do not repeat a baseline merely for ritual symmetry.
+Hardware and game testing should answer specific questions. Reuse a valid baseline for the same workload and configuration, and repeat measurements when the code, GPU, driver, or workload has materially changed.
 
 When a result depends on a driver/hardware behavior that cannot be reproduced in CI, keep a deterministic source/IR contract test in the repository and document the hardware qualification requirement separately.
 

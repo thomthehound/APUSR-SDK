@@ -1,13 +1,13 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 <!-- Copyright (c) 2026 thomthehound. -->
 
-# Model epoch runtime contract
+# Experimental NPU model-epoch contract
 
-APUSR separates model programming from frame execution.
+This document specifies the experimental XRT/MLIR-AIE model-epoch design. The production GPU upscalers do not execute this NPU frame-slot path.
 
 A model epoch is the resident NPU state for one model permutation, parameter profile, and compiled middle-core ABI. Epoch changes are rare control-plane work. Frame execution is the hot path and must not carry parameter traffic.
 
-## Non-negotiable hot-path rule
+## Frame-execution rule
 
 `executeFrame` must not apply a model epoch.
 
